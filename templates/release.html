@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}运维系统{% endblock %}
+<h3>{% block headTitle %}发布项目{% endblock %}</h3>
+
+
+{% block content %}
+    <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+     <script type="text/javascript" src="/static/custom/release.js"></script>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">发布项目</h2>
+    <div class="table-responsive">
+        <form id="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td>环境</td>
+                <td>
+                  <span class="label label-danger">{{ env_cn }}</span>
+                  <a href="?env={{ env_en_next }}">切换环境</a>
+                  <input type="hidden" name="env" id="env" value="{{ env_en }}">
+                </td>
+              </tr>
+               {% for field in form %}
+                  {% if  field.label == '环境' %}
+                    <tr><td>{{ field.label }}</td><td>{{ field }}
+                        <span class="label label-danger">{{ env_cn }}</span>
+                        <a href="?env={{ env_en_next }}">切换环境</a>
+                    </td></tr>
+                  {% else %}
+                    <tr><td>{{ field.label }}</td><td>{{ field }}</td></tr>
+                  {%endif %}
+                  {{ field.errors }}
+               {% endfor %}
+              <tr>
+                <td>操作</td>
+                <td>
+
+                  <input type="button" class="btn btn-primary btn-sm" value="输入" onclick="getProjectVersion()">
+                  <input type="button" class="btn btn-primary btn-sm" value="发布" onclick="getData()">
+                </td>
+              </tr>
+            </table>
+          </form>
+          <div id="result">
+
+          </div>
+
+    </div>
+    </div>
+    {% endblock %}
