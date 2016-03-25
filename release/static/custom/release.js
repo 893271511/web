@@ -1,11 +1,11 @@
 /**
- * Created by Administrator on 2016/3/24 0024.
+ * 点击发布按钮时触发
  */
 function getData() {
             $("#result").empty();
             var height = 500;
             $("#result").append("<div><textarea id='tx' style='width:100%;height:"+ height + "px'>执行结果</textarea></div>");
-            var env = $("#env").val();
+            var env = $("#id_env").val();
             var project =  $("#id_project").val();
             var version = $("#id_version").val();
 
@@ -46,3 +46,61 @@ function getData() {
 
         }
 
+
+/**
+ * 选择项目时触发
+ */
+function selectProject() {
+            $("#result").empty();
+            var env = $("#id_env").val();
+            var project = $("#id_project").val();
+
+            $.ajax({
+                url: "/select_project/",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "env": env,
+                    "project": project,
+                },
+                success: function (data){
+
+
+                    for (var i in data) {
+                        var optionstring = "";
+                        optionstring += "<option value=\"" + i + "\" >" + i + "</option>";
+                        $("#id_server").html(optionstring);
+                    }
+                },
+
+                error: function(data){
+                    console.log(data);
+                }
+            })
+
+        };
+
+/**
+ * 点击切换环境时触发
+ */
+function switchEnv() {
+            $("#result").empty();
+            var env = $("#id_env").val();
+
+            $.ajax({
+                url: "/switch/",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "env": env,
+                },
+                success: function (data){
+                    $('#switch').html(data['env_cn'])
+                    $("#id_env").val(data.env_id);
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            })
+
+        };

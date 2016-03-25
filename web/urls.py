@@ -18,5 +18,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^release/', 'release.views.Release'),
+    url(r'^onerelease/', 'release.views.OneRelease'),
+    url(r'^select_project/', 'release.views.SelectProject'),
+    url(r'^switch/', 'release.views.Switch'),
 
 ]
