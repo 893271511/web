@@ -56,11 +56,16 @@ def Switch(request):
     return JsonResponse({'env_en':env_en,'env_cn':env_cn})
 
 def SelectProject(request):
+    SERVER_CHOICES = {}
     project = request.POST.get("project")
     if request.POST.get("env") == "test":
-        SERVER_CHOICES = Project.objects.get(name=project).test_env.all().values_list('ip')
+        SERVER = Project.objects.get(name=project).test_env.all()
     else:
-        SERVER_CHOICES = Project.objects.get(name=project).online_env.all().values_list('ip')
+        SERVER = Project.objects.get(name=project).online_env.all().values_list('ip')
+    print(SERVER)
+    for i in SERVER:
+        i = str(i)
+        SERVER_CHOICES[i] = i
     print(SERVER_CHOICES)
     print(json.dumps(SERVER_CHOICES))
     return JsonResponse(SERVER_CHOICES)
