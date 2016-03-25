@@ -65,7 +65,6 @@ def SelectProject(request):
     print(SERVER)
     for i in SERVER:
         i = str(i)
-
         SERVER_CHOICES[i] = i
     print(SERVER_CHOICES)
     print(json.dumps(SERVER_CHOICES))
