@@ -64,20 +64,16 @@ function selectProject() {
                     "project": project,
                 },
                 success: function (data){
-
-
-                    for (var i in data) {
-                        var optionstring = "";
-                        optionstring += "<option value=\"" + i + "\" >" + i + "</option>";
-                        $("#id_server").html(optionstring);
-                    }
+                    var optionstring = "";
+                    $.each(data,function(i,item){
+                        optionstring += "<option value=\"" + item + "\" >" + item + "</option>";
+                    })
+                    $("#id_server").html(optionstring)
                 },
-
                 error: function(data){
                     console.log(data);
                 }
             })
-
         };
 
 /**
