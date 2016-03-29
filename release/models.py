@@ -17,7 +17,8 @@ class Project(models.Model):
     stop_cmd = models.CharField(max_length=100)
     target = models.CharField(max_length=100)
     repos = models.CharField(max_length=100)
-    test_env = models.ManyToManyField(Host, related_name='Host_ip')
+    test_env = models.ManyToManyField(Host, related_name='test_ip')
+    online_env = models.ManyToManyField(Host, related_name='online_ip')
     description = models.CharField(max_length=10)
 
     def __str__(self):
