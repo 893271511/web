@@ -153,6 +153,7 @@ function selectProject() {
                     $("#id_env").val(data.env_en);
                     selectProject();
                 },
+
                 error: function(data){
                     console.log(data);
                 }
