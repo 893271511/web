@@ -41,10 +41,17 @@
 
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/release">项目发布 <span class="sr-only">(current)</span></a></li>
-            <li><a href="/onerelease">单服务器发布</a></li>
-            <li><a href="#">发布版本查询</a></li>
-            <li><a href="#">项目端口查询</a></li>
+
+              {% for breadcrumb in request.breadcrumbs %}
+
+            {% if breadcrumb.url == url %}
+            <li class="active"><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a>{% if not forloop.last %} {% endif %}</li>
+
+                  {% else %}
+                  <li><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a>{% if not forloop.last %} {% endif %}</li>
+                  {% endif %}
+
+              {% endfor %}
           </ul>
         </div>
 

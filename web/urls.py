@@ -19,9 +19,11 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^release/', 'release.views.Release'),
     url(r'^onerelease/', 'release.views.OneRelease'),
+    url(r'^accounts/profile/', 'release.views.OneRelease'),
     url(r'^select_project/', 'release.views.SelectProject'),
     url(r'^switch/', 'release.views.Switch'),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
+    url(r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+    #url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
+    url(r'^accounts/logout/$', 'release.views.logout'),
 
 ]

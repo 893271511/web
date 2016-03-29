@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse,HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse,HttpResponseRedirect, request
 from django.template import Context, loader, RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login,logout
@@ -11,6 +11,9 @@ from .forms import *
 import json
 
 
+
+
+@login_required(login_url='/')
 def Release(request):
     # 当提交表单时
     if request.method == 'POST':
@@ -24,6 +27,12 @@ def Release(request):
             return HttpResponse(env + " " + project + " " + str(version))
             # return HttpResponse(form.cleaned_data)
     else:
+        url = request.get_full_path()
+        request.breadcrumbs([(("项目发布"),'/release/'),
+                             (("单服务器发布"),'/onerelease/'),
+                             (('发布版本查询'),'#'),
+                             (('项目端口查询'),'##'),
+                             ])
         if request.GET.get('env') == 'online':
             env_en = 'online'
             env_cn = '正式'
@@ -40,7 +49,7 @@ def Release(request):
         # return render(request,'release.html',locals())
 
 
-@login_required(login_url='/accounts/login')
+@login_required
 def OneRelease(request):
     # 当提交表单时
     if request.method == 'POST':
@@ -58,13 +67,18 @@ def OneRelease(request):
                return HttpResponse(env + " " + project + " " + str(version) + " " + str(server))
         return HttpResponse("禁止发到此主机")
     else:
+        url = request.get_full_path()
         form2 = OneReleaseForm()
+        request.breadcrumbs([(("项目发布"),'/release/'),
+                             (("单服务器发布"),'/onerelease/'),
+                             (('发布版本查询'),'#'),
+                             (('项目端口查询'),'##'),
+                             ])
         t = loader.get_template("onerelease.html")
-        c = RequestContext(request, {'form': form2})
+        c = RequestContext(request, {'form': form2,'url':url})
         return HttpResponse(t.render(c))
-        # return render(request,'release.html',locals())
 
-
+@login_required
 def Switch(request):
     # 当提交表单时
     if request.POST.get("env") == "test":
@@ -75,7 +89,7 @@ def Switch(request):
         env_cn = '测试'
     return JsonResponse({'env_en': env_en, 'env_cn': env_cn})
 
-
+@login_required
 def SelectProject(request):
     SERVER_CHOICES = {}
     project = request.POST.get("project")
@@ -92,4 +106,5 @@ def SelectProject(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect("/accounts/login/")
+    return HttpResponseRedirect("/")
+

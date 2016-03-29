@@ -2,6 +2,11 @@
  * 点击多台发布按钮时触发
  */
 function release() {
+            if(document.getElementById('id_version').value.length==0){
+                alert('请输入版本号！');
+                document.getElementById('id_version').focus();
+                return false;
+            }
             $("#result").empty();
             var height = 500;
             $("#result").append("<div><textarea id='tx' style='width:100%;height:"+ height + "px'>执行结果</textarea></div>");
@@ -52,6 +57,11 @@ function release() {
  * 点击多台发布按钮时触发
  */
 function oneRelease() {
+            if(document.getElementById('id_version').value.length==0){
+                alert('请输入版本号！');
+                document.getElementById('id_version').focus();
+                return false;
+            }
             $("#result").empty();
             var height = 500;
             $("#result").append("<div><textarea id='tx' style='width:100%;height:"+ height + "px'>执行结果</textarea></div>");

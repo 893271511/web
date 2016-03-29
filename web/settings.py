@@ -50,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'breadcrumbs.middleware.BreadcrumbsMiddleware',
 )
 
 ROOT_URLCONF = 'web.urls'
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request',
             ],
         },
     },
@@ -106,3 +108,7 @@ PROJECT_ROOT=os.path.join(os.path.abspath(os.path.dirname(__file__)),'..')
 STATIC_ROOT = os.path.join(PROJECT_ROOT,'static')
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/release'
+
+LOGIN_URL = '/'
