@@ -8,9 +8,8 @@ from django.contrib import auth
 from release.models import *
 # 引入我们创建的表单类
 from .forms import *
+import os,sys
 import json
-
-
 
 
 @login_required(login_url='/')
@@ -24,7 +23,7 @@ def Release(request):
             project = form.cleaned_data['project']
             env = form.cleaned_data['env']
             version = form.cleaned_data['version']
-            return HttpResponse(env + " " + project + " " + str(version))
+            return HttpResponse(os.popen("hostname&hostname&dir"))
             # return HttpResponse(form.cleaned_data)
     else:
         url = request.get_full_path()
@@ -67,8 +66,9 @@ def OneRelease(request):
                return HttpResponse(env + " " + project + " " + str(version) + " " + str(server))
         return HttpResponse("禁止发到此主机")
     else:
-        url = request.get_full_path()
+
         form2 = OneReleaseForm()
+        url = request.get_full_path()
         request.breadcrumbs([(("项目发布"),'/release/'),
                              (("单服务器发布"),'/onerelease/'),
                              (('发布版本查询'),'#'),
@@ -107,4 +107,3 @@ def SelectProject(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
-
