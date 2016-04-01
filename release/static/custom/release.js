@@ -1,11 +1,43 @@
 /**
+ *
+ */
+
+function checkReleaseInfo() {
+    var svnVersion = document.getElementById('id_version').value;
+    if (!svnVersion.match(/^\d+$/)) {
+        alert("svn 版本号填写有误，请确认");
+        document.getElementById('id_version').focus();
+
+        return false;
+    }
+
+    var answer = confirm(
+        "环境：" + document.getElementById('id_env').value + "\n"
+        + "项目：" + document.getElementById('id_project').value + "\n"
+        + "版本号：" + svnVersion + "\n"
+        + "\n"
+        + "确定发布？"
+    );
+
+    if (answer) {
+        //document.getElementById("id_release").submit();
+        return true
+    }
+    else{
+        return false
+    }
+
+}
+
+/**
  * 点击多台发布按钮时触发
  */
 function release() {
-            if(document.getElementById('id_version').value.length==0){
-                alert('请输入版本号！');
-                document.getElementById('id_version').focus();
-                return false;
+            if(checkReleaseInfo()){
+
+            }
+            else{
+                return false
             }
             $("#result").empty();
             var height = 500;

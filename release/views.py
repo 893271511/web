@@ -23,7 +23,7 @@ def Release(request):
             project = form.cleaned_data['project']
             env = form.cleaned_data['env']
             version = form.cleaned_data['version']
-            return HttpResponse(os.popen("hostname&hostname&dir"))
+            return HttpResponse(os.popen("for i in {1..10};do echo $i;done"))
             # return HttpResponse(form.cleaned_data)
     else:
         url = request.get_full_path()
