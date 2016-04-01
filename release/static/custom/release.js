@@ -1,5 +1,5 @@
 /**
- *
+ *  检查填写的信息及弹出确认框
  */
 
 function checkReleaseInfo() {
