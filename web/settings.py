@@ -112,3 +112,5 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/release'
 
 LOGIN_URL = '/'
+
+APPEND_SLASH=False

@@ -8,8 +8,14 @@ from django.contrib import auth
 from release.models import *
 # 引入我们创建的表单类
 from .forms import *
-import os,sys
-import json
+import os,sys,time
+from django.http import StreamingHttpResponse
+
+def stream_response_generator(release_info):
+    rows = (os.popen("/tmp/aa.sh %s %s %s" %(release_info[0],release_info[1],release_info[2])))
+    for row in rows:
+        #yield "<div>%s</div>\n" % row
+        yield "%s" % row
 
 
 @login_required(login_url='/')
@@ -23,8 +29,7 @@ def Release(request):
             project = form.cleaned_data['project']
             env = form.cleaned_data['env']
             version = form.cleaned_data['version']
-            return HttpResponse(os.popen("for i in {1..10};do echo $i;done"))
-            # return HttpResponse(form.cleaned_data)
+            return StreamingHttpResponse(stream_response_generator([project,env,version]),)
     else:
         url = request.get_full_path()
         request.breadcrumbs([(("项目发布"),'/release/'),
@@ -45,8 +50,6 @@ def Release(request):
         #c = RequestContext(request, {'form': form})
         c = RequestContext(request, locals())
         return HttpResponse(t.render(c))
-        # return render(request,'release.html',locals())
-
 
 @login_required
 def OneRelease(request):
@@ -107,3 +110,6 @@ def SelectProject(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
+
+
+
