@@ -14,7 +14,7 @@ from django.http import StreamingHttpResponse
 def stream_response_generator(release_info):
     #rows = (os.popen("/tmp/aa.sh %s %s %s" %(release_info[0],release_info[1],release_info[2])))
     script_path = "/root/PycharmProjects/web/release/release_scripts"
-    rows = (os.popen("%s/coderelease.sh %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2])))
+    rows = (os.popen("sh -x %s/coderelease.sh %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2])))
     for row in rows:
         #yield "<div>%s</div>\n" % row
         yield "%s" % row
