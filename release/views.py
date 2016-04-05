@@ -12,7 +12,9 @@ import os,sys,time
 from django.http import StreamingHttpResponse
 
 def stream_response_generator(release_info):
-    rows = (os.popen("/tmp/aa.sh %s %s %s" %(release_info[0],release_info[1],release_info[2])))
+    #rows = (os.popen("/tmp/aa.sh %s %s %s" %(release_info[0],release_info[1],release_info[2])))
+    script_path = "/root/PycharmProjects/web/release/release_scripts"
+    rows = (os.popen("%s/coderelease.sh %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2])))
     for row in rows:
         #yield "<div>%s</div>\n" % row
         yield "%s" % row
@@ -29,7 +31,7 @@ def Release(request):
             project = form.cleaned_data['project']
             env = form.cleaned_data['env']
             version = form.cleaned_data['version']
-            return StreamingHttpResponse(stream_response_generator([project,env,version]),)
+            return StreamingHttpResponse(stream_response_generator([project,version,env]),)
     else:
         url = request.get_full_path()
         request.breadcrumbs([(("项目发布"),'/release/'),

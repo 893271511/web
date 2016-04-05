@@ -31,7 +31,7 @@ function checkReleaseInfo() {
 /**
  * 点击多台发布按钮时触发
  */
-function release() {
+function release2() {
 
             if(checkReleaseInfo()){
 
@@ -204,7 +204,7 @@ function selectProject() {
 
 
 
-        function creatReq() // 创建xmlhttprequest,ajax开始
+        function release() // 创建xmlhttprequest,ajax开始
         {
             if(checkReleaseInfo()){
 

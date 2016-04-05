@@ -7,7 +7,7 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header">发布项目</h2>
     <div class="table-responsive">
-        <form id="form" enctype="multipart/form-data" action="/release/" method="post">
+        <form id="form" enctype="multipart/form-data">
             {% csrf_token %}
             <table class="table table-bordered table-striped">
 
@@ -26,7 +26,7 @@
                 <td>操作</td>
                 <td>
                   <input type="button" class="btn btn-primary btn-sm" value="输入" onclick="creatReq()">
-                  <input id="id_release" type="submit" class="btn btn-primary btn-sm" value="发布" >
+                  <input id="id_release" type="button" class="btn btn-primary btn-sm" value="发布" onclick="release()">
                 </td>
               </tr>
             </table>
