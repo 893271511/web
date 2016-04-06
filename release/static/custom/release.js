@@ -89,7 +89,7 @@ function release2() {
 /**
  * 点击多台发布按钮时触发
  */
-function oneRelease() {
+function oneRelease2() {
             if(document.getElementById('id_version').value.length==0){
                 alert('请输入版本号！');
                 document.getElementById('id_version').focus();
@@ -202,7 +202,9 @@ function selectProject() {
             })
         };
 
-
+/**
+ * xiang mu fa bu
+ */
 
         function release() // 创建xmlhttprequest,ajax开始
         {
@@ -222,7 +224,7 @@ function selectProject() {
             var server = $("#id_server").val();
             var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
 
-            var url="/release/"; //要请求的服务端地址
+
             if(window.XMLHttpRequest) //非IE浏览器及IE7(7.0及以上版本)，用xmlhttprequest对象创建
             {
                 req=new XMLHttpRequest();
@@ -234,10 +236,23 @@ function selectProject() {
 
             if(req) //成功创建xmlhttprequest
             {
-                req.open("POST",url,true); //与服务端建立连接(请求方式post或get，地址,true表示异步)
-                req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-                req.onreadystatechange = callback; //指定回调函数
-                req.send("env=" +env+"&project="+project +"&version="+version+"&csrfmiddlewaretoken="+csrfmiddlewaretoken); //发送请求
+
+                if (server == null || server == undefined || server == '') {
+                    var url="/release/"; //要请求的服务端地址
+                    req.open("POST",url,true); //与服务端建立连接(请求方式post或get，地址,true表示异步)
+                    req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    req.onreadystatechange = callback; //指定回调函数
+                    req.send("env=" +env+"&project="+project +"&version="+version+"&csrfmiddlewaretoken="+csrfmiddlewaretoken); //发送请求
+                } else {
+                    var url="/onerelease/"; //要请求的服务端地址
+                    req.open("POST",url,true); //与服务端建立连接(请求方式post或get，地址,true表示异步)
+                    req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    req.onreadystatechange = callback; //指定回调函数
+                    req.send("env=" +env+"&server="+server+"&project="+project +"&version="+version+"&csrfmiddlewaretoken="+csrfmiddlewaretoken); //发送请求
+                }
+
+
+
 
 
             }

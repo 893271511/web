@@ -26,6 +26,10 @@ def Release(request):
     if request.method == 'POST':
         # form 包含提交的数据
         form = ReleaseForm(request.POST)
+        print("aaa")
+        server = request.POST.get('server')
+        print(server)
+        print("bbb")
         # 如果提交的数据合法
         if form.is_valid():
             project = form.cleaned_data['project']
