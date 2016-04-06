@@ -1,0 +1,7 @@
+repos="http://svn.fenqi.d.xiaonei.com/fenqi/hexin/renren-fenqi-ams/trunk"
+target="/opt/ams-tomcat-1/webapps"
+start_cmd="/opt/ams-tomcat-1/bin/startup.sh &>/dev/null"
+stop_cmd="/opt/ams-tomcat-1/bin/shutdown.sh &>/dev/null"
+port="8080"
+hosts=(10.4.37.13)
+proxys=(10.4.37.13)

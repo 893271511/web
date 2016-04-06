@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login,logout
 from django.contrib import auth
 from release.models import *
-# 引入我们创建的表单类
+#  引入我们创建的表单类
 from .forms import *
 import os,sys,time
 from django.http import StreamingHttpResponse
