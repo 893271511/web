@@ -12,87 +12,108 @@ import os,sys,time
 from django.http import StreamingHttpResponse
 
 def stream_response_generator(release_info):
-    #rows = (os.popen("/tmp/aa.sh %s %s %s" %(release_info[0],release_info[1],release_info[2])))
     script_path = "/root/PycharmProjects/web/release/release_scripts"
-    rows = (os.popen("sh -x %s/coderelease.sh %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2])))
+    #判断是单台发布，还是批量发布
+    if len(release_info) == 3:
+        rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],"all")))
+    else:
+        rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],release_info[3])))
+
     for row in rows:
         #yield "<div>%s</div>\n" % row
         yield "%s" % row
 
 
-@login_required(login_url='/')
-def Release(request):
-    # 当提交表单时
-    if request.method == 'POST':
-        # form 包含提交的数据
-        form = ReleaseForm(request.POST)
-        print("aaa")
-        server = request.POST.get('server')
-        print(server)
-        print("bbb")
-        # 如果提交的数据合法
-        if form.is_valid():
-            project = form.cleaned_data['project']
-            env = form.cleaned_data['env']
-            version = form.cleaned_data['version']
-            return StreamingHttpResponse(stream_response_generator([project,version,env]),)
-    else:
-        url = request.get_full_path()
-        request.breadcrumbs([(("项目发布"),'/release/'),
-                             (("单服务器发布"),'/onerelease/'),
-                             (('发布版本查询'),'#'),
-                             (('项目端口查询'),'##'),
-                             ])
-        if request.GET.get('env') == 'online':
-            env_en = 'online'
-            env_cn = '正式'
-            env_next = 'test'
-        else:
-            env_en = 'test'
-            env_cn = '测试'
-            env_next = 'online'
-        form = ReleaseForm()
-        t = loader.get_template("release.html")
-        #c = RequestContext(request, {'form': form})
-        c = RequestContext(request, locals())
-        return HttpResponse(t.render(c))
+# @login_required(login_url='/')
+# def Release(request):
+#     # 当提交表单时
+#     if request.method == 'POST':
+#         # form 包含提交的数据
+#         form = ReleaseForm(request.POST)
+#         print("aaa")
+#         server = request.POST.get('server')
+#         print(server)
+#         print("bbb")
+#         # 如果提交的数据合法
+#         if form.is_valid():
+#             project = form.cleaned_data['project']
+#             env = form.cleaned_data['env']
+#             version = form.cleaned_data['version']
+#             return StreamingHttpResponse(stream_response_generator([project,version,env]),)
+#     else:
+#         url = request.get_full_path()
+#         request.breadcrumbs([(("项目发布"),'/release/'),
+#                              (("单服务器发布"),'/onerelease/'),
+#                              (('发布版本查询'),'#'),
+#                              (('项目端口查询'),'##'),
+#                              ])
+#         if request.GET.get('env') == 'online':
+#             env_en = 'online'
+#             env_cn = '正式'
+#             env_next = 'test'
+#         else:
+#             env_en = 'test'
+#             env_cn = '测试'
+#             env_next = 'online'
+#         form = ReleaseForm()
+#         t = loader.get_template("release.html")
+#         #c = RequestContext(request, {'form': form})
+#         c = RequestContext(request, locals())
+#         return HttpResponse(t.render(c))
 
 @login_required
-def OneRelease(request):
+def Release(request):
     # 当提交表单时
     if request.method == 'POST':
         project = request.POST.get('project')
         env = request.POST.get('env')
         version = request.POST.get('version')
         server = request.POST.get('server')
-        if env == "test":
-            SERVER = Project.objects.get(name=project).test_env.all()
+        #判断是单台发布，还是批量发布
+        if server != None:
+            if env == "test":
+                SERVER = Project.objects.get(name=project).test_env.all()
+            else:
+                SERVER = Project.objects.get(name=project).production_env.all()
+            for i in SERVER:
+                if server == str(i):
+                    return StreamingHttpResponse(stream_response_generator([project,version,env,server]),)
+            return HttpResponse("禁止发到此主机")
         else:
-            SERVER = Project.objects.get(name=project).online_env.all()
-        for i in SERVER:
-            if server == str(i):
-               print(env + " " + project + " " + str(version) + " " + str(server))
-               return HttpResponse(env + " " + project + " " + str(version) + " " + str(server))
-        return HttpResponse("禁止发到此主机")
-    else:
+            return StreamingHttpResponse(stream_response_generator([project,version,env]),)
 
-        form2 = OneReleaseForm()
+    else:
         url = request.get_full_path()
         request.breadcrumbs([(("项目发布"),'/release/'),
                              (("单服务器发布"),'/onerelease/'),
                              (('发布版本查询'),'#'),
                              (('项目端口查询'),'##'),
                              ])
-        t = loader.get_template("onerelease.html")
-        c = RequestContext(request, {'form': form2,'url':url})
+        if request.GET.get('env') == 'production':
+            env_en = 'production'
+            env_cn = '生产'
+            env_next = 'test'
+        else:
+            env_en = 'test'
+            env_cn = '测试'
+            env_next = 'production'
+
+        if url == "/onerelease/":
+            form = OneReleaseForm()
+            t = loader.get_template("onerelease.html")
+            c = RequestContext(request, locals())
+        else:
+            form = ReleaseForm()
+            t = loader.get_template("release.html")
+        c = RequestContext(request, locals())
         return HttpResponse(t.render(c))
 
 @login_required
 def Switch(request):
     # 当提交表单时
     if request.POST.get("env") == "test":
-        env_en = 'online'
-        env_cn = '正式'
+        env_en = 'production'
+        env_cn = '生产'
     else:
         env_en = 'test'
         env_cn = '测试'
@@ -105,7 +126,7 @@ def SelectProject(request):
     if request.POST.get("env") == "test":
         SERVER = Project.objects.get(name=project).test_env.all()
     else:
-        SERVER = Project.objects.get(name=project).online_env.all()
+        SERVER = Project.objects.get(name=project).production_env.all()
     for i in SERVER:
         i = str(i)
         SERVER_CHOICES[i] = i

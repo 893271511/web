@@ -10,14 +10,25 @@ function checkReleaseInfo() {
 
         return false;
     }
+    if(document.getElementById("id_server")) {
+        var answer = confirm(
+            "环境：" + document.getElementById('id_env').value + "\n"
+            + "项目：" + document.getElementById('id_project').value + "\n"
+            + "版本号：" + svnVersion + "\n"
+            + "服务器：" + document.getElementById("id_server").value + "\n"
+            + "\n"
+            + "确定发布？"
+        );
 
-    var answer = confirm(
-        "环境：" + document.getElementById('id_env').value + "\n"
-        + "项目：" + document.getElementById('id_project').value + "\n"
-        + "版本号：" + svnVersion + "\n"
-        + "\n"
-        + "确定发布？"
-    );
+    }else{
+        var answer = confirm(
+            "环境：" + document.getElementById('id_env').value + "\n"
+            + "项目：" + document.getElementById('id_project').value + "\n"
+            + "版本号：" + svnVersion + "\n"
+            + "\n"
+            + "确定发布？"
+        );
+    }
 
     if (answer) {
         //document.getElementById("id_release").submit();
@@ -178,7 +189,7 @@ function selectProject() {
 /**
  * 点击切换环境时触发
  */
-    function switchEnv() {
+    function switchEnv(release_type) {
             $("#result").empty();
             var env = $("#id_env").val();
             var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
@@ -194,7 +205,10 @@ function selectProject() {
                 success: function (data){
                     $('#switch').html(data['env_cn'])
                     $("#id_env").val(data.env_en);
-                    selectProject();
+                    if (release_type == "onerelease"){
+                        selectProject();
+                    };
+
                 },
                 error: function(data){
                     console.log(data);
@@ -203,7 +217,7 @@ function selectProject() {
         };
 
 /**
- * xiang mu fa bu
+ * 发布项目请求
  */
 
         function release() // 创建xmlhttprequest,ajax开始

@@ -18,7 +18,7 @@ class Project(models.Model):
     target = models.CharField(max_length=100)
     repos = models.CharField(max_length=100)
     test_env = models.ManyToManyField(Host, related_name='test_ip')
-    online_env = models.ManyToManyField(Host, related_name='online_ip')
+    production_env = models.ManyToManyField(Host, related_name='production_ip')
     description = models.CharField(max_length=10)
 
     def __str__(self):

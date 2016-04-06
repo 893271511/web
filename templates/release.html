@@ -15,7 +15,7 @@
                   {% if  field.label == '环境' %}
                      <tr><td>{{ field.label }}</td><td>{{ field }}
                         <span id='switch' class="label label-danger">测试</span>
-                        <a onclick="switchEnv()">切换环境</a>
+                        <a onclick="switchEnv('release')">切换环境</a>
                      </td></tr>
                   {% else %}
                     <tr><td>{{ field.label }}</td><td>{{ field }}</td></tr>
