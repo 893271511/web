@@ -90,7 +90,8 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
+#LANGUAGE_CODE = 'zh_CN'
+#DEFAULT_CHARET = 'UTF-8'
 TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
@@ -109,8 +110,65 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT,'static')
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/release'
+LOGIN_REDIRECT_URL = '/release/'
 
 LOGIN_URL = '/'
 
 APPEND_SLASH=False
+
+
+LOGGING = {
+    'version': 1,#指明dictConnfig的版本，目前就只有一个版本，哈哈
+    'disable_existing_loggers': True,#禁用所有的已经存在的日志配置
+    'formatters': {#格式器
+        'verbose': {#详细
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {#简单
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {#过滤器
+        'special': {#使用project.logging.SpecialFilter，别名special，可以接受其他的参数
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'handlers': {#处理器，在这里定义了三个处理器
+        'default': {
+            'level':'DEBUG',
+            #'class':'django.utils.log.NullHandler',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename':'logs/debug.log',  #日志输出文件
+            'maxBytes':1024*1024*5,      #文件大小
+            'backupCount':5,          #备份份数
+            'formatter':'verbose'     #日志格式
+        },
+        'console':{#流处理器，所有的高于（包括）debug的消息会被传到stderr，使用的是simple格式器
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'mail_admins': {#AdminEmail处理器，所有高于（包括）而error的消息会被发送给站点管理员，使用的是special格式器
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['special']
+        }
+    },
+    'loggers': {#定义了三个记录器
+        'django': {
+            'handlers': ['default','console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'django.request': {#所有高于（包括）error的消息会被发往mail_admins处理器，消息不向父层次发送
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'myproject.custom': {#所有高于（包括）info的消息同时会被发往console和mail_admins处理器，使用special过滤器
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+            'filters': ['special']
+        }
+    }
+}

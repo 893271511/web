@@ -10,19 +10,24 @@ from release.models import *
 from .forms import *
 import os,sys,time
 from django.http import StreamingHttpResponse
+import logging
+
+logger = logging.getLogger('django')
 
 def stream_response_generator(release_info):
-    script_path = "/root/PycharmProjects/web/release/release_scripts"
-    #判断是单台发布，还是批量发布
-    if len(release_info) == 3:
-        rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],"all")))
-    else:
-        rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],release_info[3])))
+    try:
+        script_path = "/root/PycharmProjects/web/release/release_scripts"
+        #判断是单台发布，还是批量发布
+        if len(release_info) == 3:
+            rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],"all")))
+        else:
+            rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],release_info[3])))
 
-    for row in rows:
-        #yield "<div>%s</div>\n" % row
-        yield "%s" % row
-
+        for row in rows:
+            #yield "<div>%s</div>\n" % rows
+            yield "%s" % row
+    except Exception as e:
+        logger.error(e)
 
 # @login_required(login_url='/')
 # def Release(request):
@@ -118,6 +123,7 @@ def Switch(request):
         env_en = 'test'
         env_cn = '测试'
     return JsonResponse({'env_en': env_en, 'env_cn': env_cn})
+
 
 @login_required
 def SelectProject(request):

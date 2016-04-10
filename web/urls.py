@@ -16,11 +16,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin', include(admin.site.urls)),
     url(r'^release/', 'release.views.Release'),
     url(r'^onerelease/', 'release.views.Release'),
     url(r'^select_project/', 'release.views.SelectProject'),
     url(r'^switch/', 'release.views.Switch'),
     url(r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
-    url(r'^accounts/logout/$', 'release.views.logout'),
+    url(r'^accounts/logout', 'release.views.logout'),
 ]
