@@ -2,6 +2,8 @@
 #coding:utf-8
 #脚本使用例：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240
 import sys,os
+print(sys.path)
+from release.models import *
 print("脚本名：" + sys.argv[0])
 print("项目名：" + sys.argv[1])
 print("版本号：" + sys.argv[2])
@@ -31,3 +33,17 @@ def set_env():
     
 def check_env():
     pass
+
+script_path = sys.path[0]
+conf_dir = script_path + "/conf"
+logs_dir = script_path + "/logs"
+path = Project.objects.filter(name='renren-licai').values()
+
+name = path[0]['name']
+repos = path[0]['repos']
+start_cmd = path[0]['start_cmd']
+stop_cmd = path[0]['stop_cmd']
+target = path[0]['target']
+port = path[0]['port']
+
+
