@@ -7,11 +7,11 @@
 #脚本使用例：sh coderelease.sh renren-licai-credit-manager 31614 test 10.2.54.240
 
 
-#export PATH="/usr/kerberos/bin:$PATH"
-#export KRB5CCNAME=/tmp/krb5cc_pub_$$
-#trap kdestroy 0 1 2 3 5 15
-#kinit -k -t /etc/krb5.keytab
-#
+export PATH="/usr/kerberos/bin:$PATH"
+export KRB5CCNAME=/tmp/krb5cc_pub_$$
+trap kdestroy 0 1 2 3 5 15
+kinit -k -t /etc/krb5.keytab
+
 #环境变量
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.utf8"
@@ -64,19 +64,19 @@ if echo ${proj_name} |grep "renren-fenqi-ams" &>/dev/null;then
 	if [ -e "${conf_dir}/${proj_name}.config${instance}" ];then
 		. ${conf_dir}/${proj_name}.config${instance}
 	else
-		echo "config file not exist"
+		echo "${conf_dir}/${proj_name} config file not exist"
 		exit 1
 	fi
 else
 	if [ -e "${conf_dir}/${proj_name}.config" ];then
 		. ${conf_dir}/${proj_name}.config
 	else
-		echo "config file not exist"
+		echo "${conf_dir}/${proj_name} config file not exist"
 		exit 1
 	fi
 fi
 
-if [ ${env} != "porduction" ] && [ $4 == "all" ];then
+if [ ${env} != "production" ] && [ $4 == "all" ];then
 	echo "not batch deploy"
 	exit 1
 fi
@@ -85,9 +85,9 @@ if [ $4 != "all" ];then
 	hosts=($4)
 fi
 	
-test_servers=(10.4.37.120 10.4.37.238 10.4.37.34 10.4.37.5)
+test_servers=(10.4.37.120 10.4.37.238 10.4.37.34 10.4.37.5 10.2.52.13)
 staging_servers=(10.4.37.233)
-production_servers=(10.4.30.145 10.4.30.146 10.4.30.147 10.4.30.148 10.4.16.95 10.4.20.52 10.4.20.54 10.4.25.31 10.4.37.13)
+production_servers=(10.4.30.145 10.4.30.146 10.4.30.147 10.4.30.148 10.4.16.95 10.4.20.52 10.4.20.54 10.4.25.31 10.4.37.13 10.2.52.13)
 
 if [ ${env} == "test" ];then
 	if  ! echo "${test_servers[@]}" | grep -wq "${hosts}";then
@@ -166,11 +166,11 @@ svn_update()
 	fi
 
 	#更新代码
-	${SVN} up -r ${ver} ${path}/${proj_name} &>> ${log_file}
+	${SVN} up -r ${ver} ${path}/${proj_name}
 	if [ $? -eq 0 ];then 
 		echo "svn up suceed" |tee -a ${log_file}
 	else
-		echo "svn up error" |tee -a ${log_file}
+		echo "svn up error" |tee -a ${log_file} 
 		exit 1
 	fi
 	
@@ -240,8 +240,8 @@ update_static()
 	echo "####step 4. replace static compress js css html..."  |tee -a ${log_file}
 	test -d $static_deploy_path || mkdir -p $static_deploy_path
 	
-	if [ ${proj_name} == "renren-licai" ] || [ ${proj_name} == "renren-licaii-mobile-server" ];then
-		java -cp /data/release_scripts/jar/renren-split-version-licai2.jar -Ddebug=true com/xiaonei/deploy/tools/Worker $static_path $static_deploy_path $proj_target
+	if [ ${proj_name} == "renren-licai" ] || [ ${proj_name} == "renren-licai-mobile-server" ];then
+		java -cp ${script_path}/jar/renren-split-version-licai2.jar -Ddebug=true com/xiaonei/deploy/tools/Worker $static_path $static_deploy_path $proj_target
 		if [ $? -eq 0 ];then 
 		    echo "replace static suceed" |tee -a ${log_file}
 	   	else
@@ -249,7 +249,7 @@ update_static()
 		    exit 1
 	        fi
 	else
-		java -cp /data/release_scripts/jar/xiaonei-split-version.jar com/xiaonei/deploy/tools/Worker $static_path $static_deploy_path $proj_target
+		java -cp ${script_path}/jar/xiaonei-split-version.jar com/xiaonei/deploy/tools/Worker $static_path $static_deploy_path $proj_target
 		if [ $? -eq 0 ];then 
 		    echo "replace static suceed" |tee -a ${log_file}
 	   	else
@@ -434,7 +434,7 @@ echo "#####step 6 deploy"
 echo "同步包到各服务器"
 count=${#hosts[@]}
 i=0
-for host in ${hosts[@]}; do
+for host in ${hosts[@]};do
         i=$(($i+1))
 	echo "共${count}台，第${i}台:${host}"
 	if [ ${proj_name} != "renren-fenqi-ams" ];then 
@@ -462,6 +462,25 @@ for host in ${hosts[@]}; do
 	if [ ${env} == "production" ];then
 		echo "offline resin............" |tee -a ${log_file}
 		for proxy in ${proxys[@]};do
+
+			#haproxy real_server下线
+			if [ ${proj_name} == "renren-fenqi-ams" ];then
+			  NUMBER=`echo "${target}" |awk -F"/" '{print $3}' |awk -F"-" '{print $NF}'`
+			  if echo ${NUMBER}|grep "[1-2]" &>/dev/null;then
+			    ssh ${proxy} "echo \"disable server proxy/real_server_${NUMBER}\" | socat stdio /var/run/haproxy.sock"
+			    ssh ${proxy} "echo \"show stat \" | socat stdio /var/run/haproxy.sock |grep real_server_${NUMBER} |grep MAINT"
+			    if [ $? == 0 ];then
+			      echo "haproxy offline succeed"
+			    else
+			      echo "haproxy offline fail"
+			      exit
+			    fi
+			  else
+			    echo "haproxy real_server id error"
+			    exit 1
+			  fi
+			fi
+
 			echo "ssh ${proxy} \"cp -f ${nginx_conf} /tmp/nginx.conf.${timestamp}\"" | tee -a ${log_file}
 			ssh ${proxy} "cp -f ${nginx_conf} /tmp/nginx.conf.${timestamp}" 
 			echo "ssh ${proxy} \"sed -i -r 's/(^[ \t]*server[ \t]*${host}:${port}.*)(;.*$)/\1 down\2/g' ${nginx_conf}\"" | tee -a ${log_file} 
@@ -487,6 +506,7 @@ for host in ${hosts[@]}; do
 			    exit 1
 		        fi
 		done
+		sleep 3
 	else
 		echo "非生产环境，跳过nginx下线resin"
 	fi
@@ -520,7 +540,7 @@ for host in ${hosts[@]}; do
 		if [ ${proj_name} == "renren-fenqi-ams" ];then
 			DIR=`echo "${target}" |awk -F"/" '{print $3}'`
 			if ssh $host "/usr/java/jdk/bin/jps -v |grep ${DIR}";then
-				PROCESS=`ssh $host "jps -v |grep ${DIR}"`
+				PROCESS=`ssh $host "/usr/java/jdk/bin/jps -v |grep ${DIR}"`
 				PID2=`echo "$PROCESS" |awk '{print $1}'`
 				ssh $host "/bin/kill -9 $PID2"
 				ssh $host "/usr/java/jdk/bin/jps -v |grep ${DIR}" && echo "${host} resin stop error" && exit 1
@@ -529,7 +549,18 @@ for host in ${hosts[@]}; do
 	    fi
 	    echo "${host} resin stop suceed" |tee -a ${log_file}
 	else
-	    echo "${host} resin stop suceed" |tee -a ${log_file}
+		if [ ${proj_name} == "renren-fenqi-ams" ];then
+			DIR=`echo "${target}" |awk -F"/" '{print $3}'`
+			if ssh $host "/usr/java/jdk/bin/jps -v |grep ${DIR}";then
+				PROCESS=`ssh $host "/usr/java/jdk/bin/jps -v |grep ${DIR}"`
+				PID2=`echo "$PROCESS" |awk '{print $1}'`
+				ssh $host "/bin/kill -9 $PID2"
+				ssh $host "/usr/java/jdk/bin/jps -v |grep ${DIR}" && echo "${host} resin stop error" && exit 1
+			fi
+	    		echo "${host} resin stop suceed" |tee -a ${log_file}
+		else
+	    		echo "${host} resin stop suceed" |tee -a ${log_file}
+		fi
 	fi
 
 	if [ ${proj_name} != "renren-fenqi-ams" ];then
@@ -616,7 +647,7 @@ for host in ${hosts[@]}; do
 	    				echo "${host} resin start suceed" |tee -a ${log_file}
 				else
 	    				echo "${host} resin start error" |tee -a ${log_file}
-					exit 1
+					#exit 1
 				fi
 			fi
 				
@@ -634,6 +665,24 @@ for host in ${hosts[@]}; do
 	if [ ${env} == "production" ];then
 		echo "onlin resin........." |tee -a ${log_file}
 		for proxy in ${proxys[@]};do
+
+			#haproxy real_server上线
+			if [ ${proj_name} == "renren-fenqi-ams" ];then
+			  if echo ${NUMBER}|grep "[1-2]" &>/dev/null;then
+			    ssh ${proxy} "echo \"enable server proxy/real_server_${NUMBER}\" | socat stdio /var/run/haproxy.sock"
+			    ssh ${proxy} "echo \"show stat \" | socat stdio /var/run/haproxy.sock |grep real_server_${NUMBER} |grep UP"
+			    if [ $? == 0 ];then
+			      echo "haproxy offline succeed"
+			    else
+			      echo "haproxy offline fail"
+			      exit
+			    fi
+			  else
+			    echo "haproxy real_server id error"
+			    exit 1
+			  fi
+			fi
+
 			echo "proxy:${proxy}" | tee -a ${log_file}
 			ssh ${proxy} "sed -i '/^[ \t]*server[ ]*${host}:${port}.* down;.*$/s/ *down//g' ${nginx_conf}"
 			if [ $? -eq 0 ];then

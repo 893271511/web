@@ -273,11 +273,17 @@ function selectProject() {
 
             function callback() //回调函数，对服务端的响应处理，监视response状态
             {
+                var area = $("#tx");
                 if(req.readyState==4) //请求状态为4表示成功
                 {
                     if(req.status==200) //http状态200表示OK
                     {
-                        //alert("服务端返回状态1 " + req.readyState); //所有状态成功，执行此函数，显示数据
+
+                        area.append("运行结束");
+                        if(autoScroll(area)) {
+                            area.scrollTop(area[0].scrollHeight);
+                        }
+                        alert("运行结束" + req.readyState); //所有状态成功，执行此函数，显示数据
                     }
                     else //http返回状态失败
                     {
@@ -287,8 +293,8 @@ function selectProject() {
                 }
                 else //请求状态还没有成功，页面等待
                 {
+                    //$("#id_btn1").val(req.readyState);
                     //alert("服务端返回状态3 " + req.readyState + req.responseText);
-                    var area = $("#tx");
                     area.html(req.responseText);
                     if(autoScroll(area)) {
                         area.scrollTop(area[0].scrollHeight);
