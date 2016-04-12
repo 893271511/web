@@ -32,18 +32,24 @@ def set_env():
     os.system('export PATH=$PATH:$M2')
     
 def check_env():
-    pass
+    global script_path,conf_dir,logs_dir
+    global path,name,repos,start_cmd,stop_cmd,target,port
+    #脚本相关变量
+    script_path = sys.path[0]
+    conf_dir = script_path + "/conf"
+    logs_dir = script_path + "/logs"
+    jar_pkg=script_path + "/conf/xiaonei-split-version.jar"
+    script_name=sys.argv[0]
+    log_file=logs_dir + "/${script_name}.log"
+    SVN="svn"
+    #项目相关变量
+    path = Project.objects.filter(name='renren-licai').values()
+    name = path[0]['name']
+    repos = path[0]['repos']
+    start_cmd = path[0]['start_cmd']
+    stop_cmd = path[0]['stop_cmd']
+    target = path[0]['target']
+    port = path[0]['port']
 
-script_path = sys.path[0]
-conf_dir = script_path + "/conf"
-logs_dir = script_path + "/logs"
-path = Project.objects.filter(name='renren-licai').values()
 
-name = path[0]['name']
-repos = path[0]['repos']
-start_cmd = path[0]['start_cmd']
-stop_cmd = path[0]['stop_cmd']
-target = path[0]['target']
-port = path[0]['port']
-
-
+check_env()
