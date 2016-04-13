@@ -2,10 +2,12 @@
 #coding:utf-8
 #脚本使用例：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240
 import sys,os
-print(sys.path)
 from release.models import *
+import sqlite3
 
 
+conn = sqlite3.connect('%s/db.sqlite3' % sys.path[0])
+conn.execute('select * from Pro')
 
 
 #设置环境
