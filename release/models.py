@@ -13,14 +13,14 @@ class Host(models.Model):
         return self.ip
 
 class Project(models.Model):
-    name = models.CharField(max_length=100)
-    start_cmd = models.CharField(max_length=100)
-    stop_cmd = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=False,unique=True)
+    start_cmd = models.CharField(max_length=100,null=False,unique=True)
+    stop_cmd = models.CharField(max_length=100,null=False,unique=True)
     target = models.CharField(max_length=100)
-    repos = models.URLField(max_length=200)
+    repos = models.URLField(max_length=200,null=False,unique=True)
     test_env = models.ManyToManyField(Host, related_name='test_ip')
     production_env = models.ManyToManyField(Host, related_name='production_ip')
-    port = models.PositiveIntegerField(null=True)
+    port = models.PositiveIntegerField(null=False,unique=True)
     proxys = models.ManyToManyField(Host, related_name='proxy_ip')
     description = models.CharField(max_length=10)
 
