@@ -4,11 +4,9 @@
 import sys,os
 print(sys.path)
 from release.models import *
-print("脚本名：" + sys.argv[0])
-print("项目名：" + sys.argv[1])
-print("版本号：" + sys.argv[2])
-print("环  境：" + sys.argv[3])
-print("服务器：" + sys.argv[4])
+
+
+
 
 #设置环境
 def set_env():
@@ -30,26 +28,39 @@ def set_env():
     os.system('export M2=$M2_HOME/bin')
     os.system('export MAVEN_OPTS=-Dfile.encoding=utf-8')
     os.system('export PATH=$PATH:$M2')
-    
-def check_env():
     global script_path,conf_dir,logs_dir
+    global script_name,project_name,ver,env,server
     global path,name,repos,start_cmd,stop_cmd,target,port
-    #脚本相关变量
+    #脚本参数
+    print("脚本名：" + sys.argv[0])
+    print("项目名：" + sys.argv[1])
+    print("版本号：" + sys.argv[2])
+    print("环  境：" + sys.argv[3])
+    print("服务器：" + sys.argv[4])
+    script_name=sys.argv[0]
+    project_name = sys.argv[1]
+    ver = sys.argv[2]
+    env = sys.argv[3]
+    server = sys.argv[4]
+    #脚本变量
     script_path = sys.path[0]
     conf_dir = script_path + "/conf"
     logs_dir = script_path + "/logs"
     jar_pkg=script_path + "/conf/xiaonei-split-version.jar"
-    script_name=sys.argv[0]
-    log_file=logs_dir + "/${script_name}.log"
+
+    log_file=logs_dir + script_name + ".log"
     SVN="svn"
     #项目相关变量
     path = Project.objects.filter(name='renren-licai').values()
-    name = path[0]['name']
+    name = path[0]['namea']
+    print("name=" + name)
     repos = path[0]['repos']
     start_cmd = path[0]['start_cmd']
     stop_cmd = path[0]['stop_cmd']
     target = path[0]['target']
     port = path[0]['port']
 
+def check_env():
+    pass
 
-check_env()
+set_env()
