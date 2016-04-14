@@ -3,6 +3,11 @@
 #脚本使用例：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240
 import sys,os,sqlite3
 
+import subprocess
+status,output = subprocess.getstatusoutput('ls')
+print(status)
+print(output)
+
 
 
 #检查项目运行环境，是否正在发布
