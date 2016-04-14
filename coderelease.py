@@ -2,12 +2,43 @@
 #coding:utf-8
 #脚本使用例：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240
 import sys,os
-from release.models import *
-import sqlite3
+#from release.models import *
+
+# import sqlite3
+# conn = sqlite3.connect('%s/db.sqlite3' % sys.path[0])
+# cursor = conn.execute('select name from release_project')
+# print(cursor)
+# for i in cursor:
+#     print(i[0])
+
+from sqlalchemy import *
+from sqlalchemy.orm import *
+from sqlalchemy import column,func,or_,not_
+from sqlalchemy.types import CHAR,Integer,String
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///%s/db.sqlite3' % sys.path[0],echo=True)
+DB_Session = sessionmaker(bind=engine)
+session = DB_Session()
+#print(session.execute('select * FROM release_project').first())
+BaseModel = declarative_base()
+class Project(BaseModel):
+    __tablename__ = 'release_project'
+    id = Column(Integer,primary_key=True)
+    name = Column(String(100),)
+    start_cmd = Column(String(100))
+    stop_cmd = Column(String(100))
+    target = Column(String(100))
+    repos = Column(String(100))
+    description = Column(String(100))
+    port = Column(Integer)
+
+query = session.query(Project)
+for i in query.all():
+    print(i)
 
 
-conn = sqlite3.connect('%s/db.sqlite3' % sys.path[0])
-conn.execute('select * from Pro')
+quit()
 
 
 #设置环境
@@ -62,7 +93,15 @@ def set_env():
     target = path[0]['target']
     port = path[0]['port']
 
-def check_env():
-    pass
+def check_script_para():
+    if len(sys.argv) == 5:
+        projects = Project.objects.all().values('name')
+        projects2 = Project.objects.all().values_list('name')
+        print(projects)
+        print(projects2)
+    else:
+        print("参数错误")
+        print("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
+        quit()
 
-set_env()
+#check_script_para()
