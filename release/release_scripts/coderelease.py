@@ -2,24 +2,33 @@
 #coding:utf-8
 #脚本使用例：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240
 import sys,os,sqlite3
-
 import subprocess
-status,output = subprocess.getstatusoutput('ls')
-print(status)
-print(output)
+import logging
 
 
 
-#检查项目运行环境，是否正在发布
-def check_run_env():
-    pass
+def exit_script():
+    logging.error('脚本异常退出')
+    quit()
 
-
-
-#检查脚本参数合法性
+#检查脚本参数合法性及
 def check_script_para():
+    #日志配置
+    script_name=sys.argv[0]
+    log_file = script_name + ".log"
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setLevel(logging.DEBUG)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+
     if len(sys.argv) == 5:
         #脚本参数
+        global script_name,project_name,ver,env,server
+
         project_name = sys.argv[1]
         ver = sys.argv[2]
         env = sys.argv[3]
@@ -44,19 +53,20 @@ def check_script_para():
         project_attribute = cu.fetchall()
         cu.close()
 
+        #检查参数合法性
         projects = []
         for i in PROJECTS:
             projects.append(i[0])
         if project_name not in projects:
-            print("此项目不存在")
+            logger.error("此项目不存在")
             quit()
 
         if not str.isdigit(ver):
-            print("版本号应该为数字")
+            logger.error("版本号应该为数字")
             quit()
 
         if env not in ['test','production']:
-            print("此环境不存")
+            logger.error("此环境不存")
             quit()
             
         servers=[]
@@ -65,11 +75,30 @@ def check_script_para():
         if server == 'all' or server in servers:
             pass
         else:
-            print("不允许发向此IP")
+            logger.error("不允许发向此IP")
             quit()
+
+        #脚本变量
+        global conf_dir,logs_dir
+        global svn_path,name,repos,start_cmd,stop_cmd,target,port
+        script_path = sys.path[0]
+        conf_dir = script_path + "/conf"
+        jar_pkg=script_path + "/conf/xiaonei-split-version.jar"
+        SVN="svn"
+        svn_path = '/data/staging/new_renren'
+        start_cmd = project_attribute[0][2]
+        stop_cmd = project_attribute[0][3]
+        target = project_attribute[0][4]
+        repos = project_attribute[0][5]
+        desc = project_attribute[0][6]
+        port = project_attribute[0][7]
+        for i in ['svn_path','start_cmd','stop_cmd','target','repos','port']:
+            if eval(i) == '' or eval(i) == None:
+                logger.error(i + " 值不能为空")
+
     else:
-        print("参数错误")
-        print("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
+        logger.error("参数错误")
+        logger.error("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
         quit()
 
 
@@ -93,28 +122,37 @@ def set_env():
     os.system('export M2=$M2_HOME/bin')
     os.system('export MAVEN_OPTS=-Dfile.encoding=utf-8')
     os.system('export PATH=$PATH:$M2')
-    global script_path,conf_dir,logs_dir
-    global script_name,project_name,ver,env,server
-    global path,name,repos,start_cmd,stop_cmd,target,port
 
-    #脚本变量
-    script_name=sys.argv[0]
-    script_path = sys.path[0]
-    conf_dir = script_path + "/conf"
-    logs_dir = script_path + "/logs"
-    jar_pkg=script_path + "/conf/xiaonei-split-version.jar"
-    log_file=logs_dir + script_name + ".log"
-    SVN="svn"
-    path = '/data/staging/new_renren'
-    start_cmd = project_attribute[0][2]
-    stop_cmd = project_attribute[0][3]
-    target = project_attribute[0][4]
-    repos = project_attribute[0][5]
-    desc = project_attribute[0][6]
-    port = project_attribute[0][7]
+
+
+
+
+#检查项目运行环境，是否正在发布
+def check_run_env():
+    status,output = subprocess.getstatusoutput('ps -ef | grep -v grep | grep "%s %s" | wc -l' %(script_name,project_name))
+    if int(status) != 0 or int(output) != 1:
+        logger.error('此项目正在发布中，请稍后再试！')
+        quit()
+
+
+def svn_update():
+    if not os.path.exists('%s/%s/.svn' %(svn_path,project_name)):
+        status = subprocess.getoutput('svn co %s %s/%s' %(repos,svn_path,project_name))
+        if status == 0:
+            logging.info("svn checkout 成功")
+        else:
+            exit_script('svn checkout 失败')
+
+
+
+
+
+
+
 
 
 
 
 check_script_para()
 set_env()
+check_run_env()
