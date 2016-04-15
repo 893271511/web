@@ -6,6 +6,18 @@ import subprocess
 import logging
 
 
+#日志配置
+script_name=sys.argv[0]
+log_file = script_name + ".log"
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler(log_file)
+file_handler.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.DEBUG)
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
+
 
 def exit_script():
     logging.error('脚本异常退出')
@@ -13,22 +25,9 @@ def exit_script():
 
 #检查脚本参数合法性及
 def check_script_para():
-    #日志配置
-    script_name=sys.argv[0]
-    log_file = script_name + ".log"
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    file_handler = logging.FileHandler(log_file)
-    file_handler.setLevel(logging.DEBUG)
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.DEBUG)
-    logger.addHandler(file_handler)
-    logger.addHandler(console_handler)
-
     if len(sys.argv) == 5:
         #脚本参数
-        global script_name,project_name,ver,env,server
-
+        global project_name,ver,env,server
         project_name = sys.argv[1]
         ver = sys.argv[2]
         env = sys.argv[3]
@@ -79,8 +78,7 @@ def check_script_para():
             quit()
 
         #脚本变量
-        global conf_dir,logs_dir
-        global svn_path,name,repos,start_cmd,stop_cmd,target,port
+        global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN
         script_path = sys.path[0]
         conf_dir = script_path + "/conf"
         jar_pkg=script_path + "/conf/xiaonei-split-version.jar"
@@ -126,7 +124,6 @@ def set_env():
 
 
 
-
 #检查项目运行环境，是否正在发布
 def check_run_env():
     status,output = subprocess.getstatusoutput('ps -ef | grep -v grep | grep "%s %s" | wc -l' %(script_name,project_name))
@@ -139,20 +136,35 @@ def svn_update():
     if not os.path.exists('%s/%s/.svn' %(svn_path,project_name)):
         status = subprocess.getoutput('svn co %s %s/%s' %(repos,svn_path,project_name))
         if status == 0:
-            logging.info("svn checkout 成功")
+            logger.info("svn checkout 成功")
         else:
-            exit_script('svn checkout 失败')
+            logger.error("svn checkout 失败")
+            exit_script()
+    else:
+        logger.info('%s 码已存在，无须checkout！' % project_name)
+
+    status,output = subprocess.getstatusoutput('svn up -r %s %s/%s' %(ver,svn_path,project_name))
+    if int(status) == 0:
+        logger.info('svn up 成功')
+    else:
+        logger.error('svn up 失败')
+        exit_script()
 
 
-
-
-
-
-
-
-
+def maven_project():
+    os.popen('rm -rf %s/%s/target' %(svn_path,project_name))
+    status,output = subprocess.getstatusoutput('cd %s/%s && test ! -d %s/%s/target && mvn -e -f pom.xml -U clean package' %(svn_path,project_name,svn_path,project_name))
+    if status == '0':
+        logger.info('编译成功')
+        logger.info(output)
+    else:
+        logger.error('编译失败')
+        logger.error(output)
+        exit_script()
 
 
 check_script_para()
 set_env()
 check_run_env()
+svn_update()
+maven_project()
