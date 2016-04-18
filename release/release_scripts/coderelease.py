@@ -194,7 +194,7 @@ def update_static():
         shell_cmd = '%s up %s' %(SVN,static_path)
     print(shell_cmd)
     status,output = subprocess.getstatusoutput(shell_cmd)
-    if status == '0':
+    if status == 0:
         logger.info('----static svn update 成功')
     else:
         logger.error(output)

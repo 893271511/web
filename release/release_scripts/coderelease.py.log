@@ -9270,3 +9270,10 @@ A    /data/staging/new_renren/static/rrloan/wap/sysom/js/homevisit.js
 开始编译代码
 ----编译成功
 开始更新静态文件
+版本 84759。
+----static svn update 失败
+脚本异常退出
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+开始编译代码
