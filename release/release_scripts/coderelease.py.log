@@ -8160,3 +8160,1113 @@ svn update 成功
 update common inc 成功
 svn update 成功
 update common inc 成功
+此项目不存在
+svn update 成功
+update common inc 成功
++ Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] snapshot com.xiaonei:xiaonei-root-pom:1.0-SNAPSHOT: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building renren-licai Maven Webapp
+[INFO]    task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] [resources:resources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 55 resources
+[INFO] snapshot com.renren:renren-fenqi-product-center-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-scanning:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-openplatform-jade-proxy:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-datasource4jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-dbjavapool:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-logger:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-slice:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-ha:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:xce-datasource:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-adapter:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-globalid:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:rdc-client:2.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-monitor:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.danga:java-memcached:2.5.1-renren-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-proto:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-buddy:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-internal-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-config:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:LogEstuaryClient:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:PersistentQueue:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot org.jeromq:jeromq:0.3.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair.mina:tair-mina:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-cache:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-dbaccess:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-transaction:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-product-center-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-event:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-passport:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:imagemagickd-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-sns-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-cache-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:renren-wap-smsis-client:4.01-LAN-SNAPSHOT: checking for updates from central
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - RETRYING
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - IGNORING
+[INFO] snapshot com.renren:renren-licai-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-yeepay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:core-pay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.api:renren-api2-sdk:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-gzt:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-node-log:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-interceptors:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-newbie-helper-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-producerimpl:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall-root:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:ams-client-licai:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-common-interceptors:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-websecurity:1.0-SNAPSHOT: checking for updates from central
+[INFO] [compiler:compile]
+[INFO] Compiling 55 source files to /data/staging/new_renren/renren-licai/target/classes
+[INFO] [resources:testResources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /data/staging/new_renren/renren-licai/src/test/resources
+[INFO] Copying 0 resource
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+Downloading: http://repos.d.xiaonei.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-junit4/2.4.3/surefire-junit4-2.4.3.pom
+930/?
+1972/?
+      
+Downloading: http://repos.d.xiaonei.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-providers/2.4.3/surefire-providers-2.4.3.pom
+913/?
+1712/?
+      
+Downloading: http://repos.d.xiaonei.com/nexus/content/groups/public/junit/junit/4.0/junit-4.0.pom
+210/?
+     
+Downloading: http://repos.d.xiaonei.com/nexus/content/groups/public/junit/junit/4.0/junit-4.0.jar
+Downloading: http://repos.d.xiaonei.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-junit4/2.4.3/surefire-junit4-2.4.3.jar
+4/103K
+8/103K
+12/103K
+12/103K 4/11K
+12/103K 8/11K
+12/103K 11/11K
+11K downloaded  (surefire-junit4-2.4.3.jar)
+16/103K
+20/103K
+24/103K
+28/103K
+32/103K
+36/103K
+40/103K
+44/103K
+48/103K
+52/103K
+56/103K
+60/103K
+64/103K
+68/103K
+72/103K
+76/103K
+80/103K
+84/103K
+88/103K
+92/103K
+96/103K
+100/103K
+103/103K
+103K downloaded  (junit-4.0.jar)
+[INFO] Surefire report directory: /data/staging/new_renren/renren-licai/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [war:war]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[renren-licai] in [/data/staging/new_renren/renren-licai/target/renren-licai]
+[INFO] Processing war project
+[INFO] Copying webapp resources[/data/staging/new_renren/renren-licai/src/main/webapp]
+[INFO] Webapp assembled in[3495 msecs]
+[INFO] Building war: /data/staging/new_renren/renren-licai/target/renren-licai.war
+[INFO] Preparing source:jar
+[WARNING] Removing: jar from forked lifecycle, to prevent recursive invocation.
+[INFO] No goals needed for project - skipping
+[INFO] [source:jar {execution: attach-sources}]
+[INFO] Building jar: /data/staging/new_renren/renren-licai/target/renren-licai-sources.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 35 seconds
+[INFO] Finished at: Mon Apr 18 11:34:47 CST 2016
+[INFO] Final Memory: 43M/120M
+[INFO] ------------------------------------------------------------------------
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
++ Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] snapshot com.xiaonei:xiaonei-root-pom:1.0-SNAPSHOT: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building renren-licai Maven Webapp
+[INFO]    task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] [resources:resources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 55 resources
+[INFO] snapshot com.renren:renren-fenqi-product-center-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-scanning:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-openplatform-jade-proxy:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-datasource4jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-dbjavapool:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-logger:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-slice:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-ha:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:xce-datasource:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-adapter:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-globalid:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:rdc-client:2.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-monitor:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.danga:java-memcached:2.5.1-renren-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-proto:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-buddy:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-internal-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-config:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:LogEstuaryClient:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:PersistentQueue:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot org.jeromq:jeromq:0.3.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair.mina:tair-mina:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-cache:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-dbaccess:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-transaction:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-product-center-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-event:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-passport:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:imagemagickd-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-sns-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-cache-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:renren-wap-smsis-client:4.01-LAN-SNAPSHOT: checking for updates from central
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - RETRYING
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - IGNORING
+[INFO] snapshot com.renren:renren-licai-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-yeepay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:core-pay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.api:renren-api2-sdk:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-gzt:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-node-log:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-interceptors:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-newbie-helper-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-producerimpl:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall-root:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:ams-client-licai:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-common-interceptors:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-websecurity:1.0-SNAPSHOT: checking for updates from central
+[INFO] [compiler:compile]
+[INFO] Compiling 55 source files to /data/staging/new_renren/renren-licai/target/classes
+[INFO] [resources:testResources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /data/staging/new_renren/renren-licai/src/test/resources
+[INFO] Copying 0 resource
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+[INFO] Surefire report directory: /data/staging/new_renren/renren-licai/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [war:war]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[renren-licai] in [/data/staging/new_renren/renren-licai/target/renren-licai]
+[INFO] Processing war project
+[INFO] Copying webapp resources[/data/staging/new_renren/renren-licai/src/main/webapp]
+[INFO] Webapp assembled in[2284 msecs]
+[INFO] Building war: /data/staging/new_renren/renren-licai/target/renren-licai.war
+[INFO] Preparing source:jar
+[WARNING] Removing: jar from forked lifecycle, to prevent recursive invocation.
+[INFO] No goals needed for project - skipping
+[INFO] [source:jar {execution: attach-sources}]
+[INFO] Building jar: /data/staging/new_renren/renren-licai/target/renren-licai-sources.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 26 seconds
+[INFO] Finished at: Mon Apr 18 11:38:26 CST 2016
+[INFO] Final Memory: 43M/108M
+[INFO] ------------------------------------------------------------------------
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+0
++ Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] snapshot com.xiaonei:xiaonei-root-pom:1.0-SNAPSHOT: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building renren-licai Maven Webapp
+[INFO]    task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] [resources:resources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 55 resources
+[INFO] snapshot com.renren:renren-fenqi-product-center-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-scanning:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-openplatform-jade-proxy:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-datasource4jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-dbjavapool:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-logger:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-slice:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-ha:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:xce-datasource:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-adapter:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-globalid:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:rdc-client:2.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-monitor:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.danga:java-memcached:2.5.1-renren-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-proto:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-buddy:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-internal-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-config:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:LogEstuaryClient:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:PersistentQueue:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot org.jeromq:jeromq:0.3.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair.mina:tair-mina:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-cache:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-dbaccess:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-transaction:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-product-center-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-event:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-passport:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:imagemagickd-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-sns-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-cache-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:renren-wap-smsis-client:4.01-LAN-SNAPSHOT: checking for updates from central
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - RETRYING
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - IGNORING
+[INFO] snapshot com.renren:renren-licai-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-yeepay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:core-pay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.api:renren-api2-sdk:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-gzt:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-node-log:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-interceptors:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-newbie-helper-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-producerimpl:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall-root:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:ams-client-licai:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-common-interceptors:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-websecurity:1.0-SNAPSHOT: checking for updates from central
+[INFO] [compiler:compile]
+[INFO] Compiling 55 source files to /data/staging/new_renren/renren-licai/target/classes
+[INFO] [resources:testResources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /data/staging/new_renren/renren-licai/src/test/resources
+[INFO] Copying 0 resource
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+[INFO] Surefire report directory: /data/staging/new_renren/renren-licai/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [war:war]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[renren-licai] in [/data/staging/new_renren/renren-licai/target/renren-licai]
+[INFO] Processing war project
+[INFO] Copying webapp resources[/data/staging/new_renren/renren-licai/src/main/webapp]
+[INFO] Webapp assembled in[914 msecs]
+[INFO] Building war: /data/staging/new_renren/renren-licai/target/renren-licai.war
+[INFO] Preparing source:jar
+[WARNING] Removing: jar from forked lifecycle, to prevent recursive invocation.
+[INFO] No goals needed for project - skipping
+[INFO] [source:jar {execution: attach-sources}]
+[INFO] Building jar: /data/staging/new_renren/renren-licai/target/renren-licai-sources.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 25 seconds
+[INFO] Finished at: Mon Apr 18 11:40:13 CST 2016
+[INFO] Final Memory: 43M/120M
+[INFO] ------------------------------------------------------------------------
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+0
++ Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] snapshot com.xiaonei:xiaonei-root-pom:1.0-SNAPSHOT: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building renren-licai Maven Webapp
+[INFO]    task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] [resources:resources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 55 resources
+[INFO] snapshot com.renren:renren-fenqi-product-center-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-scanning:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-openplatform-jade-proxy:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-datasource4jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-dbjavapool:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-logger:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-slice:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-ha:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:xce-datasource:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-adapter:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-globalid:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:rdc-client:2.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-monitor:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.danga:java-memcached:2.5.1-renren-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-proto:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-buddy:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-internal-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-config:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:LogEstuaryClient:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:PersistentQueue:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot org.jeromq:jeromq:0.3.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair.mina:tair-mina:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-cache:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-dbaccess:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-transaction:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-product-center-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-event:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-passport:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:imagemagickd-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-sns-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-cache-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:renren-wap-smsis-client:4.01-LAN-SNAPSHOT: checking for updates from central
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - RETRYING
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - IGNORING
+[INFO] snapshot com.renren:renren-licai-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-yeepay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:core-pay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.api:renren-api2-sdk:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-gzt:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-node-log:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-interceptors:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-newbie-helper-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-producerimpl:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall-root:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:ams-client-licai:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-common-interceptors:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-websecurity:1.0-SNAPSHOT: checking for updates from central
+[INFO] [compiler:compile]
+[INFO] Compiling 55 source files to /data/staging/new_renren/renren-licai/target/classes
+[INFO] [resources:testResources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /data/staging/new_renren/renren-licai/src/test/resources
+[INFO] Copying 0 resource
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+[INFO] Surefire report directory: /data/staging/new_renren/renren-licai/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [war:war]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[renren-licai] in [/data/staging/new_renren/renren-licai/target/renren-licai]
+[INFO] Processing war project
+[INFO] Copying webapp resources[/data/staging/new_renren/renren-licai/src/main/webapp]
+[INFO] Webapp assembled in[1465 msecs]
+[INFO] Building war: /data/staging/new_renren/renren-licai/target/renren-licai.war
+[INFO] Preparing source:jar
+[WARNING] Removing: jar from forked lifecycle, to prevent recursive invocation.
+[INFO] No goals needed for project - skipping
+[INFO] [source:jar {execution: attach-sources}]
+[INFO] Building jar: /data/staging/new_renren/renren-licai/target/renren-licai-sources.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 27 seconds
+[INFO] Finished at: Mon Apr 18 11:41:39 CST 2016
+[INFO] Final Memory: 43M/126M
+[INFO] ------------------------------------------------------------------------
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+0
++ Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] snapshot com.xiaonei:xiaonei-root-pom:1.0-SNAPSHOT: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building renren-licai Maven Webapp
+[INFO]    task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] [resources:resources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 55 resources
+[INFO] snapshot com.renren:renren-fenqi-product-center-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-scanning:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-openplatform-jade-proxy:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-datasource4jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-dbjavapool:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-logger:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-slice:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-ha:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:xce-datasource:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-adapter:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-globalid:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:rdc-client:2.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-monitor:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.danga:java-memcached:2.5.1-renren-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-proto:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-buddy:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-internal-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-config:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:LogEstuaryClient:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:PersistentQueue:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot org.jeromq:jeromq:0.3.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair.mina:tair-mina:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-cache:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-dbaccess:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-transaction:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-product-center-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-event:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-passport:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:imagemagickd-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-sns-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-cache-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:renren-wap-smsis-client:4.01-LAN-SNAPSHOT: checking for updates from central
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - RETRYING
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - IGNORING
+[INFO] snapshot com.renren:renren-licai-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-yeepay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:core-pay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.api:renren-api2-sdk:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-gzt:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-node-log:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-interceptors:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-newbie-helper-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-producerimpl:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall-root:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:ams-client-licai:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-common-interceptors:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-websecurity:1.0-SNAPSHOT: checking for updates from central
+[INFO] [compiler:compile]
+[INFO] Compiling 55 source files to /data/staging/new_renren/renren-licai/target/classes
+[INFO] [resources:testResources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /data/staging/new_renren/renren-licai/src/test/resources
+[INFO] Copying 0 resource
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+[INFO] Surefire report directory: /data/staging/new_renren/renren-licai/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [war:war]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[renren-licai] in [/data/staging/new_renren/renren-licai/target/renren-licai]
+[INFO] Processing war project
+[INFO] Copying webapp resources[/data/staging/new_renren/renren-licai/src/main/webapp]
+[INFO] Webapp assembled in[994 msecs]
+[INFO] Building war: /data/staging/new_renren/renren-licai/target/renren-licai.war
+[INFO] Preparing source:jar
+[WARNING] Removing: jar from forked lifecycle, to prevent recursive invocation.
+[INFO] No goals needed for project - skipping
+[INFO] [source:jar {execution: attach-sources}]
+[INFO] Building jar: /data/staging/new_renren/renren-licai/target/renren-licai-sources.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 24 seconds
+[INFO] Finished at: Mon Apr 18 11:45:13 CST 2016
+[INFO] Final Memory: 43M/126M
+[INFO] ------------------------------------------------------------------------
+编译失败
+脚本异常退出
+此项目正在发布中，请稍后再试！
+此项目正在发布中，请稍后再试！
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+0
++ Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] snapshot com.xiaonei:xiaonei-root-pom:1.0-SNAPSHOT: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building renren-licai Maven Webapp
+[INFO]    task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] [resources:resources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 55 resources
+[INFO] snapshot com.renren:renren-fenqi-product-center-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-scanning:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-openplatform-jade-proxy:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-datasource4jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-dbjavapool:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-logger:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-slice:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-ha:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:xce-datasource:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-adapter:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-globalid:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:rdc-client:2.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-monitor:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.danga:java-memcached:2.5.1-renren-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-proto:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-buddy:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-internal-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-config:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:LogEstuaryClient:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:PersistentQueue:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot org.jeromq:jeromq:0.3.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair.mina:tair-mina:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-cache:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-dbaccess:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-transaction:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-product-center-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-event:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-passport:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:imagemagickd-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-sns-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-cache-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:renren-wap-smsis-client:4.01-LAN-SNAPSHOT: checking for updates from central
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - RETRYING
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - IGNORING
+[INFO] snapshot com.renren:renren-licai-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-yeepay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:core-pay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.api:renren-api2-sdk:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-gzt:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-node-log:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-interceptors:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-newbie-helper-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-producerimpl:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall-root:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:ams-client-licai:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-common-interceptors:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-websecurity:1.0-SNAPSHOT: checking for updates from central
+[INFO] [compiler:compile]
+[INFO] Compiling 55 source files to /data/staging/new_renren/renren-licai/target/classes
+[INFO] [resources:testResources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /data/staging/new_renren/renren-licai/src/test/resources
+[INFO] Copying 0 resource
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+[INFO] Surefire report directory: /data/staging/new_renren/renren-licai/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [war:war]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[renren-licai] in [/data/staging/new_renren/renren-licai/target/renren-licai]
+[INFO] Processing war project
+[INFO] Copying webapp resources[/data/staging/new_renren/renren-licai/src/main/webapp]
+[INFO] Webapp assembled in[1103 msecs]
+[INFO] Building war: /data/staging/new_renren/renren-licai/target/renren-licai.war
+[INFO] Preparing source:jar
+[WARNING] Removing: jar from forked lifecycle, to prevent recursive invocation.
+[INFO] No goals needed for project - skipping
+[INFO] [source:jar {execution: attach-sources}]
+[INFO] Building jar: /data/staging/new_renren/renren-licai/target/renren-licai-sources.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 27 seconds
+[INFO] Finished at: Mon Apr 18 11:46:10 CST 2016
+[INFO] Final Memory: 43M/120M
+[INFO] ------------------------------------------------------------------------
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+0
++ Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] snapshot com.xiaonei:xiaonei-root-pom:1.0-SNAPSHOT: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building renren-licai Maven Webapp
+[INFO]    task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] [resources:resources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 5 resources
+[INFO] Copying 55 resources
+[INFO] snapshot com.renren:renren-fenqi-product-center-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-scanning:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot net.paoding:paoding-rose-jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-openplatform-jade-proxy:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-datasource4jade:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-dbjavapool:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-logger:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-slice:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-ha:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:xce-datasource:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-adapter:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-globalid:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:rdc-client:2.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-monitor:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.danga:java-memcached:2.5.1-renren-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-proto:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-buddy:1.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-internal-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-config:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:LogEstuaryClient:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.adsystem:PersistentQueue:0.0.1-SNAPSHOT: checking for updates from central
+[INFO] snapshot org.jeromq:jeromq:0.3.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-util:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair:tair-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tair.mina:tair-mina:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-cache:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-dbaccess:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-transaction:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-product-center-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-component:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-tools-event:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:oce-passport:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei.xce:imagemagickd-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-sns-core:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:tripod-cache-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:renren-wap-smsis-client:4.01-LAN-SNAPSHOT: checking for updates from central
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - RETRYING
+[WARNING] *** CHECKSUM FAILED - Checksum failed on download: local = '44ede90b6f4b3f57e0a66f69d533048431ca5446'; remote = '3cbf797c8c29a65b81f19be1f6858bb89456473e' - IGNORING
+[INFO] snapshot com.renren:renren-licai-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-bill99-pay:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-yeepay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:core-pay-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.api:renren-api2-sdk:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-gzt:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-fenqi-node-log:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-commons-interceptors:1.0-sns-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-newbie-helper-service:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren.tripod:tripod-producerimpl:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-vip-recall-root:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:ams-client-licai:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-credit-manager-client:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.renren:renren-licai-common-interceptors:1.0-SNAPSHOT: checking for updates from central
+[INFO] snapshot com.xiaonei:xiaonei-websecurity:1.0-SNAPSHOT: checking for updates from central
+[INFO] [compiler:compile]
+[INFO] Compiling 55 source files to /data/staging/new_renren/renren-licai/target/classes
+[INFO] [resources:testResources]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /data/staging/new_renren/renren-licai/src/test/resources
+[INFO] Copying 0 resource
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+[INFO] Surefire report directory: /data/staging/new_renren/renren-licai/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [war:war]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[renren-licai] in [/data/staging/new_renren/renren-licai/target/renren-licai]
+[INFO] Processing war project
+[INFO] Copying webapp resources[/data/staging/new_renren/renren-licai/src/main/webapp]
+[INFO] Webapp assembled in[1154 msecs]
+[INFO] Building war: /data/staging/new_renren/renren-licai/target/renren-licai.war
+[INFO] Preparing source:jar
+[WARNING] Removing: jar from forked lifecycle, to prevent recursive invocation.
+[INFO] No goals needed for project - skipping
+[INFO] [source:jar {execution: attach-sources}]
+[INFO] Building jar: /data/staging/new_renren/renren-licai/target/renren-licai-sources.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 27 seconds
+[INFO] Finished at: Mon Apr 18 11:47:49 CST 2016
+[INFO] Final Memory: 43M/126M
+[INFO] ------------------------------------------------------------------------
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+0
+编译成功
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+0
+编译成功
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+1
+
+编译失败
+脚本异常退出
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+svn update 成功
+不需要处理common inc
+0
+编译成功
+svn update 成功
+不需要处理common inc
+0
+编译成功
+svn update 成功
+不需要处理common inc
+编译成功
+svn update 成功
+不需要处理common inc
+编译成功
+svn update 成功
+不需要处理common inc
+编译成功
+svn update 成功
+不需要处理common inc
+编译成功
+开始更新
+svn update 成功
+不需要处理common inc
+开始编译
+编译成功
+开始更新代码
+svn update 成功
+不需要处理common inc
+开始编译代码
+编译成功
+开始更新代码
+svn update 成功
+不需要处理common inc
+开始编译代码
+编译成功
+开始更新代码
+   svn update 成功
+   不需要处理common inc
+开始编译代码
+编译成功
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+开始编译代码
+----编译成功
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+开始编译代码
+----编译成功
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+开始编译代码
+----编译成功
+开始更新静态文件
+跳过“http://svn.fenqi.d.xiaonei.com/frontend/xn.static”
+A    /data/staging/new_renren/static/rrinvest/wap/events/2015/christmas/img/app-21.jpg
+U    /data/staging/new_renren/static/rrinvest/wap/events/2016/blow-balloon/css/page4.css
+U    /data/staging/new_renren/static/rrloan/wap/Car/myLoan/less/myloan.less
+U    /data/staging/new_renren/static/rrloan/wap/Car/myLoan/less/myloan.css
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/images/shopdetail0.png
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/images/shopdetail1.png
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/images/shopdetail2.png
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/images/arrow.png
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/images/mask.png
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/css/swiper.min.css
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/css/details.less
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/css/details.css
+A    /data/staging/new_renren/static/rrloan/wap/Car/microshop/js/swiper.jquery.min.js
+U    /data/staging/new_renren/static/rrloan/wap/Car/supInfo/less/carInfo.less
+U    /data/staging/new_renren/static/rrloan/wap/Car/supInfo/less/carInfo.css
+U    /data/staging/new_renren/static/rrloan/wap/Car/supInfo/js/supInfo.js
+A    /data/staging/new_renren/static/rrloan/wap/Car/myapplicationcode/images/icon-permonth.png
+U    /data/staging/new_renren/static/rrloan/wap/Car/myapplicationcode/css/affirmorder.css
+U    /data/staging/new_renren/static/rrloan/wap/Car/myapplicationcode/css/style.css
+U    /data/staging/new_renren/static/rrloan/wap/Car/myapplicationcode/js/myapplicationcode.js
+U    /data/staging/new_renren/static/rrloan/wap/Car/myapplicationcode/js/affirmorder.js
+U    /data/staging/new_renren/static/rrloan/wap/Car/personalCenter/js/payBill-messageIdentify.js
+U    /data/staging/new_renren/static/rrloan/wap/Car/home/js/fill-pinfo.js
+U    /data/staging/new_renren/static/rrloan/wap/Car/home/js/fill-cinfo.js
+A    /data/staging/new_renren/static/rrloan/wap/Car/helpCenter/img/qpay/2-1.png
+A    /data/staging/new_renren/static/rrloan/wap/sysom/js/homevisit.js
+更新到版本 84759。
+冲突概要：
+  跳过的路径：1
+----static snv update 失败
+脚本异常退出
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+开始编译代码
+----编译成功
+开始更新静态文件
+跳过“http://svn.fenqi.d.xiaonei.com/frontend/xn.static”
+版本 84759。
+冲突概要：
+  跳过的路径：1
+----static svn update 失败
+脚本异常退出
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+开始编译代码
+----编译成功
+开始更新静态文件
+跳过“http://svn.fenqi.d.xiaonei.com/frontend/xn.static”
+版本 84759。
+冲突概要：
+  跳过的路径：1
+----static svn update 失败
+脚本异常退出
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+开始编译代码
+----编译成功
+开始更新静态文件
