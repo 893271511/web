@@ -252,7 +252,7 @@ def ams_config():
             os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1%s\3/g' %s" %(j,web_xml))
             status,output = subprocess.getstatusoutput('grep -E "<param-value>%s</param-value>" %s' %(j,web_xml))
             if status != 0:
-                logger.error("项目的配置文件修改错误")
+                logger.error("项目的web.xml配置文件修改错误：%s" %web_xml)
                 exit_script()
 
             if i == '28080':
@@ -262,7 +262,7 @@ def ams_config():
             os.system("sed -i -r 's/(property name=\"port\" value=\")%s/\1%s/g' %s" %(ii,i,applicationContext_xml))
             status,output = subprocess.getstatusoutput('grep -E "name=\"port\" *value=\"%s\"" %s' %(i,applicationContext_xml))
             if status != 0:
-                logger.error("项目的配置文件修改错误")
+                logger.error("项目的配置文件修改错误：%s" %applicationContext_xml)
                 exit_script()
 
 
