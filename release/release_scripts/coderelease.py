@@ -78,8 +78,8 @@ def check_script_para():
             quit()
 
         #脚本变量
-        global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN
-        global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc
+        global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN,project_war,maven_target
+        global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc,project_war_ver
         need_inc = ''
         static_path="/data/staging/new_renren/static"
         static_repos="http://svn.fenqi.d.xiaonei.com/frontend/xn.static"
@@ -87,9 +87,12 @@ def check_script_para():
 
         script_path = sys.path[0]
         conf_dir = script_path + "/conf"
-        jar_dir=script_path + "/jar/"
+        jar_dir=script_path + "/jar"
         SVN="svn"
         svn_path = '/data/staging/new_renren'
+        project_war = '%s/%s/target/%s' %(svn_path,project_name,project_name)
+        project_war_ver = '%s/%s/target/%s_%s' %(svn_path,project_name,project_name,ver)
+        maven_target = '%s/%s/target' %(svn_path,project_name)
         start_cmd = project_attribute[0][2]
         stop_cmd = project_attribute[0][3]
         target = project_attribute[0][4]
@@ -183,8 +186,19 @@ def maven_project():
 
 
 def ams_unzip():
+    os.system('rm -rf %s/%s/target/renren-fenqi-ams' %(svn_path,project_name))
     shell_cmd = 'unzip %s/%s/target/ams.zip -d %s/%s/target/ams_%s' %(svn_path,project_name,svn_path,project_name,ver)
-    status,output = subprocess.getstatusoutput(shell_cmd)
+    if not os.path.exists('%s/%s/target/renren-fenqi-ams' %(svn_path,project_name)):
+        status,output = subprocess.getstatusoutput(shell_cmd)
+        if status == 0:
+            logger.info("----解压成功")
+        else:
+            logger.error(output)
+            logger.error("----解压失败")
+            exit_script()
+    else:
+        logger.error('%s/%s/target/renren-fenqi-ams 删除失败' %(svn_path,project_name))
+        exit_script()
 
 def update_static():
     logger.info('开始更新静态文件')
@@ -210,7 +224,7 @@ def replace_static():
     if project_name == 'ren-licai' or project_name == "renren-licai-mobile-server":
         jar_name = 'renren-split-version-licai2.jar'
     else:
-        jar_name = 'renren-split-version.jar'
+        jar_name = 'xiaonei-split-version.jar'
 
     jar = '%s/%s' %(jar_dir,jar_name)
     project_path = '%s/%s/target/%s' %(svn_path,project_name,project_name)
@@ -224,6 +238,43 @@ def replace_static():
         logger.error(output)
         logger.error('----replace static 失败')
         exit_script()
+
+
+def ams_config():
+    ams_unzip()
+    os.system('cp -Rf %s %s_%s' %(project_war,project_war,ver))
+    for i in ['28080','29080']:
+        for j in ['test','production']:
+            project_war_ver_env_port = '%s_%s_%s_%s' %(project_war,ver,j,i)
+            web_xml = '%s/WEB-INF/web.xml' %(project_war_ver_env_port)
+            applicationContext_xml = '%s/WEB-INF/classes/applicationContext.xml' %project_war_ver_env_port
+            os.system('cp -Rf %s %s' %(project_war_ver,project_war_ver_env_port))
+            os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1%s\3/g' %s" %(j,web_xml))
+            status,output = subprocess.getstatusoutput('grep -E "<param-value>%s</param-value>" %s' %(j,web_xml))
+            if status != 0:
+                logger.error("项目的配置文件修改错误")
+                exit_script()
+
+            if i == '28080':
+                ii = 29080
+            elif i == '29080':
+                ii == 28080
+            os.system("sed -i -r 's/(property name=\"port\" value=\")%s/\1%s/g' %s" %(ii,i,applicationContext_xml))
+            status,output = subprocess.getstatusoutput('grep -E "name=\"port\" *value=\"%s\"" %s' %(i,applicationContext_xml))
+            if status != 0:
+                logger.error("项目的配置文件修改错误")
+                exit_script()
+
+
+    # shell_cmd = 'cp -Rf %s %s_%s' %(project_war,project_war,ver)
+    # status,output = subprocess.getstatusoutput(shell_cmd)
+    # if status == 0:
+    #     pass
+    # else:
+    #     logger.error("复制项目失败")
+    #     exit_script()
+
+
 
 
 check_script_para()
