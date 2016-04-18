@@ -79,9 +79,15 @@ def check_script_para():
 
         #脚本变量
         global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN
+        global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc
+        need_inc = ''
+        static_path="/data/staging/new_renren/static"
+        static_repos="http://svn.fenqi.d.xiaonei.com/frontend/xn.static"
+        static_deploy_path="/data/static"
+
         script_path = sys.path[0]
         conf_dir = script_path + "/conf"
-        jar_pkg=script_path + "/conf/xiaonei-split-version.jar"
+        jar_dir=script_path + "/jar/"
         SVN="svn"
         svn_path = '/data/staging/new_renren'
         start_cmd = project_attribute[0][2]
@@ -134,20 +140,26 @@ def check_run_env():
 
 def svn_update():
     if not os.path.exists('%s/%s/.svn' %(svn_path,project_name)):
-        status = subprocess.getoutput('svn co %s %s/%s' %(repos,svn_path,project_name))
-        if status == 0:
-            logger.info("svn checkout 成功")
-        else:
-            logger.error("svn checkout 失败")
-            exit_script()
+        status,output = subprocess.getstatusoutput('svn co %s %s/%s' %(repos,svn_path,project_name))
     else:
-        logger.info('%s 码已存在，无须checkout！' % project_name)
-
-    status,output = subprocess.getstatusoutput('svn up -r %s %s/%s' %(ver,svn_path,project_name))
+        status,output = subprocess.getstatusoutput('svn up -r %s %s/%s' %(ver,svn_path,project_name))
     if int(status) == 0:
-        logger.info('svn up 成功')
+        logger.info('svn update 成功')
     else:
-        logger.error('svn up 失败')
+        logger.error(output)
+        logger.error('svn update 失败')
+        exit_script()
+
+    if os.path.exists(need_inc):
+        if not os.path.exists('%s/%s/src/main/webapp/inc/.svn/'):
+            status,output = subprocess.getstatusoutput('%s co http://svn/fenqi.d.xiaonei.com/fronted/xn.inc %s/%s/src/main/webapp/inc' %(SVN,svn_path,project_name))
+        else:
+            status,output = subprocess.getstatusoutput('%s up %s/%s/src/main/webapp/inc' %(SVN,svn_path,project_name))
+    if int(status) == 0:
+        logger.info('update common inc 成功')
+    else:
+        logger.error(output)
+        logger.error('update common inc 失败')
         exit_script()
 
 
@@ -156,10 +168,50 @@ def maven_project():
     status,output = subprocess.getstatusoutput('cd %s/%s && test ! -d %s/%s/target && mvn -e -f pom.xml -U clean package' %(svn_path,project_name,svn_path,project_name))
     if status == '0':
         logger.info('编译成功')
-        logger.info(output)
     else:
-        logger.error('编译失败')
         logger.error(output)
+        logger.error('编译失败')
+        exit_script()
+
+
+
+def ams_unzip():
+    status,output = subprocess.getstatusoutput('unzip %s/%s/target/ams.zip -d %s/%s/target/ams_%s' %(svn_path,project_name,svn_path,project_name,ver))
+
+def update_static():
+    if not os.path.exists('%s/.svn/' % static_path):
+        status,output = subprocess.getstatusoutput('%s co %s %s' %(SVN,static_repos,static_path))
+    else:
+        status,output = subprocess.getstatusoutput('%s up %s %s' %(SVN,static_repos,static_path))
+
+    if status == '0':
+        logger.info('static svn update 成功')
+    else:
+        logger.error(output)
+        logger.error('static snv update 失败')
+        exit_script()
+
+
+def replace_static():
+    if not os.path.exists(static_deploy_path):
+        os.makedirs(static_deploy_path)
+
+    if project_name == 'ren-licai' or project_name == "renren-licai-mobile-server":
+        jar_name = 'renren-split-version-licai2.jar'
+    else:
+        jar_name = 'renren-split-version.jar'
+
+    jar = '%s/%s' %(jar_dir,jar_name)
+    project_path = '%s/%s/target/%s' %(svn_path,project_name,project_name)
+    #java -cp ${script_path}/jar/renren-split-version-licai2.jar -Ddebug=true com/xiaonei/deploy/tools/Worker $static_path $static_deploy_path $proj_target
+    shell_cmd = 'java -cp %s -Debug=true com/xiaonei/deploy/tools/Worker %s %s %s' %(jar,static_path,static_deploy_path,project_path)
+    print(shell_cmd)
+    status,output = subprocess.getstatusoutput(shell_cmd)
+    if status == '0':
+        logger.info('replace static 成功')
+    else:
+        logger.error(output)
+        logger.error('replace static 失败')
         exit_script()
 
 
@@ -168,3 +220,4 @@ set_env()
 check_run_env()
 svn_update()
 maven_project()
+
