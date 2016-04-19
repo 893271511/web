@@ -4,6 +4,7 @@
 import sys,os,sqlite3
 import subprocess
 import logging
+import shutil,time
 
 
 #日志配置
@@ -79,7 +80,9 @@ def check_script_para():
 
         #脚本变量
         global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN,project_war,maven_target
-        global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc,project_war_ver
+        global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc,project_war_ver,project_bak
+        project_bak = '/data/project_bak'
+        if not os.path.exists(project_bak):os.makedirs(project_bak)
         need_inc = ''
         static_path="/data/staging/new_renren/static"
         static_repos="http://svn.fenqi.d.xiaonei.com/frontend/xn.static"
@@ -230,7 +233,6 @@ def replace_static():
     project_path = '%s/%s/target/%s' %(svn_path,project_name,project_name)
     #java -cp ${script_path}/jar/renren-split-version-licai2.jar -Ddebug=true com/xiaonei/deploy/tools/Worker $static_path $static_deploy_path $proj_target
     shell_cmd = 'java -cp %s -Debug=true com/xiaonei/deploy/tools/Worker %s %s %s' %(jar,static_path,static_deploy_path,project_path)
-    print(shell_cmd)
     status,output = subprocess.getstatusoutput(shell_cmd)
     if status == 0:
         logger.info('----replace static 成功')
@@ -266,14 +268,60 @@ def ams_config():
                 exit_script()
 
 
-    # shell_cmd = 'cp -Rf %s %s_%s' %(project_war,project_war,ver)
-    # status,output = subprocess.getstatusoutput(shell_cmd)
-    # if status == 0:
-    #     pass
-    # else:
-    #     logger.error("复制项目失败")
-    #     exit_script()
+def not_ams_config():
+    logger.info("开始配置项目")
+    os.system('rm -rf %s' %project_war_ver)
+    #if os.path.exists(project_war_ver):shutil.rmtree(project_war_ver)
+    try:
+        shutil.move(project_war,project_war_ver)
+    except Exception as e:
+        logger.error(e)
+        exit_script()
 
+    project_war_ver_xml_file = '%s/WEB-INF/classes/applicationContext_test.xml' %project_war_ver
+    if not os.path.exists(project_war_ver_xml_file):
+        logger.error('没有发现applicationContext_test.xml配置文件，请添加！')
+        exit_script()
+
+    for i in ['test','production']:
+        try:
+            shutil.copytree(project_war_ver,'%s_%s' %(project_war_ver,i))
+        except Exception as e:
+            logger.error(e)
+            exit_script()
+
+        project_war_ver_env_xml_file = '%s_%s/WEB-INF/classes/applicationContext_test.xml' %(project_war_ver,i)
+
+        if i == 'production':
+            os.remove(project_war_ver_env_xml_file)
+            if os.path.exists(project_war_ver_env_xml_file):
+                logger.error('生产环境项目发现applicationContext_test.xml配置文件，请检查')
+                exit_script()
+        else:
+            if not os.path.exists(project_war_ver_env_xml_file):
+                logger.error('测试环境项目没有发现applicationContext_test.xml配置文件，请检查')
+                exit_script()
+
+        os.system('rm -rf %s/%s_%s_%s' %(project_bak,project_name,ver,i))
+        time.sleep(3)
+        if os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,i)):
+            logger.error('%s/%s_%s_%s 删除失败' %(project_bak,project_name,ver,i))
+            exit_script()
+        else:
+            try:
+                shutil.move('%s_%s' %(project_war_ver,i), '%s/%s_%s_%s' %(project_bak,project_name,ver,i))
+            except Exception as e:
+                logger.error(e)
+                exit_script()
+        logger.info("配置项目成功")
+
+
+
+    # if os.rename(project_war,project_war_ver):
+    #     logger.info("复制项目成功")
+    # else:
+    #     logger.error('复制项目失败')
+    #     exit_script()
 
 
 
@@ -284,4 +332,5 @@ svn_update()
 maven_project()
 update_static()
 replace_static()
+not_ams_config()
 
