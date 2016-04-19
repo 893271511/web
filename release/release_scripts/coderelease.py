@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/root/.pyenv/versions/3.4.1/bin/python
 #coding:utf-8
 #脚本使用例：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240
 import sys,os,sqlite3
@@ -17,11 +17,24 @@ file_handler.setLevel(logging.DEBUG)
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.DEBUG)
 logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+#logg.addHandler(console_handler)
+
+
+class log():
+    def info(slef,info):
+        print(info)
+        logger.info(info)
+
+    def error(slef,info):
+        print(info)
+        logger.error(info)
+
+logg = log()
+
 
 
 def exit_script():
-    logging.error('脚本异常退出')
+    logg.error('脚本异常退出')
     quit()
 
 #检查脚本参数合法性及
@@ -58,15 +71,15 @@ def check_script_para():
         for i in PROJECTS:
             projects.append(i[0])
         if project_name not in projects:
-            logger.error("此项目不存在")
+            logg.error("此项目不存在")
             quit()
 
         if not str.isdigit(ver):
-            logger.error("版本号应该为数字")
+            logg.error("版本号应该为数字")
             quit()
 
         if env not in ['test','production']:
-            logger.error("此环境不存")
+            logg.error("此环境不存")
             quit()
             
         servers=[]
@@ -75,7 +88,7 @@ def check_script_para():
         if server == 'all' or server in servers:
             pass
         else:
-            logger.error("不允许发向此IP")
+            logg.error("不允许发向此IP")
             quit()
 
         #脚本变量
@@ -104,11 +117,11 @@ def check_script_para():
         port = project_attribute[0][7]
         for i in ['svn_path','start_cmd','stop_cmd','target','repos','port']:
             if eval(i) == '' or eval(i) == None:
-                logger.error(i + " 值不能为空")
+                logg.error(i + " 值不能为空")
 
     else:
-        logger.error("参数错误")
-        logger.error("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
+        logg.error("参数错误")
+        logg.error("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
         quit()
 
 
@@ -140,21 +153,21 @@ def set_env():
 def check_run_env():
     status,output = subprocess.getstatusoutput('ps -ef | grep -v grep | grep "%s %s" | wc -l' %(script_name,project_name))
     if status != 0 or int(output) != 1:
-        logger.error('此项目正在发布中，请稍后再试！')
+        logg.error('此项目正在发布中，请稍后再试！')
         quit()
 
 
 def svn_update():
-    logger.info('开始更新代码')
+    logg.info('开始更新代码')
     if not os.path.exists('%s/%s/.svn' %(svn_path,project_name)):
         status,output = subprocess.getstatusoutput('svn co %s %s/%s' %(repos,svn_path,project_name))
     else:
         status,output = subprocess.getstatusoutput('svn up -r %s %s/%s' %(ver,svn_path,project_name))
     if status == 0:
-        logger.info('----svn update 成功')
+        logg.info('----svn update 成功')
     else:
-        logger.error(output)
-        logger.error('----svn update 失败')
+        logg.error(output)
+        logg.error('----svn update 失败')
         exit_script()
 
     if os.path.exists(need_inc):
@@ -165,25 +178,25 @@ def svn_update():
 
         status,output = subprocess.getstatusoutput(shell_cmd)
         if status == 0:
-            logger.info('----update common inc 成功')
+            logg.info('----update common inc 成功')
         else:
-            logger.error(output)
-            logger.error('----update common inc 失败')
+            logg.error(output)
+            logg.error('----update common inc 失败')
             exit_script()
     else:
-        logger.info("----不需要处理common inc")
+        logg.info("----不需要处理common inc")
 
 
 def maven_project():
-    logger.info('开始编译代码')
+    logg.info('开始编译代码')
     os.system('rm -rf %s/%s/target' %(svn_path,project_name))
     shell_cmd = 'cd %s/%s && mvn -e -f pom.xml -U clean package' %(svn_path,project_name)
     status,output = subprocess.getstatusoutput(shell_cmd)
     if status == 0:
-        logger.info('----编译成功')
+        logg.info('----编译成功')
     else:
-        logger.error(output)
-        logger.error('----编译失败')
+        logg.error(output)
+        logg.error('----编译失败')
         exit_script()
 
 
@@ -194,17 +207,17 @@ def ams_unzip():
     if not os.path.exists('%s/%s/target/renren-fenqi-ams' %(svn_path,project_name)):
         status,output = subprocess.getstatusoutput(shell_cmd)
         if status == 0:
-            logger.info("----解压成功")
+            logg.info("----解压成功")
         else:
-            logger.error(output)
-            logger.error("----解压失败")
+            logg.error(output)
+            logg.error("----解压失败")
             exit_script()
     else:
-        logger.error('%s/%s/target/renren-fenqi-ams 删除失败' %(svn_path,project_name))
+        logg.error('%s/%s/target/renren-fenqi-ams 删除失败' %(svn_path,project_name))
         exit_script()
 
 def update_static():
-    logger.info('开始更新静态文件')
+    logg.info('开始更新静态文件')
     if not os.path.exists('%s/.svn/' % static_path):
         shell_cmd = '%s co %s %s' %(SVN,static_repos,static_path)
     else:
@@ -212,15 +225,15 @@ def update_static():
     print(shell_cmd)
     status,output = subprocess.getstatusoutput(shell_cmd)
     if status == 0:
-        logger.info('----static svn update 成功')
+        logg.info('----static svn update 成功')
     else:
-        logger.error(output)
-        logger.error('----static svn update 失败')
+        logg.error(output)
+        logg.error('----static svn update 失败')
         exit_script()
 
 
 def replace_static():
-    logger.info('开始处理静态文件')
+    logg.info('开始处理静态文件')
     if not os.path.exists(static_deploy_path):
         os.makedirs(static_deploy_path)
 
@@ -235,10 +248,10 @@ def replace_static():
     shell_cmd = 'java -cp %s -Debug=true com/xiaonei/deploy/tools/Worker %s %s %s' %(jar,static_path,static_deploy_path,project_path)
     status,output = subprocess.getstatusoutput(shell_cmd)
     if status == 0:
-        logger.info('----replace static 成功')
+        logg.info('----replace static 成功')
     else:
-        logger.error(output)
-        logger.error('----replace static 失败')
+        logg.error(output)
+        logg.error('----replace static 失败')
         exit_script()
 
 
@@ -254,7 +267,7 @@ def ams_config():
             os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1%s\3/g' %s" %(j,web_xml))
             status,output = subprocess.getstatusoutput('grep -E "<param-value>%s</param-value>" %s' %(j,web_xml))
             if status != 0:
-                logger.error("项目的web.xml配置文件修改错误：%s" %web_xml)
+                logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
                 exit_script()
 
             if i == '28080':
@@ -264,30 +277,30 @@ def ams_config():
             os.system("sed -i -r 's/(property name=\"port\" value=\")%s/\1%s/g' %s" %(ii,i,applicationContext_xml))
             status,output = subprocess.getstatusoutput('grep -E "name=\"port\" *value=\"%s\"" %s' %(i,applicationContext_xml))
             if status != 0:
-                logger.error("项目的配置文件修改错误：%s" %applicationContext_xml)
+                logg.error("项目的配置文件修改错误：%s" %applicationContext_xml)
                 exit_script()
 
 
 def not_ams_config():
-    logger.info("开始配置项目")
+    logg.info("开始配置项目")
     os.system('rm -rf %s' %project_war_ver)
     #if os.path.exists(project_war_ver):shutil.rmtree(project_war_ver)
     try:
         shutil.move(project_war,project_war_ver)
     except Exception as e:
-        logger.error(e)
+        logg.error(e)
         exit_script()
 
     project_war_ver_xml_file = '%s/WEB-INF/classes/applicationContext_test.xml' %project_war_ver
     if not os.path.exists(project_war_ver_xml_file):
-        logger.error('没有发现applicationContext_test.xml配置文件，请添加！')
+        logg.error('没有发现applicationContext_test.xml配置文件，请添加！')
         exit_script()
 
     for i in ['test','production']:
         try:
             shutil.copytree(project_war_ver,'%s_%s' %(project_war_ver,i))
         except Exception as e:
-            logger.error(e)
+            logg.error(e)
             exit_script()
 
         project_war_ver_env_xml_file = '%s_%s/WEB-INF/classes/applicationContext_test.xml' %(project_war_ver,i)
@@ -295,32 +308,33 @@ def not_ams_config():
         if i == 'production':
             os.remove(project_war_ver_env_xml_file)
             if os.path.exists(project_war_ver_env_xml_file):
-                logger.error('生产环境项目发现applicationContext_test.xml配置文件，请检查')
+                logg.error('生产环境项目发现applicationContext_test.xml配置文件，请检查')
                 exit_script()
         else:
             if not os.path.exists(project_war_ver_env_xml_file):
-                logger.error('测试环境项目没有发现applicationContext_test.xml配置文件，请检查')
+                logg.error('测试环境项目没有发现applicationContext_test.xml配置文件，请检查')
                 exit_script()
 
         os.system('rm -rf %s/%s_%s_%s' %(project_bak,project_name,ver,i))
         time.sleep(3)
         if os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,i)):
-            logger.error('%s/%s_%s_%s 删除失败' %(project_bak,project_name,ver,i))
+            logg.error('%s/%s_%s_%s 删除失败' %(project_bak,project_name,ver,i))
             exit_script()
         else:
             try:
                 shutil.move('%s_%s' %(project_war_ver,i), '%s/%s_%s_%s' %(project_bak,project_name,ver,i))
             except Exception as e:
-                logger.error(e)
+                logg.error(e)
                 exit_script()
-        logger.info("配置项目成功")
+
+    logg.info("配置项目成功")
 
 
 
     # if os.rename(project_war,project_war_ver):
-    #     logger.info("复制项目成功")
+    #     logg.info("复制项目成功")
     # else:
-    #     logger.error('复制项目失败')
+    #     logg.error('复制项目失败')
     #     exit_script()
 
 

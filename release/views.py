@@ -19,10 +19,11 @@ def stream_response_generator(release_info):
         script_path = "/root/PycharmProjects/web/release/release_scripts"
         #判断是单台发布，还是批量发布
         if len(release_info) == 3:
-            rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],"all")))
+            shell_cmd = "%s/coderelease.py %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],"all")
         else:
-            rows = (os.popen("sh -x %s/coderelease.sh %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],release_info[3])))
+            shell_cmd = "%s/coderelease.py %s %s %s %s" %(script_path,release_info[0],release_info[1],release_info[2],release_info[3])
 
+        rows = (os.popen(shell_cmd))
         for row in rows:
             #yield "<div>%s</div>\n" % rows
             yield "%s" % row
