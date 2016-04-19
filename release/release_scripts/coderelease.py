@@ -71,15 +71,15 @@ def check_script_para():
         for i in PROJECTS:
             projects.append(i[0])
         if project_name not in projects:
-            logg.error("此项目不存在")
+            print("此项目不存在")
             quit()
 
         if not str.isdigit(ver):
-            logg.error("版本号应该为数字")
+            print("版本号应该为数字")
             quit()
 
         if env not in ['test','production']:
-            logg.error("此环境不存")
+            print("此环境不存")
             quit()
             
         servers=[]
@@ -88,27 +88,23 @@ def check_script_para():
         if server == 'all' or server in servers:
             pass
         else:
-            logg.error("不允许发向此IP")
+            print("不允许发向此IP")
             quit()
 
         #脚本变量
-        global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN,project_war,maven_target
-        global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc,project_war_ver,project_bak
+        global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN
+        global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc,project_bak
         project_bak = '/data/project_bak'
         if not os.path.exists(project_bak):os.makedirs(project_bak)
         need_inc = ''
         static_path="/data/staging/new_renren/static"
         static_repos="http://svn.fenqi.d.xiaonei.com/frontend/xn.static"
         static_deploy_path="/data/static"
-
         script_path = sys.path[0]
         conf_dir = script_path + "/conf"
         jar_dir=script_path + "/jar"
         SVN="svn"
         svn_path = '/data/staging/new_renren'
-        project_war = '%s/%s/target/%s' %(svn_path,project_name,project_name)
-        project_war_ver = '%s/%s/target/%s_%s' %(svn_path,project_name,project_name,ver)
-        maven_target = '%s/%s/target' %(svn_path,project_name)
         start_cmd = project_attribute[0][2]
         stop_cmd = project_attribute[0][3]
         target = project_attribute[0][4]
@@ -120,18 +116,18 @@ def check_script_para():
                 logg.error(i + " 值不能为空")
 
     else:
-        logg.error("参数错误")
-        logg.error("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
+        print("参数错误")
+        print("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
         quit()
 
 
 #设置环境
 def set_env():
     #kerberos
-    os.system('export PATH="/usr/kerberos/bin:$PATH"')
-    os.system('export KRB5CCNAME=/tmp/krb5cc_pub_$$')
-    os.system('trap kdestroy 0 1 2 3 5 15')
-    os.system('kinit -k -t /etc/krb5.keytab')
+    os.system('export PATH="/usr/kerberos/bin:$PATH" &>/dev/null')
+    os.system('export KRB5CCNAME=/tmp/krb5cc_pub_$$ &>/dev/null')
+    os.system('trap kdestroy 0 1 2 3 5 15 &>/dev/null')
+    os.system('kinit -k -t /etc/krb5.keytab &>/dev/null')
     #lanage
     os.system('export LANG="en_US.UTF-8"')
     os.system('export LC_ALL="en_US.utf8"')
@@ -153,7 +149,7 @@ def set_env():
 def check_run_env():
     status,output = subprocess.getstatusoutput('ps -ef | grep -v grep | grep "%s %s" | wc -l' %(script_name,project_name))
     if status != 0 or int(output) != 1:
-        logg.error('此项目正在发布中，请稍后再试！')
+        print('此项目正在发布中，请稍后再试！')
         quit()
 
 
@@ -185,6 +181,8 @@ def svn_update():
             exit_script()
     else:
         logg.info("----不需要处理common inc")
+    logg.info("结束更新代码 \n")
+
 
 
 def maven_project():
@@ -198,6 +196,7 @@ def maven_project():
         logg.error(output)
         logg.error('----编译失败')
         exit_script()
+    logg.info("结束编译代码 \n")
 
 
 
@@ -222,7 +221,6 @@ def update_static():
         shell_cmd = '%s co %s %s' %(SVN,static_repos,static_path)
     else:
         shell_cmd = '%s up %s' %(SVN,static_path)
-    print(shell_cmd)
     status,output = subprocess.getstatusoutput(shell_cmd)
     if status == 0:
         logg.info('----static svn update 成功')
@@ -230,6 +228,7 @@ def update_static():
         logg.error(output)
         logg.error('----static svn update 失败')
         exit_script()
+    logg.info("结束更新静态文件 \n")
 
 
 def replace_static():
@@ -253,6 +252,7 @@ def replace_static():
         logg.error(output)
         logg.error('----replace static 失败')
         exit_script()
+    logg.info("结束处理静态文件 \n")
 
 
 def ams_config():
@@ -281,12 +281,15 @@ def ams_config():
                 exit_script()
 
 
-def not_ams_config():
+def config():
     logg.info("开始配置项目")
+    project_war = '%s/%s/target/%s' %(svn_path,project_name,project_name)
+    project_war_ver = '%s/%s/target/%s_%s' %(svn_path,project_name,project_name,ver)
     os.system('rm -rf %s' %project_war_ver)
     #if os.path.exists(project_war_ver):shutil.rmtree(project_war_ver)
     try:
         shutil.move(project_war,project_war_ver)
+        os.system('echo %s >%s/WEB-INF/classes/version.txt' %(ver,project_war_ver))
     except Exception as e:
         logg.error(e)
         exit_script()
@@ -327,7 +330,11 @@ def not_ams_config():
                 logg.error(e)
                 exit_script()
 
-    logg.info("配置项目成功")
+    logg.info("结束配置项目 \n")
+
+
+def deploy():
+    pass
 
 
 
@@ -346,5 +353,6 @@ svn_update()
 maven_project()
 update_static()
 replace_static()
-not_ams_config()
+config()
+
 

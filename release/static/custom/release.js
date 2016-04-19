@@ -231,7 +231,7 @@ function selectProject() {
             var req; //定义变量，用来创建xmlhttprequest对象
             $("#result").empty();
             var height = 500;
-            $("#result").append("<div><textarea id='tx' style='width:100%;height:"+ height + "px'>执行结果</textarea></div>");
+            $("#result").append("<div><textarea id='tx' style='width:100%;height:"+ height + "px'></textarea></div>");
             var env = $("#id_env").val();
             var project =  $("#id_project").val();
             var version = $("#id_version").val();
@@ -279,11 +279,11 @@ function selectProject() {
                     if(req.status==200) //http状态200表示OK
                     {
 
-                        area.append("运行结束");
+                        area.append("\n运行结束");
                         if(autoScroll(area)) {
                             area.scrollTop(area[0].scrollHeight);
                         }
-                        alert("运行结束" + req.readyState); //所有状态成功，执行此函数，显示数据
+                        alert("运行结束"); //所有状态成功，执行此函数，显示数据
                     }
                     else //http返回状态失败
                     {
