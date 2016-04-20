@@ -344,12 +344,17 @@ def deploy():
     for host in servers:
         i = i + 1
         logg.info("共%s台，第%s台：%s" %(count,i ,host))
-        shell_cmd = 'ssh %s "test ! -e %s && mkdir -pv %s; rm -rf %s/%s_%s_%s"' %(host,project_bak,project_bak,project_bak,project_name,ver,env)
-        status,output = subprocess.getstatusoutput(shell_cmd)
-        shell_cmd = 'ssh %s "test -e %s/%s_%s_%s"' %(host,project_bak,project_name,ver,env)
-        status,output = subprocess.getstatusoutput(shell_cmd)
-        if status == 0:
-            status,output = subprocess.getstatusoutput('rsync -ztrvl ${project_bak}/${proj_name}_${ver}_${env} $host:${project_bak}/')
+        shell_cmd1 = 'ssh %s "test ! -e %s && mkdir -pv %s; rm -rf %s/%s_%s_%s"' %(host,project_bak,project_bak,project_bak,project_name,ver,env)
+        status1,output1 = subprocess.getstatusoutput(shell_cmd1)
+        shell_cmd2 = 'ssh %s "test -e %s/%s_%s_%s"' %(host,project_bak,project_name,ver,env)
+        status2,output2 = subprocess.getstatusoutput(shell_cmd2)
+        shell_cmd3 = 'rsync -ztrvl --delete %s/%s_%s_%s %s:%s/' %(project_bak,project_name,ver,env,host,project_bak)
+        status3,output3 = subprocess.getstatusoutput(shell_cmd3)
+        if status3 == 0:
+            logg.info('同步项目成功')
+        else:
+            logg.error('同步项目失败')
+            exit_script()
 
 
 
