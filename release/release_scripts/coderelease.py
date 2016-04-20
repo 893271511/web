@@ -81,7 +81,8 @@ def check_script_para():
         if env not in ['test','production']:
             print("此环境不存")
             quit()
-            
+
+        global servers
         servers=[]
         for i in SERVERS:
             servers.append(i[0])
@@ -90,6 +91,8 @@ def check_script_para():
         else:
             print("不允许发向此IP")
             quit()
+
+        if server != 'all':servers = [server]
 
         #脚本变量
         global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN
@@ -336,7 +339,18 @@ def config():
 
 
 def deploy():
-    pass
+    i = 0
+    count = len(servers)
+    for host in servers:
+        i = i + 1
+        logg.info("共%s台，第%s台：%s" %(count,i ,host))
+        shell_cmd = 'ssh %s "test ! -e %s && mkdir -pv %s; rm -rf %s/%s_%s_%s"' %(host,project_bak,project_bak,project_bak,project_name,ver,env)
+        status,output = subprocess.getstatusoutput(shell_cmd)
+        shell_cmd = 'ssh %s "test -e %s/%s_%s_%s"' %(host,project_bak,project_name,ver,env)
+        status,output = subprocess.getstatusoutput(shell_cmd)
+        if status == 0:
+            status,output = subprocess.getstatusoutput('rsync -ztrvl ${project_bak}/${proj_name}_${ver}_${env} $host:${project_bak}/')
+
 
 
 
@@ -356,5 +370,6 @@ maven_project()
 update_static()
 replace_static()
 config()
+deploy()
 
 
