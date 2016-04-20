@@ -257,6 +257,8 @@ def replace_static():
 
 def ams_config():
     ams_unzip()
+    project_war = '%s/%s/target/%s' %(svn_path,project_name,project_name)
+    project_war_ver = '%s/%s/target/%s_%s' %(svn_path,project_name,project_name,ver)
     os.system('cp -Rf %s %s_%s' %(project_war,project_war,ver))
     for i in ['28080','29080']:
         for j in ['test','production']:
