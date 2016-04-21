@@ -345,14 +345,13 @@ def deploy():
         i = i + 1
         logg.info("共%s台，第%s台：%s" %(count,i ,host))
         shell_cmd1 = 'ssh %s "test ! -e %s && mkdir -pv %s; rm -rf %s/%s_%s_%s"' %(host,project_bak,project_bak,project_bak,project_name,ver,env)
-        status1,output1 = subprocess.getstatusoutput(shell_cmd1)
-        shell_cmd2 = 'ssh %s "test -e %s/%s_%s_%s"' %(host,project_bak,project_name,ver,env)
+        subprocess.getstatusoutput(shell_cmd1)
+        shell_cmd2 = 'rsync -acRztrvl --delete %s/%s_%s_%s %s:/' %(project_bak,project_name,ver,env,host)
         status2,output2 = subprocess.getstatusoutput(shell_cmd2)
-        shell_cmd3 = 'rsync -ztrvl --delete %s/%s_%s_%s %s:%s/' %(project_bak,project_name,ver,env,host,project_bak)
-        status3,output3 = subprocess.getstatusoutput(shell_cmd3)
-        if status3 == 0:
+        if status2 == 0:
             logg.info('同步项目成功')
         else:
+            logg.error(output2)
             logg.error('同步项目失败')
             exit_script()
 
