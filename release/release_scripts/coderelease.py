@@ -53,11 +53,18 @@ def check_script_para():
         cu.execute('select name FROM release_project')
         PROJECTS = cu.fetchall()
 
-        select_sql = '''select release_host.ip
-                from release_project,release_project_test_env,release_host
-                where release_project.id=release_project_test_env.project_id
-                and release_project_test_env.host_id=release_host.id
-                and release_project.name="%s"''' % project_name
+        if env == 'test':
+            select_sql = '''select release_host.ip
+                    from release_project,release_project_test_env,release_host
+                    where release_project.id=release_project_test_env.project_id
+                    and release_project_test_env.host_id=release_host.id
+                    and release_project.name="%s"''' % project_name
+        else:
+            select_sql = '''select release_host.ip
+                    from release_project,release_project_production_env,release_host
+                    where release_project.id=release_project_production_env.project_id
+                    and release_project_production_env.host_id=release_host.id
+                    and release_project.name="%s"''' % project_name
         cu.execute(select_sql)
         SERVERS = cu.fetchall()
 
@@ -367,15 +374,30 @@ def deploy():
             logg.error(output2)
             logg.error('同步项目失败')
             exit_script()
-        if env == "test":
+        if env == "production":
+            shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
+            status,output = subprocess.getstatusoutput(shell_cmd)
+            str = '"flag":true'
+            if str in output:
+                logg.info('%s 备份可用')
+            else:
+                logg.error("备份可能不可用，因为调用接口失败")
+                exit_script()
+
+            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/%s' %(host,target,project_name,project_bak,host)
+            status3,output3 = subprocess.getstatusoutput(shell_cmd3)
+            if status3 == 0:
+                logg.info('备份项目成功')
+            else:
+                logg.error(output2)
+                logg.error('备份项目失败')
+                exit_script()
+
             for proxy in proxys:
                 '''real server offline'''
-                shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
-                status,output = subprocess.getstatusoutput(shell_cmd)
-                print('aaaaaaaaaaaa')
-                print(output)
-                print(output.find(r'"flag" *: *true'))
-                quit()
+                print(proxy)
+
+
 
 
 
