@@ -403,7 +403,7 @@ def deploy():
                 shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
                 os.popen(shell_cmd)
                 print(shell_cmd)
-                shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\1 down\2/g\' %s\"' %(proxy,host,port,nginx_conf)
+                shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\\1 down\\2/g\' %s\"' %(proxy,host,port,nginx_conf)
                 print(shell_cmd)
                 os.popen(shell_cmd)
                 shell_cmd = 'ssh %s \'grep -E \"^[ \t]*server[ \t]*%s:%s.*down;\" %s\'' %(proxy,host,port,nginx_conf)
