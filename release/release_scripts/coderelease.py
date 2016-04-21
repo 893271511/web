@@ -423,15 +423,6 @@ def deploy():
 
 
 
-
-    # if os.rename(project_war,project_war_ver):
-    #     logg.info("复制项目成功")
-    # else:
-    #     logg.error('复制项目失败')
-    #     exit_script()
-
-
-
 check_script_para()
 set_env()
 check_run_env()
