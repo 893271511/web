@@ -4,7 +4,7 @@
 import sys,os,sqlite3
 import subprocess
 import logging
-import shutil,time
+import shutil,time,datetime
 
 
 #日志配置
@@ -18,6 +18,9 @@ console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.DEBUG)
 logger.addHandler(file_handler)
 #logg.addHandler(console_handler)
+now = datetime.datetime.now()
+timestamp = now.strftime('%Y-%m-%d-%H-%M-%S')
+print(timestamp)
 
 
 class log():
@@ -115,9 +118,10 @@ def check_script_para():
         if server != 'all':servers = [server]
 
         #脚本变量
-        global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN
+        global conf_dir,svn_path,repos,start_cmd,stop_cmd,target,port,SVN,nginx_conf
         global static_path,static_repos,static_deploy_path,jar_dir,desc,need_inc,project_bak
         project_bak = '/data/project_bak'
+        nginx_conf = '/data/web/nginx/conf/nginx.conf'
         if not os.path.exists(project_bak):os.makedirs(project_bak)
         need_inc = ''
         static_path="/data/staging/new_renren/static"
@@ -382,9 +386,9 @@ def deploy():
                 logg.info('%s 备份可用')
             else:
                 logg.error("备份可能不可用，因为调用接口失败")
-                exit_script()
+                #exit_script()
 
-            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/%s' %(host,target,project_name,project_bak,host)
+            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,target,project_name,project_bak,host)
             status3,output3 = subprocess.getstatusoutput(shell_cmd3)
             if status3 == 0:
                 logg.info('备份项目成功')
@@ -395,8 +399,27 @@ def deploy():
 
             for proxy in proxys:
                 '''real server offline'''
-                print(proxy)
+                shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
+                os.popen(shell_cmd)
+                shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\1 down\2/g\' %s\"' %(proxy,host,port,nginx_conf)
+                os.popen(shell_cmd)
+                shell_cmd = 'ssh %s "grep -E \"^[ \t]*server[ \t]*%s:%s.*down;\" %s"' %(proxy,host,port,nginx_conf)
+                status,output = subprocess.getstatusoutput(shell_cmd)
+                if status == 1:
+                    logg.info("%s nginx配置中%s已标记为down")
+                else:
+                    logg.error("%s nginx配置中%s未发现标记为down")
+                    logg.error(output)
+                    exit_script()
 
+                shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
+                status,output = subprocess.getstatusoutput(shell_cmd)
+                if status == 1:
+                    logg.info("proxy %s 下线 real server成功")
+                else:
+                    logg.error("proxy %s 下线 real server失败")
+                    logg.error(output)
+                    exit_script()
 
 
 
