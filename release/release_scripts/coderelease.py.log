@@ -28901,3 +28901,31 @@ rsync error: error in rsync protocol data stream (code 12) at io.c(600) [sender=
 结束更新代码 
 
 开始编译代码
+----编译成功
+结束编译代码 
+
+开始更新静态文件
+----static svn update 成功
+结束更新静态文件 
+
+开始处理静态文件
+----replace static 成功
+结束处理静态文件 
+
+开始配置项目
+结束配置项目 
+
+共1台，第1台：10.2.52.13
+同步项目成功
+备份可能不可用，因为调用接口失败
+备份项目成功
+%s nginx配置中%s未发现标记为down
+grep: 无效的常规表达式
+/bin/sh:  /data/web/nginx/conf/nginx.conf: 没有那个文件或目录
+脚本异常退出
+开始更新代码
+----svn update 成功
+----不需要处理common inc
+结束更新代码 
+
+开始编译代码

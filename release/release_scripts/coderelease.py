@@ -398,26 +398,27 @@ def deploy():
                 exit_script()
 
             for proxy in proxys:
+                print(proxy)
                 '''real server offline'''
                 shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
                 os.popen(shell_cmd)
                 shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\1 down\2/g\' %s\"' %(proxy,host,port,nginx_conf)
                 os.popen(shell_cmd)
-                shell_cmd = 'ssh %s "grep -E \"^[ \t]*server[ \t]*%s:%s.*down;\" %s"' %(proxy,host,port,nginx_conf)
+                shell_cmd = 'ssh %s \"grep -E \"^[ \t]*server[ \t]*%s:%s.*down;\" %s\"' %(proxy,host,port,nginx_conf)
                 status,output = subprocess.getstatusoutput(shell_cmd)
                 if status == 0:
-                    logg.info("%s nginx配置中%s已标记为down")
+                    logg.info("%s nginx配置中%s已标记为down" %(proxy,host))
                 else:
-                    logg.error("%s nginx配置中%s未发现标记为down")
+                    logg.error("%s nginx配置中%s未发现标记为down" %(proxy,host))
                     logg.error(output)
                     exit_script()
 
                 shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
                 status,output = subprocess.getstatusoutput(shell_cmd)
                 if status == 0:
-                    logg.info("proxy %s 下线 real server成功")
+                    logg.info("proxy %s 下线%s成功" %(proxy,host))
                 else:
-                    logg.error("proxy %s 下线 real server失败")
+                    logg.error("proxy %s 下线%s失败" %(proxy,host))
                     logg.error(output)
                     exit_script()
 
