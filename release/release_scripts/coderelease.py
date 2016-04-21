@@ -406,9 +406,13 @@ def deploy():
                 shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\\1 down\\2/g\' %s\"' %(proxy,host,port,nginx_conf)
                 print(shell_cmd)
                 os.popen(shell_cmd)
-                shell_cmd = 'ssh %s \'grep -E \"^[ \t]*server[ \t]*%s:%s.*down;\" %s\'' %(proxy,host,port,nginx_conf)
+                time.sleep(3)
+                shell_cmd = 'ssh %s \'grep -E \"^[ \\t]*[ \\t]*server[ \\t]*[ \\t]*%s:%s.*down;\" %s\'' %(proxy,host,port,nginx_conf)
                 print(shell_cmd)
                 status,output = subprocess.getstatusoutput(shell_cmd)
+                print('aaaaaaaaaaa')
+                print(status)
+                print(output)
                 if status == 0:
                     logg.info("%s nginx配置中%s已标记为down" %(proxy,host))
                 else:
