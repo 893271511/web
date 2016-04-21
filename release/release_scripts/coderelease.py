@@ -406,7 +406,7 @@ def deploy():
                 shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\\1 down\\2/g\' %s\"' %(proxy,host,port,nginx_conf)
                 print(shell_cmd)
                 os.popen(shell_cmd)
-                time.sleep(3)
+                time.sleep(5)
                 shell_cmd = 'ssh %s \'grep -E \"^[ \\t]*[ \\t]*server[ \\t]*[ \\t]*%s:%s.*down;\" %s\'' %(proxy,host,port,nginx_conf)
                 print(shell_cmd)
                 status,output = subprocess.getstatusoutput(shell_cmd)
