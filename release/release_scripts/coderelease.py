@@ -405,7 +405,7 @@ def deploy():
                 os.popen(shell_cmd)
                 shell_cmd = 'ssh %s "grep -E \"^[ \t]*server[ \t]*%s:%s.*down;\" %s"' %(proxy,host,port,nginx_conf)
                 status,output = subprocess.getstatusoutput(shell_cmd)
-                if status == 1:
+                if status == 0:
                     logg.info("%s nginx配置中%s已标记为down")
                 else:
                     logg.error("%s nginx配置中%s未发现标记为down")
@@ -414,7 +414,7 @@ def deploy():
 
                 shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
                 status,output = subprocess.getstatusoutput(shell_cmd)
-                if status == 1:
+                if status == 0:
                     logg.info("proxy %s 下线 real server成功")
                 else:
                     logg.error("proxy %s 下线 real server失败")
