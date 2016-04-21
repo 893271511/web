@@ -61,10 +61,23 @@ def check_script_para():
         cu.execute(select_sql)
         SERVERS = cu.fetchall()
 
+        select_sql = '''select release_host.ip
+                from release_project,release_project_proxys,release_host
+                where release_project.id=release_project_proxys.project_id
+                and release_project_proxys.host_id=release_host.id
+                and release_project.name="%s"''' % project_name
+        cu.execute(select_sql)
+        PROXYS = cu.fetchall()
+
         cu.execute('select * from release_project WHERE name = "%s"' % project_name)
         global project_attribute
         project_attribute = cu.fetchall()
         cu.close()
+
+        global proxys
+        proxys=[]
+        for i in PROXYS:
+            proxys.append(i[0])
 
         #检查参数合法性
         projects = []
@@ -354,7 +367,15 @@ def deploy():
             logg.error(output2)
             logg.error('同步项目失败')
             exit_script()
-
+        if env == "test":
+            for proxy in proxys:
+                '''real server offline'''
+                shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
+                status,output = subprocess.getstatusoutput(shell_cmd)
+                print('aaaaaaaaaaaa')
+                print(output)
+                print(output.find(r'"flag" *: *true'))
+                quit()
 
 
 
