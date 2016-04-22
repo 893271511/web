@@ -382,8 +382,8 @@ def deploy():
         if env == "production":
             shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
             status,output = subprocess.getstatusoutput(shell_cmd)
-            str = '"flag":true'
-            if str in output:
+            s = '"flag":true'
+            if s in output:
                 logg.info('%s 备份可用')
             else:
                 logg.error("备份可能不可用，因为调用接口失败")
@@ -403,19 +403,14 @@ def deploy():
                 '''real server offline'''
                 shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
                 os.popen(shell_cmd)
-                print(shell_cmd)
                 shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\\1 down\\2/g\' %s\"' %(proxy,host,port,nginx_conf)
-                print(shell_cmd)
                 os.popen(shell_cmd)
                 time.sleep(5)
                 shell_cmd = 'ssh %s \'grep -E \"^[ \\t]*[ \\t]*server[ \\t]*[ \\t]*%s:%s.*down;\" %s\'' %(proxy,host,port,nginx_conf)
-                print(shell_cmd)
                 status,output = subprocess.getstatusoutput(shell_cmd)
-                print('aaaaaaaaaaa')
-                print(status)
-                print(output)
                 if status == 0:
                     logg.info("%s nginx配置中%s已标记为down" %(proxy,host))
+                    logg.info(output)
                 else:
                     logg.error("%s nginx配置中%s未发现标记为down" %(proxy,host))
                     logg.error(output)
@@ -440,20 +435,23 @@ def deploy():
             # cmd = 'sh %s' %stop_cmd
             # stdin,stdout,stderr=ssh.exec_command(cmd)
             # print(stdout.read().decode())
-
+            # time.sleep(5)
             cmd = 'netstat -antlp |grep LIST |grep :%s' %port
             stdin,stdout,stderr = ssh.exec_command(cmd)
             stdout = stdout.read().decode()
             print(stdout)
-
-            cmd = "echo '%s' |awk '{print $7}' |awk -F/ '{print $1}'" %stdout
-            stdin,stdout,stderr = ssh.exec_command(cmd)
-            print(stdout.read().decode())
-            print(stderr.read().decode())
-
-            cmd = '/bin/kill -9 $PID'
-            stdin,stdout,stderr = ssh.exec_command(cmd)
-
+            import re
+            p = re.compile('^tcp.*java')
+            print(p.match(stdout))
+            if p.match(stdout) != None:
+                PID = stdout.split()[6].split('/')[0]
+                print(PID)
+                if str.isdigit(PID):
+                    logg.error("resin 停止失败")
+                    cmd = '/bin/kill -9 %s' %PID
+                    stdin,stdout,stderr = ssh.exec_command(cmd)
+                elif PID == "":
+                    logg.info("resin 停止成功")
 
             ssh.close()
 
