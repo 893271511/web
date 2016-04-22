@@ -381,12 +381,11 @@ def deploy():
             exit_script()
         if env == "production":
             response = urllib.request.urlopen('http://10.4.30.145:9000/api/system/check',timeout=10)
-            #response = urllib.request.urlopen('http://%s:%s/api/system/check 2>/dev/null' %(host,port),timeout=10)
-            print(response)
+            #response = urllib.request.urlopen('http://%s:%s/api/system/check' %(host,port),timeout=10)
             # shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
             # status,output = subprocess.getstatusoutput(shell_cmd)
             s = '"flag":true'
-            if s in response:
+            if s in response.read():
                 logg.info('%s 备份可用')
             else:
                 logg.error("备份可能不可用，因为调用接口失败")
