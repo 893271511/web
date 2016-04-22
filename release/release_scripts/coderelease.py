@@ -5,7 +5,7 @@ import sys,os,sqlite3
 import subprocess
 import logging
 import shutil,time,datetime
-import pexpect,paramiko
+import pexpect,paramiko,re
 
 
 #日志配置
@@ -440,7 +440,6 @@ def deploy():
             stdin,stdout,stderr = ssh.exec_command(cmd)
             stdout = stdout.read().decode()
             print(stdout)
-            import re
             p = re.compile('^tcp.*java')
             print(p.match(stdout))
             if p.match(stdout) != None:
