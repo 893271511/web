@@ -32705,3 +32705,40 @@ rsync: connection unexpectedly closed (0 bytes received so far) [sender]
 rsync error: unexplained error (code 255) at io.c(600) [sender=3.0.6]
 同步项目失败
 脚本异常退出
+共1台，第1台：10.2.52.13
+同步项目成功
+备份可能不可用，因为调用接口失败
+备份项目成功
+10.2.52.13 nginx配置中10.2.52.13已标记为down
+        server 10.2.52.13:9000 down down down down down down down down down down down down down down;
+        server 10.2.52.13:9000 down down down down down down down down down down down down down down;
+proxy 10.2.52.13 下线10.2.52.13成功
+starting thread (client mode): 0x9fbc9358
+Local version/idstring: SSH-2.0-paramiko_1.16.0
+Remote version/idstring: SSH-2.0-OpenSSH_5.3
+Connected (version 2.0, client OpenSSH_5.3)
+kex algos:['diffie-hellman-group-exchange-sha256', 'diffie-hellman-group-exchange-sha1', 'diffie-hellman-group14-sha1', 'diffie-hellman-group1-sha1'] server key:['ssh-rsa', 'ssh-dss'] client encrypt:['aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'arcfour256', 'arcfour128', 'aes128-cbc', '3des-cbc', 'blowfish-cbc', 'cast128-cbc', 'aes192-cbc', 'aes256-cbc', 'arcfour', 'rijndael-cbc@lysator.liu.se'] server encrypt:['aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'arcfour256', 'arcfour128', 'aes128-cbc', '3des-cbc', 'blowfish-cbc', 'cast128-cbc', 'aes192-cbc', 'aes256-cbc', 'arcfour', 'rijndael-cbc@lysator.liu.se'] client mac:['hmac-md5', 'hmac-sha1', 'umac-64@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-ripemd160', 'hmac-ripemd160@openssh.com', 'hmac-sha1-96', 'hmac-md5-96'] server mac:['hmac-md5', 'hmac-sha1', 'umac-64@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-ripemd160', 'hmac-ripemd160@openssh.com', 'hmac-sha1-96', 'hmac-md5-96'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+Kex agreed: diffie-hellman-group1-sha1
+Cipher agreed: aes128-ctr
+MAC agreed: hmac-sha2-256
+Compression agreed: none
+kex engine KexGroup1 specified hash_algo <built-in function openssl_sha1>
+Switch to new keys ...
+Trying SSH key b'75dd20825ea5a2cd1db6d81ac0f1b849'
+userauth is OK
+Authentication (publickey) successful!
+[chan 0] Max packet in: 32768 bytes
+[chan 0] Max packet out: 32768 bytes
+Secsh channel 0 opened.
+[chan 0] Sesch channel 0 request ok
+[chan 0] EOF received (0)
+[chan 0] EOF sent (0)
+[chan 1] Max packet in: 32768 bytes
+[chan 1] Max packet out: 32768 bytes
+Secsh channel 1 opened.
+[chan 1] Sesch channel 1 request ok
+[chan 1] EOF received (1)
+[chan 1] EOF sent (1)
+未获取到ppid
+脚本异常退出
+Dropping user packet because connection is dead.
