@@ -380,7 +380,8 @@ def deploy():
             logg.error('同步项目失败')
             exit_script()
         if env == "production":
-            response = urllib.request.urlopen('http://%s:%s/api/system/check 2>/dev/null' %(host,port),timeout=10)
+            response = urllib.request.urlopen('http://10.4.30.145:9000/api/system/check',timeout=10)
+            #response = urllib.request.urlopen('http://%s:%s/api/system/check 2>/dev/null' %(host,port),timeout=10)
             print(response)
             # shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
             # status,output = subprocess.getstatusoutput(shell_cmd)
