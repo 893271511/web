@@ -5,6 +5,7 @@ import sys,os,sqlite3
 import subprocess
 import logging
 import shutil,time,datetime
+import pexpect,paramiko
 
 
 #日志配置
@@ -428,6 +429,30 @@ def deploy():
                     logg.error("proxy %s 下线%s失败" %(proxy,host))
                     logg.error(output)
                     exit_script()
+
+
+
+            key = paramiko.RSAKey.from_private_key_file("/root/.ssh/id_rsa")
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.load_system_host_keys()
+            ssh.connect(hostname=host,username='root',pkey=key,timeout=10)
+            cmd = 'sh %s' %stop_cmd
+            stdin,stdout,stderr=ssh.exec_command(cmd)
+            print(stdout.read().decode())
+            ssh.close()
+
+
+
+            #       if ssh $host "netstat -antlp |grep LIST |grep :${port}";then
+            # TCP=`ssh $host "netstat -antlp |grep LIST |grep :${port}"`
+            # PID=`echo $TCP |awk '{print $7}' |awk -F/ '{print $1}'`
+            # ssh $host "/bin/kill -9 $PID"
+            # sleep 1
+            # if ssh $host "netstat -antlp |grep LIST |grep :${port}";then
+            #             echo "${host} resin stop error" |tee -a ${log_file}
+            #             exit 1
+
 
 
 
