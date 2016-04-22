@@ -446,10 +446,10 @@ def deploy():
             stdout = stdout.read().decode()
             print(stdout)
 
-            cmd = "echo %s |awk '{print $7}' |awk -F/ '{print $1}'" %stdout
+            cmd = "echo '%s' |awk '{print $7}' |awk -F/ '{print $1}'" %stdout
             stdin,stdout,stderr = ssh.exec_command(cmd)
-            print('bbbbbbbbbb')
             print(stdout.read().decode())
+            print(stderr.read().decode())
 
             cmd = '/bin/kill -9 $PID'
             stdin,stdout,stderr = ssh.exec_command(cmd)
