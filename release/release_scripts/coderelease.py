@@ -5,7 +5,7 @@ import sys,os,sqlite3
 import subprocess
 import logging
 import shutil,time,datetime
-import pexpect,paramiko,re
+import pexpect,paramiko,re,urllib.request
 
 
 #日志配置
@@ -380,10 +380,12 @@ def deploy():
             logg.error('同步项目失败')
             exit_script()
         if env == "production":
-            shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
-            status,output = subprocess.getstatusoutput(shell_cmd)
+            response = urllib.request.urlopen('http://%s:%s/api/system/check 2>/dev/null' %(host,port),timeout=10)
+            print(response)
+            # shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
+            # status,output = subprocess.getstatusoutput(shell_cmd)
             s = '"flag":true'
-            if s in output:
+            if s in response:
                 logg.info('%s 备份可用')
             else:
                 logg.error("备份可能不可用，因为调用接口失败")
@@ -399,7 +401,6 @@ def deploy():
                 exit_script()
 
             for proxy in proxys:
-                print(proxy)
                 '''real server offline'''
                 shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
                 os.popen(shell_cmd)
@@ -439,18 +440,30 @@ def deploy():
             cmd = 'netstat -antlp |grep LIST |grep :%s' %port
             stdin,stdout,stderr = ssh.exec_command(cmd)
             stdout = stdout.read().decode()
-            print(stdout)
             p = re.compile('^tcp.*java')
-            print(p.match(stdout))
             if p.match(stdout) != None:
                 PID = stdout.split()[6].split('/')[0]
                 print(PID)
                 if str.isdigit(PID):
-                    logg.error("resin 停止失败")
-                    cmd = '/bin/kill -9 %s' %PID
-                    stdin,stdout,stderr = ssh.exec_command(cmd)
-                elif PID == "":
-                    logg.info("resin 停止成功")
+                    stdin,stdout,stderr = ssh.exec_command("cat /proc/%s/status" %PID)
+                    stdout = stdout.read().decode()
+                    for line in stdout.split('\n'):
+                        if line.startswith('PPid:'):
+                            PPID = line.split()[1]
+                            print(type(PPID))
+                            if PPID != '0' and PPID != '1':
+                                print(line)
+                                cmd = '/bin/kill -9 %s %s' %(PID,PPID)
+                                print(cmd)
+                                stdin,stdout,stderr = ssh.exec_command(cmd)
+                        else:
+                            logger.error("未获取到ppid")
+                            exit_script()
+                else:
+                    logg.error("pid获取错误 ")
+                    exit_script()
+            else:
+                logg.info("resin 停止成功")
 
             ssh.close()
 
