@@ -437,9 +437,24 @@ def deploy():
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.load_system_host_keys()
             ssh.connect(hostname=host,username='root',pkey=key,timeout=10)
-            cmd = 'sh %s' %stop_cmd
-            stdin,stdout,stderr=ssh.exec_command(cmd)
+            # cmd = 'sh %s' %stop_cmd
+            # stdin,stdout,stderr=ssh.exec_command(cmd)
+            # print(stdout.read().decode())
+
+            cmd = 'netstat -antlp |grep LIST |grep :%s' %port
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+            stdout = stdout.read().decode()
+            print(stdout)
+
+            cmd = "echo %s |awk '{print $7}' |awk -F/ '{print $1}'" %stdout
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+            print('bbbbbbbbbb')
             print(stdout.read().decode())
+
+            cmd = '/bin/kill -9 $PID'
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+
+
             ssh.close()
 
 
@@ -459,11 +474,11 @@ def deploy():
 check_script_para()
 set_env()
 check_run_env()
-svn_update()
-maven_project()
-update_static()
-replace_static()
-config()
+#svn_update()
+#maven_project()
+#update_static()
+#replace_static()
+#config()
 deploy()
 
 
