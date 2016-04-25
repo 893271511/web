@@ -324,10 +324,13 @@ def config():
         logg.error(e)
         exit_script()
 
-    project_war_ver_xml_file = '%s/WEB-INF/classes/applicationContext_test.xml' %project_war_ver
-    if not os.path.exists(project_war_ver_xml_file):
-        logg.error('没有发现applicationContext_test.xml配置文件，请添加！')
-        exit_script()
+    if project_name == 'renren-licai-credit-manager':
+        pass
+    else:
+        project_war_ver_xml_file = '%s/WEB-INF/classes/applicationContext_test.xml' %project_war_ver
+        if not os.path.exists(project_war_ver_xml_file):
+            logg.error('没有发现applicationContext_test.xml配置文件，请添加！')
+            exit_script()
 
     for i in ['test','production']:
         try:
@@ -338,15 +341,24 @@ def config():
 
         project_war_ver_env_xml_file = '%s_%s/WEB-INF/classes/applicationContext_test.xml' %(project_war_ver,i)
 
-        if i == 'production':
-            os.remove(project_war_ver_env_xml_file)
-            if os.path.exists(project_war_ver_env_xml_file):
-                logg.error('生产环境项目发现applicationContext_test.xml配置文件，请检查')
-                exit_script()
+
+        if project_name == 'renren-licai-credit-manager':
+            project_war_ver_env_port = '%s_%s_%s_%s' %(project_war,ver,i)
+            web_xml = '%s/WEB-INF/web.xml' %(project_war_ver_env_port)
+            os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1%s\3/g' %s" %(i,web_xml))
+            status,output = subprocess.getstatusoutput('grep -E "<param-value>%s</param-value>" %s' %(i,web_xml))
+            if status != 0:
+                logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
         else:
-            if not os.path.exists(project_war_ver_env_xml_file):
-                logg.error('测试环境项目没有发现applicationContext_test.xml配置文件，请检查')
-                exit_script()
+            if i == 'production':
+                os.remove(project_war_ver_env_xml_file)
+                if os.path.exists(project_war_ver_env_xml_file):
+                    logg.error('生产环境项目发现applicationContext_test.xml配置文件，请检查')
+                    exit_script()
+            else:
+                if not os.path.exists(project_war_ver_env_xml_file):
+                    logg.error('测试环境项目没有发现applicationContext_test.xml配置文件，请检查')
+                    exit_script()
 
         os.system('rm -rf %s/%s_%s_%s' %(project_bak,project_name,ver,i))
         time.sleep(3)
