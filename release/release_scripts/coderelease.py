@@ -363,13 +363,41 @@ def config():
     logg.info("结束配置项目 \n")
 
 def api(host,port):
-    response = urllib.request.urlopen('http://%s:%s/api/system/check' %(host,port),timeout=10)
+    #response = urllib.request.urlopen('http://%s:%s/api/system/check' %(host,port),timeout=10)
+    response = urllib.request.urlopen('http://10.4.30.145:9000/api/system/check',timeout=10)
     s = '"flag":true'
     html = response.read().decode()
     if s in html:
         return True
     else:
         return False
+
+
+def resin_offline(proxy,host):
+    '''real server offline'''
+    shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
+    os.popen(shell_cmd)
+    shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\\1 down\\2/g\' %s\"' %(proxy,host,port,nginx_conf)
+    os.popen(shell_cmd)
+    time.sleep(5)
+    shell_cmd = 'ssh %s \'grep -E \"^[ \\t]*[ \\t]*server[ \\t]*[ \\t]*%s:%s.*down;\" %s\'' %(proxy,host,port,nginx_conf)
+    status,output = subprocess.getstatusoutput(shell_cmd)
+    if status == 0:
+        logg.info("%s nginx配置中%s已标记为down" %(proxy,host))
+        logg.info(output)
+    else:
+        logg.error("%s nginx配置中%s未发现标记为down" %(proxy,host))
+        logg.error(output)
+        exit_script()
+
+    shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
+    status,output = subprocess.getstatusoutput(shell_cmd)
+    if status == 0:
+        logg.info("proxy %s 下线%s成功" %(proxy,host))
+    else:
+        logg.error("proxy %s 下线%s失败" %(proxy,host))
+        logg.error(output)
+        exit_script()
 
 
 def deploy():
@@ -407,32 +435,7 @@ def deploy():
                 exit_script()
 
             for proxy in proxys:
-                '''real server offline'''
-                shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
-                os.popen(shell_cmd)
-                shell_cmd = 'ssh %s \"sed -i -r \'s/(^[ \t]*server[ \t]*%s:%s.*)(;.*$)/\\1 down\\2/g\' %s\"' %(proxy,host,port,nginx_conf)
-                os.popen(shell_cmd)
-                time.sleep(5)
-                shell_cmd = 'ssh %s \'grep -E \"^[ \\t]*[ \\t]*server[ \\t]*[ \\t]*%s:%s.*down;\" %s\'' %(proxy,host,port,nginx_conf)
-                status,output = subprocess.getstatusoutput(shell_cmd)
-                if status == 0:
-                    logg.info("%s nginx配置中%s已标记为down" %(proxy,host))
-                    logg.info(output)
-                else:
-                    logg.error("%s nginx配置中%s未发现标记为down" %(proxy,host))
-                    logg.error(output)
-                    exit_script()
-
-                shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
-                status,output = subprocess.getstatusoutput(shell_cmd)
-                if status == 0:
-                    logg.info("proxy %s 下线%s成功" %(proxy,host))
-                else:
-                    logg.error("proxy %s 下线%s失败" %(proxy,host))
-                    logg.error(output)
-                    exit_script()
-
-
+                resin_offline(proxy,host)
 
             key = paramiko.RSAKey.from_private_key_file("/root/.ssh/id_rsa")
             ssh = paramiko.SSHClient()
@@ -490,6 +493,12 @@ def deploy():
             cmd = 'sh %s' %start_cmd
             stdin,stdout,stderr=ssh.exec_command(cmd)
             time.sleep(5)
+
+            if api(host,port):
+                logg.info("api调用成功")
+            else:
+                logg.error("api调用失败")
+                #exit_script()
 
             ssh.close()
 
