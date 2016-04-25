@@ -565,6 +565,8 @@ if __name__ == '__main__':
             maven_project()
             ams_config()
             ams_unzip()
+        else:
+            logg.info("项目已打包，直接发布！")
         deploy()
     else:
         if not os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env)):
@@ -573,6 +575,8 @@ if __name__ == '__main__':
             update_static()
             replace_static()
             config()
+        else:
+            logg.info("项目已打包，直接发布！")
         deploy()
 
 
