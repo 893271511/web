@@ -390,6 +390,23 @@ def resin_offline(proxy,host):
         logg.error(output)
         exit_script()
 
+def resin_online(proxy,host):
+    '''real server online'''
+    shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
+    os.popen(shell_cmd)
+    shell_cmd = 'ssh %s \"sed -i \'/^[ \t]*[ \t]*server[ ]*[ \t]*%s:%s.* down;.*$/s/ *down//g\' %s\"' %(proxy,host,port,nginx_conf)
+    os.popen(shell_cmd)
+    time.sleep(5)
+    shell_cmd = 'ssh %s \'grep -E \"^[ \t]*[ \t]*server[ \t]*[ \t]*%s:%s;\" %s\'' %(proxy,host,port,nginx_conf)
+    status,output = subprocess.getstatusoutput(shell_cmd)
+    if status == 0:
+        logg.info("%s nginx配置中%s已取消down" %(proxy,host))
+        logg.info(output)
+    else:
+        logg.error("%s nginx配置中%s仍标记为down" %(proxy,host))
+        logg.error(output)
+        exit_script()
+
     shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
     status,output = subprocess.getstatusoutput(shell_cmd)
     if status == 0:
@@ -421,7 +438,7 @@ def deploy():
                 logg.info("api调用成功")
             else:
                 logg.error("api调用失败")
-                #exit_script()
+                exit_script()
 
 
 
@@ -506,10 +523,12 @@ def deploy():
                 logg.info("api调用成功")
             else:
                 logg.error("api调用失败")
-                #exit_script()
+                exit_script()
 
             ssh.close()
 
+            for proxy in proxys:
+                resin_online(proxy,host)
 
 check_script_para()
 set_env()
