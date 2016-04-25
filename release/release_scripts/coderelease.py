@@ -552,13 +552,17 @@ if __name__ == '__main__':
     set_env()
     check_run_env()
     if project_name == "renren-fenqi-ams":
-        pass
+        svn_update()
+        maven_project()
+        ams_config()
+        ams_unzip()
+        deploy()
     else:
-        #svn_update()
-        #maven_project()
-        #update_static()
-        #replace_static()
-        #config()
+        svn_update()
+        maven_project()
+        update_static()
+        replace_static()
+        config()
         deploy()
 
 
