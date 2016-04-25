@@ -451,7 +451,7 @@ def deploy():
             logg.error('同步项目失败，请检查')
             exit_script()
 
-        #发布到预发布的不做resin下线操作
+        #发布到预发布和非生产的不做resin下线操作
         if host != '10.4.37.233':
             if env == "production":
                 if api(host,port):
@@ -542,7 +542,7 @@ def deploy():
             exit_script()
         ssh.close()
 
-        #发布到预发布的不做resin上线操作
+        #发布到预发布和非生产的不做resin上线操作
         if host != '10.4.37.233':
             if env == "production":
                 for proxy in proxys:
