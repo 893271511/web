@@ -143,6 +143,12 @@ def check_script_para():
             if eval(i) == '' or eval(i) == None:
                 logg.error(i + " 值不能为空")
 
+        if "renren-fenqi-ams" in project_name:
+            project_name = project_name.split('.')[0]
+            global instance
+            instance = project_name.split('.')[1]
+
+
     else:
         print("参数错误")
         print("用法：python coderelease.py renren-licai-credit-manager 31614 test 10.2.54.240")
@@ -284,6 +290,7 @@ def replace_static():
 
 
 def ams_config():
+
     ams_unzip()
     project_war = '%s/%s/target/%s' %(svn_path,project_name,project_name)
     project_war_ver = '%s/%s/target/%s_%s' %(svn_path,project_name,project_name,ver)
@@ -553,17 +560,19 @@ if __name__ == '__main__':
     set_env()
     check_run_env()
     if project_name == "renren-fenqi-ams":
-        svn_update()
-        maven_project()
-        ams_config()
-        ams_unzip()
+        if not os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
+            svn_update()
+            maven_project()
+            ams_config()
+            ams_unzip()
         deploy()
     else:
-        svn_update()
-        maven_project()
-        update_static()
-        replace_static()
-        config()
+        if not os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env)):
+            svn_update()
+            maven_project()
+            update_static()
+            replace_static()
+            config()
         deploy()
 
 
