@@ -548,12 +548,12 @@ def deploy():
                 resin_online(proxy,host)
 
 if __name__ == '__main__':
+    check_script_para()
+    set_env()
+    check_run_env()
     if project_name == "renren-fenqi-ams":
         pass
     else:
-        check_script_para()
-        set_env()
-        check_run_env()
         #svn_update()
         #maven_project()
         #update_static()
