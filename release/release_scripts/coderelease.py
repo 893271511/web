@@ -385,8 +385,9 @@ def deploy():
             # shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
             # status,output = subprocess.getstatusoutput(shell_cmd)
             s = '"flag":true'
-            if s in response.read():
-                logg.info('%s 备份可用')
+            html = response.read().decode()
+            if s in html:
+                logg.info('备份可用' )
             else:
                 logg.error("备份可能不可用，因为调用接口失败")
                 #exit_script()
@@ -433,10 +434,10 @@ def deploy():
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.load_system_host_keys()
             ssh.connect(hostname=host,username='root',pkey=key,timeout=10)
-            # cmd = 'sh %s' %stop_cmd
-            # stdin,stdout,stderr=ssh.exec_command(cmd)
-            # print(stdout.read().decode())
-            # time.sleep(5)
+            cmd = 'sh %s' %stop_cmd
+            stdin,stdout,stderr=ssh.exec_command(cmd)
+            print(stdout.read().decode())
+            time.sleep(5)
             cmd = 'netstat -antlp |grep LIST |grep :%s' %port
             stdin,stdout,stderr = ssh.exec_command(cmd)
             stdout = stdout.read().decode()
@@ -449,16 +450,17 @@ def deploy():
                     stdout = stdout.read().decode()
                     for line in stdout.split('\n'):
                         if line.startswith('PPid:'):
+                            print(line)
                             PPID = line.split()[1]
                             print(type(PPID))
                             if PPID != '0' and PPID != '1':
-                                print(line)
                                 cmd = '/bin/kill -9 %s %s' %(PID,PPID)
-                                print(cmd)
+                                logg.info(cmd)
                                 stdin,stdout,stderr = ssh.exec_command(cmd)
-                        else:
-                            logger.error("未获取到ppid")
-                            exit_script()
+                            else:
+                                cmd = '/bin/kill -9 %s' %(PID)
+                                logg.info(cmd)
+                                stdin,stdout,stderr = ssh.exec_command(cmd)
                 else:
                     logg.error("pid获取错误 ")
                     exit_script()
