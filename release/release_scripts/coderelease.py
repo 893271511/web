@@ -351,7 +351,7 @@ def config():
         os.system('rm -rf %s/%s_%s_%s' %(project_bak,project_name,ver,i))
         time.sleep(3)
         if os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,i)):
-            logg.error('%s/%s_%s_%s 删除失败' %(project_bak,project_name,ver,i))
+            logg.error('%s/%s_%s_%s 删除失败，请检查原因' %(project_bak,project_name,ver,i))
             exit_script()
         else:
             try:
@@ -373,6 +373,18 @@ def api(host,port):
         return False
 
 
+def nginx_reload(proxy,host):
+    #proxy = proxy
+    #host = host
+    shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
+    status,output = subprocess.getstatusoutput(shell_cmd)
+    if status == 0:
+        logg.info("proxy %s nginx reload 成功" %(proxy))
+    else:
+        logg.error("proxy %s nginx reload 失败，请检查" %(proxy))
+        logg.error(output)
+        exit_script()
+
 def resin_offline(proxy,host):
     '''real server offline'''
     shell_cmd = 'ssh %s "cp -f %s /tmp/nginx.conf.%s"' %(proxy,nginx_conf,timestamp)
@@ -386,9 +398,12 @@ def resin_offline(proxy,host):
         logg.info("%s nginx配置中%s已标记为down" %(proxy,host))
         logg.info(output)
     else:
-        logg.error("%s nginx配置中%s未发现标记为down" %(proxy,host))
+        logg.error("%s nginx配置中%s未发现标记为down，请检查" %(proxy,host))
         logg.error(output)
         exit_script()
+    nginx_reload(proxy,host)
+
+
 
 def resin_online(proxy,host):
     '''real server online'''
@@ -403,18 +418,10 @@ def resin_online(proxy,host):
         logg.info("%s nginx配置中%s已取消down" %(proxy,host))
         logg.info(output)
     else:
-        logg.error("%s nginx配置中%s仍标记为down" %(proxy,host))
+        logg.error("%s nginx配置中%s仍标记为down，请检查" %(proxy,host))
         logg.error(output)
         exit_script()
-
-    shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
-    status,output = subprocess.getstatusoutput(shell_cmd)
-    if status == 0:
-        logg.info("proxy %s 下线%s成功" %(proxy,host))
-    else:
-        logg.error("proxy %s 下线%s失败" %(proxy,host))
-        logg.error(output)
-        exit_script()
+    nginx_reload(proxy,host)
 
 
 def deploy():
@@ -431,13 +438,13 @@ def deploy():
             logg.info('同步项目成功')
         else:
             logg.error(output2)
-            logg.error('同步项目失败')
+            logg.error('同步项目失败，请检查')
             exit_script()
         if env == "production":
             if api(host,port):
                 logg.info("api调用成功")
             else:
-                logg.error("api调用失败")
+                logg.error("api调用失败，请检查")
                 exit_script()
 
 
@@ -448,7 +455,7 @@ def deploy():
                 logg.info('备份项目成功')
             else:
                 logg.error(output2)
-                logg.error('备份项目失败')
+                logg.error('备份项目失败，请检查')
                 exit_script()
 
             for proxy in proxys:
@@ -486,7 +493,7 @@ def deploy():
                                 logg.info(cmd)
                                 stdin,stdout,stderr = ssh.exec_command(cmd)
                 else:
-                    logg.error("pid获取错误 ")
+                    logg.error("pid获取错误，请检查")
                     exit_script()
             else:
                 logg.info("resin 停止成功")
@@ -502,7 +509,7 @@ def deploy():
             if stderr == ""  or stderr == None:
                 logg.info('替换项目完成')
             else:
-                logg.error('替换项目失败')
+                logg.error('替换项目失败，请检查')
                 exit_script()
 
             cmd = 'sh %s' %start_cmd
@@ -516,13 +523,13 @@ def deploy():
             if p.match(stdout) != None:
                 logg.info("resin port 监听")
             else:
-                logg.error("resin port 未监听")
+                logg.error("resin port 未监听，请检查")
                 exit_script()
 
             if api(host,port):
                 logg.info("api调用成功")
             else:
-                logg.error("api调用失败")
+                logg.error("api调用失败，请检查")
                 exit_script()
 
             ssh.close()

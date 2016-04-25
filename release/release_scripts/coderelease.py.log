@@ -34163,3 +34163,152 @@ EOF in transport thread
 10.2.52.13 nginx配置中10.2.52.13已标记为down
         server 10.2.52.13:9000 down down down;
         server 10.2.52.13:9000 down down down;
+共1台，第1台：10.2.52.13
+同步项目成功
+api调用成功
+备份项目成功
+10.2.52.13 nginx配置中10.2.52.13已标记为down
+        server 10.2.52.13:9000 down down down down;
+        server 10.2.52.13:9000 down down down down;
+starting thread (client mode): 0x235d71d0
+Local version/idstring: SSH-2.0-paramiko_1.16.0
+Remote version/idstring: SSH-2.0-OpenSSH_5.3
+Connected (version 2.0, client OpenSSH_5.3)
+kex algos:['diffie-hellman-group-exchange-sha256', 'diffie-hellman-group-exchange-sha1', 'diffie-hellman-group14-sha1', 'diffie-hellman-group1-sha1'] server key:['ssh-rsa', 'ssh-dss'] client encrypt:['aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'arcfour256', 'arcfour128', 'aes128-cbc', '3des-cbc', 'blowfish-cbc', 'cast128-cbc', 'aes192-cbc', 'aes256-cbc', 'arcfour', 'rijndael-cbc@lysator.liu.se'] server encrypt:['aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'arcfour256', 'arcfour128', 'aes128-cbc', '3des-cbc', 'blowfish-cbc', 'cast128-cbc', 'aes192-cbc', 'aes256-cbc', 'arcfour', 'rijndael-cbc@lysator.liu.se'] client mac:['hmac-md5', 'hmac-sha1', 'umac-64@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-ripemd160', 'hmac-ripemd160@openssh.com', 'hmac-sha1-96', 'hmac-md5-96'] server mac:['hmac-md5', 'hmac-sha1', 'umac-64@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-ripemd160', 'hmac-ripemd160@openssh.com', 'hmac-sha1-96', 'hmac-md5-96'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+Kex agreed: diffie-hellman-group1-sha1
+Cipher agreed: aes128-ctr
+MAC agreed: hmac-sha2-256
+Compression agreed: none
+kex engine KexGroup1 specified hash_algo <built-in function openssl_sha1>
+Switch to new keys ...
+Trying SSH key b'75dd20825ea5a2cd1db6d81ac0f1b849'
+userauth is OK
+Authentication (publickey) successful!
+[chan 0] Max packet in: 32768 bytes
+[chan 0] Max packet out: 32768 bytes
+Secsh channel 0 opened.
+[chan 0] Sesch channel 0 request ok
+[chan 0] EOF received (0)
+[chan 0] EOF sent (0)
+[chan 1] Max packet in: 32768 bytes
+[chan 1] Max packet out: 32768 bytes
+Secsh channel 1 opened.
+[chan 1] Sesch channel 1 request ok
+[chan 1] EOF received (1)
+[chan 1] EOF sent (1)
+resin 停止成功
+[chan 2] Max packet in: 32768 bytes
+[chan 2] Max packet out: 32768 bytes
+Secsh channel 2 opened.
+[chan 2] Sesch channel 2 request ok
+[chan 3] Max packet in: 32768 bytes
+[chan 3] Max packet out: 32768 bytes
+Secsh channel 3 opened.
+[chan 3] Sesch channel 3 request ok
+[chan 2] EOF sent (2)
+[chan 4] Max packet in: 32768 bytes
+Ignoring message for dead channel 2
+Ignoring message for dead channel 2
+Ignoring message for dead channel 2
+[chan 4] Max packet out: 32768 bytes
+Secsh channel 4 opened.
+[chan 4] Sesch channel 4 request ok
+[chan 3] EOF sent (3)
+[chan 4] EOF received (4)
+[chan 4] EOF sent (4)
+替换项目完成
+[chan 5] Max packet in: 32768 bytes
+[chan 5] Max packet out: 32768 bytes
+Secsh channel 5 opened.
+[chan 5] Sesch channel 5 request ok
+Ignoring message for dead channel 3
+Ignoring message for dead channel 3
+[chan 5] EOF received (5)
+[chan 5] EOF sent (5)
+[chan 6] Max packet in: 32768 bytes
+[chan 6] Max packet out: 32768 bytes
+Secsh channel 6 opened.
+[chan 6] Sesch channel 6 request ok
+[chan 6] EOF received (6)
+resin port 监听
+[chan 6] EOF sent (6)
+api调用成功
+EOF in transport thread
+10.2.52.13 nginx配置中10.2.52.13已取消down
+        server 10.2.52.13:9000;
+        server 10.2.52.13:9000;
+proxy 10.2.52.13 下线10.2.52.13成功
+共1台，第1台：10.2.52.13
+同步项目成功
+api调用成功
+备份项目成功
+10.2.52.13 nginx配置中10.2.52.13已标记为down
+        server 10.2.52.13:9000 down;
+        server 10.2.52.13:9000 down;
+starting thread (client mode): 0xb52f01d0
+Local version/idstring: SSH-2.0-paramiko_1.16.0
+Remote version/idstring: SSH-2.0-OpenSSH_5.3
+Connected (version 2.0, client OpenSSH_5.3)
+kex algos:['diffie-hellman-group-exchange-sha256', 'diffie-hellman-group-exchange-sha1', 'diffie-hellman-group14-sha1', 'diffie-hellman-group1-sha1'] server key:['ssh-rsa', 'ssh-dss'] client encrypt:['aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'arcfour256', 'arcfour128', 'aes128-cbc', '3des-cbc', 'blowfish-cbc', 'cast128-cbc', 'aes192-cbc', 'aes256-cbc', 'arcfour', 'rijndael-cbc@lysator.liu.se'] server encrypt:['aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'arcfour256', 'arcfour128', 'aes128-cbc', '3des-cbc', 'blowfish-cbc', 'cast128-cbc', 'aes192-cbc', 'aes256-cbc', 'arcfour', 'rijndael-cbc@lysator.liu.se'] client mac:['hmac-md5', 'hmac-sha1', 'umac-64@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-ripemd160', 'hmac-ripemd160@openssh.com', 'hmac-sha1-96', 'hmac-md5-96'] server mac:['hmac-md5', 'hmac-sha1', 'umac-64@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-ripemd160', 'hmac-ripemd160@openssh.com', 'hmac-sha1-96', 'hmac-md5-96'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+Kex agreed: diffie-hellman-group1-sha1
+Cipher agreed: aes128-ctr
+MAC agreed: hmac-sha2-256
+Compression agreed: none
+kex engine KexGroup1 specified hash_algo <built-in function openssl_sha1>
+Switch to new keys ...
+Trying SSH key b'75dd20825ea5a2cd1db6d81ac0f1b849'
+userauth is OK
+Authentication (publickey) successful!
+[chan 0] Max packet in: 32768 bytes
+[chan 0] Max packet out: 32768 bytes
+Secsh channel 0 opened.
+[chan 0] Sesch channel 0 request ok
+[chan 0] EOF received (0)
+[chan 0] EOF sent (0)
+[chan 1] Max packet in: 32768 bytes
+[chan 1] Max packet out: 32768 bytes
+Secsh channel 1 opened.
+[chan 1] Sesch channel 1 request ok
+[chan 1] EOF received (1)
+[chan 1] EOF sent (1)
+resin 停止成功
+[chan 2] Max packet in: 32768 bytes
+[chan 2] Max packet out: 32768 bytes
+Secsh channel 2 opened.
+[chan 2] Sesch channel 2 request ok
+[chan 3] Max packet in: 32768 bytes
+[chan 3] Max packet out: 32768 bytes
+Secsh channel 3 opened.
+[chan 3] Sesch channel 3 request ok
+[chan 2] EOF sent (2)
+[chan 4] Max packet in: 32768 bytes
+Ignoring message for dead channel 2
+Ignoring message for dead channel 2
+Ignoring message for dead channel 2
+[chan 4] Max packet out: 32768 bytes
+Secsh channel 4 opened.
+[chan 4] Sesch channel 4 request ok
+[chan 3] EOF received (3)
+[chan 3] EOF sent (3)
+[chan 4] EOF received (4)
+[chan 4] EOF sent (4)
+替换项目完成
+[chan 5] Max packet in: 32768 bytes
+[chan 5] Max packet out: 32768 bytes
+Secsh channel 5 opened.
+[chan 5] Sesch channel 5 request ok
+[chan 5] EOF received (5)
+[chan 5] EOF sent (5)
+[chan 6] Max packet in: 32768 bytes
+[chan 6] Max packet out: 32768 bytes
+Secsh channel 6 opened.
+[chan 6] Sesch channel 6 request ok
+[chan 6] EOF received (6)
+[chan 6] EOF sent (6)
+resin port 监听
+api调用成功
+EOF in transport thread
+10.2.52.13 nginx配置中10.2.52.13已取消down
+        server 10.2.52.13:9000;
+        server 10.2.52.13:9000;
+proxy 10.2.52.13 下线10.2.52.13成功
