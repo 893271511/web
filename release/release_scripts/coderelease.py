@@ -450,102 +450,99 @@ def deploy():
             logg.error(output2)
             logg.error('同步项目失败，请检查')
             exit_script()
-        if env == "production":
-            if api(host,port):
-                logg.info("api调用成功")
-            else:
-                logg.error("api调用失败，请检查")
-                exit_script()
-
-
-
-            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,target,project_name,project_bak,host)
-            status3,output3 = subprocess.getstatusoutput(shell_cmd3)
-            if status3 == 0:
-                logg.info('备份项目成功')
-            else:
-                logg.error(output2)
-                logg.error('备份项目失败，请检查')
-                exit_script()
-
-            for proxy in proxys:
-                resin_offline(proxy,host)
-
-            key = paramiko.RSAKey.from_private_key_file("/root/.ssh/id_rsa")
-            ssh = paramiko.SSHClient()
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.load_system_host_keys()
-            ssh.connect(hostname=host,username='root',pkey=key,timeout=10)
-            cmd = 'sh %s' %stop_cmd
-            stdin,stdout,stderr=ssh.exec_command(cmd)
-            time.sleep(5)
-            cmd = 'netstat -antlp |grep LIST |grep :%s' %port
-            stdin,stdout,stderr = ssh.exec_command(cmd)
-            stdout = stdout.read().decode()
-            p = re.compile('^tcp.*java')
-            if p.match(stdout) != None:
-                PID = stdout.split()[6].split('/')[0]
-                print(PID)
-                if str.isdigit(PID):
-                    stdin,stdout,stderr = ssh.exec_command("cat /proc/%s/status" %PID)
-                    stdout = stdout.read().decode()
-                    for line in stdout.split('\n'):
-                        if line.startswith('PPid:'):
-                            print(line)
-                            PPID = line.split()[1]
-                            print(type(PPID))
-                            if PPID != '0' and PPID != '1':
-                                cmd = '/bin/kill -9 %s %s' %(PID,PPID)
-                                logg.info(cmd)
-                                stdin,stdout,stderr = ssh.exec_command(cmd)
-                            else:
-                                cmd = '/bin/kill -9 %s' %(PID)
-                                logg.info(cmd)
-                                stdin,stdout,stderr = ssh.exec_command(cmd)
+        if host != '10.4.37.233':
+            if env == "production":
+                if api(host,port):
+                    logg.info("api调用成功")
                 else:
-                    logg.error("pid获取错误，请检查")
+                    logg.error("api调用失败，请检查")
                     exit_script()
-            else:
-                logg.info("resin 停止成功")
+                shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,target,project_name,project_bak,host)
+                status3,output3 = subprocess.getstatusoutput(shell_cmd3)
+                if status3 == 0:
+                    logg.info('备份项目成功')
+                else:
+                    logg.error(output2)
+                    logg.error('备份项目失败，请检查')
+                    exit_script()
+                for proxy in proxys:
+                    resin_offline(proxy,host)
 
-            cmd = 'mv %s/%s %s/%s_%s' %(target,project_name,project_bak,project_name,timestamp)
-            stdin,stdout,stderr = ssh.exec_command(cmd)
-            cmd = 'rm -rf %s/%s' %(target,project_name)
-            stdin,stdout,stderr = ssh.exec_command(cmd)
-
-            cmd = 'mv %s/%s_%s_%s %s/%s' %(project_bak,project_name,ver,env,target,project_name)
-            stdin,stdout,stderr = ssh.exec_command(cmd)
-            stderr = stderr.read().decode()
-            if stderr == ""  or stderr == None:
-                logg.info('替换项目完成')
+        key = paramiko.RSAKey.from_private_key_file("/root/.ssh/id_rsa")
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.load_system_host_keys()
+        ssh.connect(hostname=host,username='root',pkey=key,timeout=10)
+        cmd = 'sh %s' %stop_cmd
+        stdin,stdout,stderr=ssh.exec_command(cmd)
+        time.sleep(5)
+        cmd = 'netstat -antlp |grep LIST |grep :%s' %port
+        stdin,stdout,stderr = ssh.exec_command(cmd)
+        stdout = stdout.read().decode()
+        p = re.compile('^tcp.*java')
+        if p.match(stdout) != None:
+            PID = stdout.split()[6].split('/')[0]
+            print(PID)
+            if str.isdigit(PID):
+                stdin,stdout,stderr = ssh.exec_command("cat /proc/%s/status" %PID)
+                stdout = stdout.read().decode()
+                for line in stdout.split('\n'):
+                    if line.startswith('PPid:'):
+                        print(line)
+                        PPID = line.split()[1]
+                        print(type(PPID))
+                        if PPID != '0' and PPID != '1':
+                            cmd = '/bin/kill -9 %s %s' %(PID,PPID)
+                            logg.info(cmd)
+                            stdin,stdout,stderr = ssh.exec_command(cmd)
+                        else:
+                            cmd = '/bin/kill -9 %s' %(PID)
+                            logg.info(cmd)
+                            stdin,stdout,stderr = ssh.exec_command(cmd)
             else:
-                logg.error('替换项目失败，请检查')
+                logg.error("pid获取错误，请检查")
                 exit_script()
+        else:
+            logg.info("resin 停止成功")
 
-            cmd = 'sh %s' %start_cmd
-            stdin,stdout,stderr=ssh.exec_command(cmd)
-            time.sleep(5)
+        cmd = 'mv %s/%s %s/%s_%s' %(target,project_name,project_bak,project_name,timestamp)
+        stdin,stdout,stderr = ssh.exec_command(cmd)
+        cmd = 'rm -rf %s/%s' %(target,project_name)
+        stdin,stdout,stderr = ssh.exec_command(cmd)
 
-            cmd = 'netstat -antlp |grep LIST |grep :%s' %port
-            stdin,stdout,stderr = ssh.exec_command(cmd)
-            stdout = stdout.read().decode()
-            p = re.compile('^tcp.*java')
-            if p.match(stdout) != None:
-                logg.info("resin port 监听")
-            else:
-                logg.error("resin port 未监听，请检查")
-                exit_script()
+        cmd = 'mv %s/%s_%s_%s %s/%s' %(project_bak,project_name,ver,env,target,project_name)
+        stdin,stdout,stderr = ssh.exec_command(cmd)
+        stderr = stderr.read().decode()
+        if stderr == ""  or stderr == None:
+            logg.info('替换项目完成')
+        else:
+            logg.error('替换项目失败，请检查')
+            exit_script()
 
-            if api(host,port):
-                logg.info("api调用成功")
-            else:
-                logg.error("api调用失败，请检查")
-                exit_script()
+        cmd = 'sh %s' %start_cmd
+        stdin,stdout,stderr=ssh.exec_command(cmd)
+        time.sleep(5)
 
-            ssh.close()
+        cmd = 'netstat -antlp |grep LIST |grep :%s' %port
+        stdin,stdout,stderr = ssh.exec_command(cmd)
+        stdout = stdout.read().decode()
+        p = re.compile('^tcp.*java')
+        if p.match(stdout) != None:
+            logg.info("resin port 监听")
+        else:
+            logg.error("resin port 未监听，请检查")
+            exit_script()
 
-            for proxy in proxys:
-                resin_online(proxy,host)
+        if api(host,port):
+            logg.info("api调用成功")
+        else:
+            logg.error("api调用失败，请检查")
+            exit_script()
+        ssh.close()
+        if host != '10.4.37.233':
+            if env == "production":
+                for proxy in proxys:
+                    resin_online(proxy,host)
 
 if __name__ == '__main__':
     check_script_para()
