@@ -362,6 +362,15 @@ def config():
 
     logg.info("结束配置项目 \n")
 
+def api(host,port):
+    response = urllib.request.urlopen('http://%s:%s/api/system/check' %(host,port),timeout=10)
+    s = '"flag":true'
+    html = response.read().decode()
+    if s in html:
+        return True
+    else:
+        return False
+
 
 def deploy():
     i = 0
@@ -380,17 +389,13 @@ def deploy():
             logg.error('同步项目失败')
             exit_script()
         if env == "production":
-            response = urllib.request.urlopen('http://10.4.30.145:9000/api/system/check',timeout=10)
-            #response = urllib.request.urlopen('http://%s:%s/api/system/check' %(host,port),timeout=10)
-            # shell_cmd = 'curl http://%s:%s/api/system/check 2>/dev/null' %(host,port)
-            # status,output = subprocess.getstatusoutput(shell_cmd)
-            s = '"flag":true'
-            html = response.read().decode()
-            if s in html:
-                logg.info('备份可用' )
+            if api(host,port):
+                logg.info("api调用成功")
             else:
-                logg.error("备份可能不可用，因为调用接口失败")
+                logg.error("api调用失败")
                 #exit_script()
+
+
 
             shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,target,project_name,project_bak,host)
             status3,output3 = subprocess.getstatusoutput(shell_cmd3)
@@ -436,7 +441,6 @@ def deploy():
             ssh.connect(hostname=host,username='root',pkey=key,timeout=10)
             cmd = 'sh %s' %stop_cmd
             stdin,stdout,stderr=ssh.exec_command(cmd)
-            print(stdout.read().decode())
             time.sleep(5)
             cmd = 'netstat -antlp |grep LIST |grep :%s' %port
             stdin,stdout,stderr = ssh.exec_command(cmd)
@@ -467,7 +471,28 @@ def deploy():
             else:
                 logg.info("resin 停止成功")
 
+
+
+            cmd = 'mv %s/%s %s/%s_%s' %(target,project_name,project_bak,project_name,timestamp)
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+            cmd = 'rm -rf %s/%s' %(target,project_name)
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+
+            cmd = 'mv %s/%s_%s_%s %s/%s' %(project_bak,project_name,ver,env,target,project_name)
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+            stderr = stderr.read().decode()
+            if stderr == ""  or stderr == None:
+                logg.info('替换项目完成')
+            else:
+                logg.error('替换项目失败')
+                exit_script()
+
+            cmd = 'sh %s' %start_cmd
+            stdin,stdout,stderr=ssh.exec_command(cmd)
+            time.sleep(5)
+
             ssh.close()
+
 
 
 
