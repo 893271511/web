@@ -374,8 +374,6 @@ def api(host,port):
 
 
 def nginx_reload(proxy,host):
-    #proxy = proxy
-    #host = host
     shell_cmd = 'ssh %s "/data/web/nginx/sbin/nginx -s reload"' %(proxy)
     status,output = subprocess.getstatusoutput(shell_cmd)
     if status == 0:
