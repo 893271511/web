@@ -474,8 +474,6 @@ def deploy():
             else:
                 logg.info("resin 停止成功")
 
-
-
             cmd = 'mv %s/%s %s/%s_%s' %(target,project_name,project_bak,project_name,timestamp)
             stdin,stdout,stderr = ssh.exec_command(cmd)
             cmd = 'rm -rf %s/%s' %(target,project_name)
@@ -494,6 +492,16 @@ def deploy():
             stdin,stdout,stderr=ssh.exec_command(cmd)
             time.sleep(5)
 
+            cmd = 'netstat -antlp |grep LIST |grep :%s' %port
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+            stdout = stdout.read().decode()
+            p = re.compile('^tcp.*java')
+            if p.match(stdout) != None:
+                logg.info("resin port 监听")
+            else:
+                logg.error("resin port 未监听")
+                exit_script()
+
             if api(host,port):
                 logg.info("api调用成功")
             else:
@@ -501,20 +509,6 @@ def deploy():
                 #exit_script()
 
             ssh.close()
-
-
-
-
-            #       if ssh $host "netstat -antlp |grep LIST |grep :${port}";then
-            # TCP=`ssh $host "netstat -antlp |grep LIST |grep :${port}"`
-            # PID=`echo $TCP |awk '{print $7}' |awk -F/ '{print $1}'`
-            # ssh $host "/bin/kill -9 $PID"
-            # sleep 1
-            # if ssh $host "netstat -antlp |grep LIST |grep :${port}";then
-            #             echo "${host} resin stop error" |tee -a ${log_file}
-            #             exit 1
-
-
 
 
 check_script_para()
