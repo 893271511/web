@@ -547,14 +547,18 @@ def deploy():
             for proxy in proxys:
                 resin_online(proxy,host)
 
-check_script_para()
-set_env()
-check_run_env()
-#svn_update()
-#maven_project()
-#update_static()
-#replace_static()
-#config()
-deploy()
+if __name__ == '__main__':
+    if project_name == "renren-fenqi-ams":
+        pass
+    else:
+        check_script_para()
+        set_env()
+        check_run_env()
+        #svn_update()
+        #maven_project()
+        #update_static()
+        #replace_static()
+        #config()
+        deploy()
 
 
