@@ -357,11 +357,11 @@ def config():
             if i == 'production':
                 os.remove(project_war_ver_env_xml_file)
                 if os.path.exists(project_war_ver_env_xml_file):
-                    logg.error('生产环境项目发现applicationContext_test.xml配置文件，请检查')
+                    logg.error('%s环境项目发现applicationContext_test.xml配置文件，请检查' %i)
                     exit_script()
             else:
                 if not os.path.exists(project_war_ver_env_xml_file):
-                    logg.error('测试环境项目没有发现applicationContext_test.xml配置文件，请检查')
+                    logg.error('%s环境项目没有发现applicationContext_test.xml配置文件，请检查' %i)
                     exit_script()
 
         os.system('rm -rf %s/%s_%s_%s' %(project_bak,project_name,ver,i))
