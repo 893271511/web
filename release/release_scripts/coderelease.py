@@ -472,7 +472,7 @@ def deploy():
                 project_path = '%s/ROOT' %(target)
                 project_bak_path = '%s/%s/%s_%s_%s_%s' %(project_bak,host,project_name,ver,env,instance)
             else:
-                project_path = '%s/%s' %(target)
+                project_path = '%s' %(target)
                 project_bak_path = '%s/%s/%s_%s_%s' %(project_bak,host,project_name,ver,env)
 
             status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak_path))
