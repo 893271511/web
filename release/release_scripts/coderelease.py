@@ -456,23 +456,22 @@ def deploy():
             exit_script()
 
         #发布到预发布和非生产的不做resin下线操作
-        if host != '10.4.37.233':
-            if env == "production":
-                if api(host,port):
-                    logg.info("api调用成功")
-                else:
-                    logg.error("api调用失败，请检查")
-                    exit_script()
-                shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,target,project_name,project_bak,host)
-                status3,output3 = subprocess.getstatusoutput(shell_cmd3)
-                if status3 == 0:
-                    logg.info('备份项目成功')
-                else:
-                    logg.error(output2)
-                    logg.error('备份项目失败，请检查')
-                    exit_script()
-                for proxy in proxys:
-                    resin_offline(proxy,host)
+        if env == "production":
+            if api(host,port):
+                logg.info("api调用成功")
+            else:
+                logg.error("api调用失败，请检查")
+                exit_script()
+            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,target,project_name,project_bak,host)
+            status3,output3 = subprocess.getstatusoutput(shell_cmd3)
+            if status3 == 0:
+                logg.info('备份项目成功')
+            else:
+                logg.error(output2)
+                logg.error('备份项目失败，请检查')
+                exit_script()
+            for proxy in proxys:
+                resin_offline(proxy,host)
 
         key = paramiko.RSAKey.from_private_key_file("/root/.ssh/id_rsa")
         ssh = paramiko.SSHClient()
@@ -547,10 +546,9 @@ def deploy():
         ssh.close()
 
         #发布到预发布和非生产的不做resin上线操作
-        if host != '10.4.37.233':
-            if env == "production":
-                for proxy in proxys:
-                    resin_online(proxy,host)
+        if env == "production":
+            for proxy in proxys:
+                resin_online(proxy,host)
 
 if __name__ == '__main__':
     check_script_para()
