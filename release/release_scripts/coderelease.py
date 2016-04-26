@@ -466,22 +466,28 @@ def deploy():
             else:
                 logg.error("api调用失败，请检查")
                 exit_script()
+
+            subprocess.getstatusoutput('test ! -d %s/%s && mkdir -pv %s/%s' %(project_bak,host,project_bak,host))
             if 'renren-fenqi-ams' in project_name:
                 project_path = '%s/ROOT' %(target)
                 project_bak_path = '%s/%s/%s_%s_%s_%s' %(project_bak,host,project_name,ver,env,instance)
-
             else:
                 project_path = '%s/%s' %(target)
                 project_bak_path = '%s/%s/%s_%s_%s' %(project_bak,host,project_name,ver,env)
 
             status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak_path))
-            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,project_path,project_bak_path)
-            status3,output3 = subprocess.getstatusoutput(shell_cmd3)
-            if status3 == 0:
-                logg.info('备份项目成功')
+            if os.path.exists(project_bak_path):
+                shell_cmd = 'rsync -acztrvl --delete %s:%s/%s %s' %(host,project_path,project_bak_path)
+                print(shell_cmd)
+                status,output = subprocess.getstatusoutput(shell_cmd)
+                if status == 0:
+                    logg.info('备份项目成功')
+                else:
+                    logg.error(output)
+                    logg.error('备份项目失败，请检查')
+                    exit_script()
             else:
-                logg.error(output2)
-                logg.error('备份项目失败，请检查')
+                logg.error("上次备份删除失败")
                 exit_script()
             for proxy in proxys:
                 resin_offline(proxy,host)
