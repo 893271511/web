@@ -79,6 +79,8 @@ def Release(request):
         if server != None:
             if env == "test":
                 SERVER = Project.objects.get(name=project).test_env.all()
+            elif env == "staging":
+                SERVER = Project.objects.get(name=project).staging_env.all()
             else:
                 SERVER = Project.objects.get(name=project).production_env.all()
             for i in SERVER:

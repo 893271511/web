@@ -55,18 +55,12 @@ def check_script_para():
         cu.execute('select name FROM release_project')
         PROJECTS = cu.fetchall()
 
-        if env == 'test':
-            select_sql = '''select release_host.ip
-                    from release_project,release_project_test_env,release_host
-                    where release_project.id=release_project_test_env.project_id
-                    and release_project_test_env.host_id=release_host.id
-                    and release_project.name="%s"''' % project_name
-        else:
-            select_sql = '''select release_host.ip
-                    from release_project,release_project_production_env,release_host
-                    where release_project.id=release_project_production_env.project_id
-                    and release_project_production_env.host_id=release_host.id
-                    and release_project.name="%s"''' % project_name
+        select_sql = '''select release_host.ip
+                from release_project,release_project_%s_env,release_host
+                where release_project.id=release_project_%s_env.project_id
+                and release_project_%s_env.host_id=release_host.id
+                and release_project.name="%s"''' % (env,env,env,project_name)
+        print(select_sql)
         cu.execute(select_sql)
         SERVERS = cu.fetchall()
 
@@ -100,7 +94,7 @@ def check_script_para():
             print("版本号应该为数字")
             quit()
 
-        if env not in ['test','production']:
+        if env not in ['test','staging','production']:
             print("此环境不存")
             quit()
 
