@@ -94,8 +94,12 @@ def Release(request):
         url = request.get_full_path()
         request.breadcrumbs([(("项目发布"),'/release/'),
                              (("单服务器发布"),'/onerelease/'),
+                             (('回滚代码'),'###'),
+                             (('下载代码'),'#####'),
+                             (('增量发布'),'######'),
                              (('发布版本查询'),'#'),
                              (('项目端口查询'),'##'),
+                             (('项目日志查看'),'#######'),
                              ])
         if request.GET.get('env') == 'production':
             env_en = 'production'
