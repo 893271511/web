@@ -563,9 +563,10 @@ if __name__ == '__main__':
     if project_name == "renren-fenqi-ams":
         if env == 'production':
             if os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
+                logg.info("项目已打包，直接发布！")
                 deploy()
             else:
-                logger.error('请先做预发布')
+                logg.error('请先做预发布')
                 exit_script()
         else:
             if not os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
@@ -579,9 +580,10 @@ if __name__ == '__main__':
     else:
         if env == 'production':
             if os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env)):
+                logg.info("项目已打包，直接发布！")
                 deploy()
             else:
-                logger.error('请先做预发布')
+                logg.error('请先做预发布')
                 exit_script()
         else:
             if not os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env)):
