@@ -328,9 +328,7 @@ def config():
         logg.error(e)
         exit_script()
 
-    if project_name == 'renren-licai-credit-manager':
-        pass
-    else:
+    if project_name != 'renren-licai-credit-manager':
         project_war_ver_xml_file = '%s/WEB-INF/classes/applicationContext_test.xml' %project_war_ver
         if not os.path.exists(project_war_ver_xml_file):
             logg.error('没有发现applicationContext_test.xml配置文件，请添加！')
