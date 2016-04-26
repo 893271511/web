@@ -142,10 +142,9 @@ def check_script_para():
                 logg.error(i + " 值不能为空")
 
         if "renren-fenqi-ams" in project_name:
-            project_name = project_name.split('.')[0]
             global instance
-            instance = project_name.split('.')[1]
-
+            instance = project_name.split('.')[0]
+            project_name = project_name.split('.')[0]
 
     else:
         print("参数错误")
@@ -558,7 +557,7 @@ if __name__ == '__main__':
     set_env()
     check_run_env()
     if project_name == "renren-fenqi-ams":
-        if not os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
+        if not os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
             svn_update()
             maven_project()
             ams_config()
