@@ -118,9 +118,12 @@ def Release(request):
 def Switch(request):
     # 当提交表单时
     if request.POST.get("env") == "test":
+        env_en = 'staging'
+        env_cn = '预发布'
+    elif request.POST.get("env") == "staging":
         env_en = 'production'
         env_cn = '生产'
-    else:
+    elif request.POST.get("env") == "production":
         env_en = 'test'
         env_cn = '测试'
     return JsonResponse({'env_en': env_en, 'env_cn': env_cn})
@@ -132,6 +135,8 @@ def SelectProject(request):
     project = request.POST.get("project")
     if request.POST.get("env") == "test":
         SERVER = Project.objects.get(name=project).test_env.all()
+    elif request.POST.get("env") == "staging":
+        SERVER = Project.objects.get(name=project).staging_env.all()
     else:
         SERVER = Project.objects.get(name=project).production_env.all()
     for i in SERVER:
