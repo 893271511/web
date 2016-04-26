@@ -60,7 +60,6 @@ def check_script_para():
                 where release_project.id=release_project_%s_env.project_id
                 and release_project_%s_env.host_id=release_host.id
                 and release_project.name="%s"''' % (env,env,env,project_name)
-        print(select_sql)
         cu.execute(select_sql)
         SERVERS = cu.fetchall()
 
@@ -287,16 +286,23 @@ def ams_config():
     project_war_ver = '%s/%s/target/%s_%s' %(svn_path,project_name,project_name,ver)
     os.system('cp -Rf %s %s_%s' %(project_war,project_war,ver))
     for i in ['28080','29080']:
-        for j in ['test','production']:
+        for j in ['test','staging','production']:
             project_war_ver_env_port = '%s_%s_%s_%s' %(project_war,ver,j,i)
             web_xml = '%s/WEB-INF/web.xml' %(project_war_ver_env_port)
             applicationContext_xml = '%s/WEB-INF/classes/applicationContext.xml' %project_war_ver_env_port
             os.system('cp -Rf %s %s' %(project_war_ver,project_war_ver_env_port))
-            os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1%s\3/g' %s" %(j,web_xml))
-            status,output = subprocess.getstatusoutput('grep -E "<param-value>%s</param-value>" %s' %(j,web_xml))
-            if status != 0:
-                logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
-                exit_script()
+            if j == 'production' or j == 'staging':
+                os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1production\3/g' %s" %web_xml)
+                status,output = subprocess.getstatusoutput('grep -E "<param-value>production</param-value>" %s' %web_xml)
+                if status != 0:
+                    logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
+                    exit_script()
+            else:
+                os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1%s\3/g' %s" %(j,web_xml))
+                status,output = subprocess.getstatusoutput('grep -E "<param-value>%s</param-value>" %s' %(j,web_xml))
+                if status != 0:
+                    logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
+                    exit_script()
 
             if i == '28080':
                 ii = 29080
@@ -521,6 +527,7 @@ def deploy():
         if stderr == ""  or stderr == None:
             logg.info('替换项目完成')
         else:
+            logg.error(stderr)
             logg.error('替换项目失败，请检查')
             exit_script()
 
