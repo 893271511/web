@@ -336,7 +336,7 @@ def config():
             logg.error('没有发现applicationContext_test.xml配置文件，请添加！')
             exit_script()
 
-    for i in ['test','production']:
+    for i in ['test','staging','production']:
         try:
             shutil.copytree(project_war_ver,'%s_%s' %(project_war_ver,i))
         except Exception as e:
@@ -349,12 +349,18 @@ def config():
         if project_name == 'renren-licai-credit-manager':
             project_war_ver_env_port = '%s_%s_%s_%s' %(project_war,ver,i)
             web_xml = '%s/WEB-INF/web.xml' %(project_war_ver_env_port)
-            os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1%s\3/g' %s" %(i,web_xml))
-            status,output = subprocess.getstatusoutput('grep -E "<param-value>%s</param-value>" %s' %(i,web_xml))
-            if status != 0:
-                logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
+            if i == 'production' or i == 'staging':
+                os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1production\3/g' %s" %web_xml)
+                status,output = subprocess.getstatusoutput('grep -E "<param-value>production</param-value>" %s' %(web_xml))
+                if status != 0:
+                    logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
+            else:
+                os.system("sed -r -i 's/(<param-value>)(development|test|production)(<\/param-value>)/\1test\3/g' %s" %(web_xml))
+                status,output = subprocess.getstatusoutput('grep -E "<param-value>test</param-value>" %s' %(web_xml))
+                if status != 0:
+                    logg.error("项目的web.xml配置文件修改错误：%s" %web_xml)
         else:
-            if i == 'production':
+            if i == 'production' or i == 'staging':
                 os.remove(project_war_ver_env_xml_file)
                 if os.path.exists(project_war_ver_env_xml_file):
                     logg.error('%s环境项目发现applicationContext_test.xml配置文件，请检查' %i)
@@ -555,23 +561,37 @@ if __name__ == '__main__':
     set_env()
     check_run_env()
     if project_name == "renren-fenqi-ams":
-        if not os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
-            svn_update()
-            maven_project()
-            ams_config()
-            ams_unzip()
+        if env == 'production':
+            if os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
+                deploy()
+            else:
+                logger.error('请先做预发布')
+                exit_script()
         else:
-            logg.info("项目已打包，直接发布！")
-        deploy()
+            if not os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env,instance)):
+                svn_update()
+                maven_project()
+                ams_config()
+                ams_unzip()
+            else:
+                logg.info("项目已打包，直接发布！")
+            deploy()
     else:
-        if not os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env)):
-            svn_update()
-            maven_project()
-            update_static()
-            replace_static()
-            config()
+        if env == 'production':
+            if os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env)):
+                deploy()
+            else:
+                logger.error('请先做预发布')
+                exit_script()
         else:
-            logg.info("项目已打包，直接发布！")
-        deploy()
+            if not os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env)):
+                svn_update()
+                maven_project()
+                update_static()
+                replace_static()
+                config()
+            else:
+                logg.info("项目已打包，直接发布！")
+            deploy()
 
 
