@@ -477,7 +477,9 @@ def deploy():
 
             status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak_path))
             if not os.path.exists(project_bak_path):
-                shell_cmd = 'rsync -acztrvl --delete %s:%s %s' %(host,project_path,project_bak_path)
+                # shell_cmd = 'rsync -acztrvl --delete %s:%s %s' %(host,project_path,project_bak_path)
+                # print(shell_cmd)
+                shell_cmd = 'scp -r %s:%s %s' %(host,project_path,project_bak_path)
                 print(shell_cmd)
                 status,output = subprocess.getstatusoutput(shell_cmd)
                 if status == 0:
@@ -609,5 +611,3 @@ if __name__ == '__main__':
             else:
                 logg.info("项目已打包，直接发布！")
             deploy()
-
-
