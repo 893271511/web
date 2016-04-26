@@ -578,7 +578,7 @@ if __name__ == '__main__':
             deploy()
     else:
         if env == 'production':
-            if os.path.exists('%s/%s_%s_%s_%s' %(project_bak,project_name,ver,env)):
+            if os.path.exists('%s/%s_%s_%s' %(project_bak,project_name,ver,env)):
                 deploy()
             else:
                 logger.error('请先做预发布')
