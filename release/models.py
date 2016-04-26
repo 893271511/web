@@ -20,6 +20,7 @@ class Project(models.Model):
     repos = models.URLField(max_length=200,null=False,unique=True)
     test_env = models.ManyToManyField(Host, related_name='test_ip')
     production_env = models.ManyToManyField(Host, related_name='production_ip')
+    staging_env = models.ManyToManyField(Host, related_name='staging_ip')
     port = models.PositiveIntegerField(null=False)
     proxys = models.ManyToManyField(Host, related_name='proxy_ip')
     description = models.CharField(max_length=10)
