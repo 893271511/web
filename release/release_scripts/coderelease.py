@@ -466,7 +466,16 @@ def deploy():
             else:
                 logg.error("api调用失败，请检查")
                 exit_script()
-            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,target,project_name,project_bak,host)
+            if 'renren-fenqi-ams' in project_name:
+                project_path = '%s/ROOT' %(target)
+                project_bak_path = '%s/%s/%s_%s_%s_%s' %(project_bak,host,project_name,ver,env,instance)
+
+            else:
+                project_path = '%s/%s' %(target)
+                project_bak_path = '%s/%s/%s_%s_%s' %(project_bak,host,project_name,ver,env)
+
+            status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak_path))
+            shell_cmd3 = 'rsync -acztrvl --delete %s:%s/%s %s/%s/' %(host,project_path,project_bak_path)
             status3,output3 = subprocess.getstatusoutput(shell_cmd3)
             if status3 == 0:
                 logg.info('备份项目成功')
