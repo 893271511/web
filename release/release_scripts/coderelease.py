@@ -470,10 +470,10 @@ def deploy():
             subprocess.getstatusoutput('test ! -d %s/%s && mkdir -pv %s/%s' %(project_bak,host,project_bak,host))
             if 'renren-fenqi-ams' in project_name:
                 project_path = '%s/ROOT' %(target)
-                project_bak_path = '%s/%s/%s_%s_%s_%s' %(project_bak,host,project_name,instance)
+                project_bak_path = '%s/%s/%s_%s' %(project_bak,host,project_name,instance)
             else:
                 project_path = '%s/%s' %(target,project_name)
-                project_bak_path = '%s/%s/%s_%s_%s' %(project_bak,host,project_name)
+                project_bak_path = '%s/%s/%s' %(project_bak,host,project_name)
 
             status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak_path))
             if not os.path.exists(project_bak_path):
