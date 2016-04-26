@@ -476,7 +476,7 @@ def deploy():
                 project_bak_path = '%s/%s/%s_%s_%s' %(project_bak,host,project_name,ver,env)
 
             status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak_path))
-            if os.path.exists(project_bak_path):
+            if not os.path.exists(project_bak_path):
                 shell_cmd = 'rsync -acztrvl --delete %s:%s/%s %s' %(host,project_path,project_bak_path)
                 print(shell_cmd)
                 status,output = subprocess.getstatusoutput(shell_cmd)
