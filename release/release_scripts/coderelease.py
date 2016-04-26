@@ -21,8 +21,6 @@ logger.addHandler(file_handler)
 #logg.addHandler(console_handler)
 now = datetime.datetime.now()
 timestamp = now.strftime('%Y-%m-%d-%H-%M-%S')
-print(timestamp)
-
 
 class log():
     def info(slef,info):
