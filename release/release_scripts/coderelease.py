@@ -534,7 +534,7 @@ def deploy(*x):
             logg.info("resin 停止成功")
 
         cmd = 'mv %s %s/%s_%s' %(target,project_bak,project_name,timestamp)
-        print(cmd)
+        time.sleep(2)
         stdin,stdout,stderr = ssh.exec_command(cmd)
         cmd = 'rm -rf %s' %(target)
         stdin,stdout,stderr = ssh.exec_command(cmd)
