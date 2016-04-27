@@ -538,12 +538,12 @@ def deploy(*x):
         else:
             logg.info("resin 停止成功")
 
-        cmd = 'mv %s/%s %s/%s_%s' %(target,project_name,project_bak,project_name,timestamp)
+        cmd = 'mv %s %s/%s_%s' %(target,project_bak,target,timestamp)
         stdin,stdout,stderr = ssh.exec_command(cmd)
-        cmd = 'rm -rf %s/%s' %(target,project_name)
+        cmd = 'rm -rf %s/%s' %(target)
         stdin,stdout,stderr = ssh.exec_command(cmd)
 
-        cmd = 'mv %s/%s_%s_%s %s/%s' %(project_bak,project_name,ver,env,target,project_name)
+        cmd = 'mv %s/%s_%s_%s %s' %(project_bak,project_name,ver,env,target)
         print(cmd)
         stdin,stdout,stderr = ssh.exec_command(cmd)
         stderr = stderr.read().decode()
