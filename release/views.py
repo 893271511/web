@@ -71,6 +71,18 @@ def stream_response_generator(release_info):
 #         c = RequestContext(request, locals())
 #         return HttpResponse(t.render(c))
 
+breadcrumbs = [
+                 (("项目发布"),'/release/'),
+                 (("单服务器发布"),'/onerelease/'),
+                 (('回滚代码'),'/rollback/'),
+                 (('下载代码'),'#####'),
+                 (('增量发布'),'######'),
+                 (('发布历史查询'),'#'),
+                 (('项目端口查询'),'##'),
+                 (('项目日志查看'),'#######'),
+              ]
+
+
 @login_required
 def Release(request):
     # 当提交表单时
@@ -96,15 +108,7 @@ def Release(request):
 
     else:
         url = request.get_full_path()
-        request.breadcrumbs([(("项目发布"),'/release/'),
-                             (("单服务器发布"),'/onerelease/'),
-                             (('回滚代码'),'/rollback/'),
-                             (('下载代码'),'#####'),
-                             (('增量发布'),'######'),
-                             (('发布历史查询'),'#'),
-                             (('项目端口查询'),'##'),
-                             (('项目日志查看'),'#######'),
-                             ])
+        request.breadcrumbs(breadcrumbs)
         if request.GET.get('env') == 'production':
             env_en = 'production'
             env_cn = '生产'
@@ -149,15 +153,7 @@ def Rollback(request):
 
     else:
         url = request.get_full_path()
-        request.breadcrumbs([(("项目发布"),'/release/'),
-                             (("单服务器发布"),'/onerelease/'),
-                             (('回滚代码'),'/rollback/'),
-                             (('下载代码'),'#####'),
-                             (('增量发布'),'######'),
-                             (('发布历史查询'),'#'),
-                             (('项目端口查询'),'##'),
-                             (('项目日志查看'),'#######'),
-                             ])
+        request.breadcrumbs(breadcrumbs)
         if request.GET.get('env') == 'production':
             env_en = 'production'
             env_cn = '生产'
@@ -168,7 +164,7 @@ def Rollback(request):
             env_next = 'production'
 
 
-        form = RollbackForm()
+        form = GeneralForm()
         t = loader.get_template("rollback.html")
         c = RequestContext(request, locals())
         return HttpResponse(t.render(c))
