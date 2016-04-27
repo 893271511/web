@@ -118,11 +118,13 @@ def Release(request):
             env_cn = '测试'
             env_next = 'production'
 
+
         if url == "/onerelease/":
+            title = breadcrumbs[1][0]
             form = OneReleaseForm()
             t = loader.get_template("onerelease.html")
-            c = RequestContext(request, locals())
         else:
+            title = breadcrumbs[0][0]
             form = ReleaseForm()
             t = loader.get_template("release.html")
         c = RequestContext(request, locals())
@@ -163,7 +165,7 @@ def Rollback(request):
             env_cn = '测试'
             env_next = 'production'
 
-
+        title = breadcrumbs[2][0]
         form = GeneralForm()
         t = loader.get_template("rollback.html")
         c = RequestContext(request, locals())

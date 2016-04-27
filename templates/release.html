@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title %}运维系统{% endblock %}
-<h3>{% block headTitle %}发布项目{% endblock %}</h3>
+<h3>{% block headTitle %}{{ title }}{% endblock %}</h3>
 
 
 {% block content %}
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header">发布项目</h2>
+    <h2 class="page-header">{{ title }}</h2>
     <div class="table-responsive">
         <form id="form" enctype="multipart/form-data">
             {% csrf_token %}
