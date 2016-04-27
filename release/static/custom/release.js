@@ -230,7 +230,7 @@ function selectProject() {
             }
             var req; //定义变量，用来创建xmlhttprequest对象
             $("#result").empty();
-            $("#result").append("<div><textarea id='tx' style='width:100%;height:450px'></textarea></div>");
+            $("#result").append("<div><textarea id='tx' style='width:100%;border:0px;height:450px'></textarea></div>");
             var env = $("#id_env").val();
             var project =  $("#id_project").val();
             var version = $("#id_version").val();
