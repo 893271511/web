@@ -297,6 +297,7 @@ function selectProject() {
                     //alert("服务端返回状态3 " + req.readyState + req.responseText);
                     area.html(req.responseText);
                     //$("#result").append("<img src='/static/loading.gif'>")
+                    $("#result1").html("<img src='/static/loading.gif'>")
                     if(autoScroll(area)) {
                         area.scrollTop(area[0].scrollHeight);
                     }
