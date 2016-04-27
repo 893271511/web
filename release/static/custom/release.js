@@ -288,7 +288,6 @@ function selectProject() {
                     {
                         $("#result1").html(" ")
                         alert("失败" + req.readyState);
-
                     }
                 }
                 else //请求状态还没有成功，页面等待
