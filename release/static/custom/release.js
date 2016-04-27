@@ -286,6 +286,7 @@ function selectProject() {
                     }
                     else //http返回状态失败
                     {
+                        $("#result1").html(" ")
                         alert("失败" + req.readyState);
 
                     }
