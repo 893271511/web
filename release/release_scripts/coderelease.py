@@ -477,14 +477,6 @@ def deploy(*x):
                     logg.error("api调用失败，请检查")
                     exit_script()
 
-                # subprocess.getstatusoutput('test ! -d %s/%s && mkdir -pv %s/%s' %(project_bak,host,project_bak,host))
-                # if 'renren-fenqi-ams' in project_name:
-                #     project_path = '%s/ROOT' %(target)
-                #     project_bak_path = '%s/%s/%s_%s' %(project_bak,host,project_name,instance)
-                # else:
-                #     project_path = '%s/%s' %(target,project_name)
-                #     project_bak_path = '%s/%s/%s' %(project_bak,host,project_name)
-
                 status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak,host,target))
                 if not os.path.exists('rm -rf %s' %(project_bak,host,target)):
                     shell_cmd = 'rsync -acRztrvl --delete %s:%s %s/%s' %(host,target,project_bak,host)
@@ -541,7 +533,7 @@ def deploy(*x):
         else:
             logg.info("resin 停止成功")
 
-        cmd = 'mv %s %s/%s_%s' %(target,project_bak,target,timestamp)
+        cmd = 'mv %s %s/%s_%s' %(target,project_bak,project_name,timestamp)
         print(cmd)
         stdin,stdout,stderr = ssh.exec_command(cmd)
         cmd = 'rm -rf %s' %(target)
