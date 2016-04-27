@@ -278,11 +278,11 @@ function selectProject() {
                 {
                     if(req.status==200) //http状态200表示OK
                     {
-
+                        $("#result1").html(" ")
                         area.append("\n运行结束");
-                        if(autoScroll(area)) {
-                            area.scrollTop(area[0].scrollHeight);
-                        }
+                        //if(autoScroll(area)) {
+                        //    area.scrollTop(area[0].scrollHeight);
+                        //}
                         alert("运行结束"); //所有状态成功，执行此函数，显示数据
                     }
                     else //http返回状态失败
@@ -297,10 +297,11 @@ function selectProject() {
                     //alert("服务端返回状态3 " + req.readyState + req.responseText);
                     area.html(req.responseText);
                     //$("#result").append("<img src='/static/loading.gif'>")
+                    // $("#result1").html(req.responseText);
                     $("#result1").html("<img src='/static/loading.gif'>")
-                    if(autoScroll(area)) {
-                        area.scrollTop(area[0].scrollHeight);
-                    }
+                    //if(autoScroll(area)) {
+                    //    area.scrollTop(area[0].scrollHeight);
+                    //}
                 }
             }
 
