@@ -82,6 +82,14 @@ breadcrumbs = [
                  (('项目日志查看'),'#######'),
               ]
 
+def set_title(url):
+    for i in range(len(breadcrumbs)-1):
+        if breadcrumbs[i][1] == url:
+            title = breadcrumbs[i][0]
+            break
+        else:
+            title = "title错误"
+    return title
 
 @login_required
 def Release(request):
@@ -118,13 +126,12 @@ def Release(request):
             env_cn = '测试'
             env_next = 'production'
 
-
         if url == "/onerelease/":
-            title = breadcrumbs[1][0]
+            title = set_title(url)
             form = OneReleaseForm()
             t = loader.get_template("onerelease.html")
         else:
-            title = breadcrumbs[0][0]
+            title = set_title(url)
             form = ReleaseForm()
             t = loader.get_template("release.html")
         c = RequestContext(request, locals())
@@ -164,8 +171,7 @@ def Rollback(request):
             env_en = 'test'
             env_cn = '测试'
             env_next = 'production'
-
-        title = breadcrumbs[2][0]
+        title = set_title(url)
         form = GeneralForm()
         t = loader.get_template("rollback.html")
         c = RequestContext(request, locals())
