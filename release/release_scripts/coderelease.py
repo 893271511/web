@@ -448,14 +448,17 @@ def deploy(*x):
     else:
         release_type = x[0]
         project_path1 = '%s/%s_%s_%s' %(project_bak,project_name,ver,env)
-
+    i = 0
     count = len(servers)
     for host in servers:
         i = i + 1
         logg.info("共%s台，第%s台：%s" %(count,i ,host))
-        shell_cmd1 = 'ssh %s "test ! -e %s && mkdir -pv %s; rm -rf %s/%s_%s_%s"' %(host,project_bak,project_bak,project_bak,project_name,ver,env)
+        shell_cmd1 = 'ssh %s "test ! -d %s && mkdir -pv %s; rm -rf %s/%s"' %(host,project_bak,project_bak,project_bak,host)
         subprocess.getstatusoutput(shell_cmd1)
-        shell_cmd2 = 'rsync -acRztrvl --delete %s/%s_%s_%s %s:/' %(project_bak,project_name,ver,env,host)
+        if release_type == 'rollback':
+            shell_cmd2 = 'rsync -acRztrvl --delete %s/%s/%s %s:/%s' %(project_bak,host,target,host,project_bak)
+        else:
+            shell_cmd2 = 'rsync -acRztrvl --delete %s/%s_%s_%s %s:/' %(project_bak,project_name,ver,env,host)
         print(shell_cmd2)
         status2,output2 = subprocess.getstatusoutput(shell_cmd2)
         if status2 == 0:
@@ -539,12 +542,12 @@ def deploy(*x):
             logg.info("resin 停止成功")
 
         cmd = 'mv %s %s/%s_%s' %(target,project_bak,target,timestamp)
-        stdin,stdout,stderr = ssh.exec_command(cmd)
-        cmd = 'rm -rf %s/%s' %(target)
-        stdin,stdout,stderr = ssh.exec_command(cmd)
-
-        cmd = 'mv %s/%s_%s_%s %s' %(project_bak,project_name,ver,env,target)
         print(cmd)
+        stdin,stdout,stderr = ssh.exec_command(cmd)
+        cmd = 'rm -rf %s' %(target)
+        stdin,stdout,stderr = ssh.exec_command(cmd)
+        time.sleep(1)
+        cmd = 'mv %s/%s_%s_%s %s' %(project_bak,project_name,ver,env,target)
         stdin,stdout,stderr = ssh.exec_command(cmd)
         stderr = stderr.read().decode()
         if stderr == ""  or stderr == None:
