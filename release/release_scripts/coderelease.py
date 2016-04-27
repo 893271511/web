@@ -442,8 +442,13 @@ def resin_online(proxy,host):
     nginx_reload(proxy,host)
 
 
-def deploy():
-    i = 0
+def deploy(*x):
+    if len(x) == 0:
+        release_type = 'release'
+    else:
+        release_type = x[0]
+        project_path1 = '%s/%s_%s_%s' %(project_bak,project_name,ver,env)
+
     count = len(servers)
     for host in servers:
         i = i + 1
@@ -451,6 +456,7 @@ def deploy():
         shell_cmd1 = 'ssh %s "test ! -e %s && mkdir -pv %s; rm -rf %s/%s_%s_%s"' %(host,project_bak,project_bak,project_bak,project_name,ver,env)
         subprocess.getstatusoutput(shell_cmd1)
         shell_cmd2 = 'rsync -acRztrvl --delete %s/%s_%s_%s %s:/' %(project_bak,project_name,ver,env,host)
+        print(shell_cmd2)
         status2,output2 = subprocess.getstatusoutput(shell_cmd2)
         if status2 == 0:
             logg.info('同步项目成功')
@@ -461,36 +467,37 @@ def deploy():
 
         #发布到预发布和非生产的不做resin下线操作
         if env == "production":
-            if api(host,port):
-                logg.info("api调用成功")
-            else:
-                logg.error("api调用失败，请检查")
-                exit_script()
-
-            subprocess.getstatusoutput('test ! -d %s/%s && mkdir -pv %s/%s' %(project_bak,host,project_bak,host))
-            if 'renren-fenqi-ams' in project_name:
-                project_path = '%s/ROOT' %(target)
-                project_bak_path = '%s/%s/%s_%s' %(project_bak,host,project_name,instance)
-            else:
-                project_path = '%s/%s' %(target,project_name)
-                project_bak_path = '%s/%s/%s' %(project_bak,host,project_name)
-
-            status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak_path))
-            if not os.path.exists(project_bak_path):
-                # shell_cmd = 'rsync -acztrvl --delete %s:%s %s' %(host,project_path,project_bak_path)
-                # print(shell_cmd)
-                shell_cmd = 'scp -r %s:%s %s' %(host,project_path,project_bak_path)
-                print(shell_cmd)
-                status,output = subprocess.getstatusoutput(shell_cmd)
-                if status == 0:
-                    logg.info('备份项目成功')
+            if release_type == 'rollback':
+                if api(host,port):
+                    logg.info("api调用成功")
                 else:
-                    logg.error(output)
-                    logg.error('备份项目失败，请检查')
+                    logg.error("api调用失败，请检查")
                     exit_script()
-            else:
-                logg.error("上次备份删除失败")
-                exit_script()
+
+                # subprocess.getstatusoutput('test ! -d %s/%s && mkdir -pv %s/%s' %(project_bak,host,project_bak,host))
+                # if 'renren-fenqi-ams' in project_name:
+                #     project_path = '%s/ROOT' %(target)
+                #     project_bak_path = '%s/%s/%s_%s' %(project_bak,host,project_name,instance)
+                # else:
+                #     project_path = '%s/%s' %(target,project_name)
+                #     project_bak_path = '%s/%s/%s' %(project_bak,host,project_name)
+
+                status,output = subprocess.getstatusoutput('rm -rf %s' %(project_bak,host,target))
+                if not os.path.exists('rm -rf %s' %(project_bak,host,target)):
+                    shell_cmd = 'rsync -acRztrvl --delete %s:%s %s/%s' %(host,target,project_bak,host)
+                    #shell_cmd = 'scp -r %s:%s %s' %(host,project_path,project_bak_path)
+                    print(shell_cmd)
+                    status,output = subprocess.getstatusoutput(shell_cmd)
+                    if status == 0:
+                        logg.info('备份项目成功')
+                    else:
+                        logg.error(output)
+                        logg.error('备份项目失败，请检查')
+                        exit_script()
+                else:
+                    logg.error("上次备份删除失败")
+                    exit_script()
+
             for proxy in proxys:
                 resin_offline(proxy,host)
 
@@ -537,6 +544,7 @@ def deploy():
         stdin,stdout,stderr = ssh.exec_command(cmd)
 
         cmd = 'mv %s/%s_%s_%s %s/%s' %(project_bak,project_name,ver,env,target,project_name)
+        print(cmd)
         stdin,stdout,stderr = ssh.exec_command(cmd)
         stderr = stderr.read().decode()
         if stderr == ""  or stderr == None:
