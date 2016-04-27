@@ -31,7 +31,7 @@ def stream_response_generator(release_info):
         logger.error(e)
 
 # @login_required(login_url='/')
-# def Release(request):
+# def Rollback(request):
 #     # 当提交表单时
 #     if request.method == 'POST':
 #         # form 包含提交的数据
@@ -50,20 +50,24 @@ def stream_response_generator(release_info):
 #         url = request.get_full_path()
 #         request.breadcrumbs([(("项目发布"),'/release/'),
 #                              (("单服务器发布"),'/onerelease/'),
-#                              (('发布版本查询'),'#'),
+#                              (('回滚代码'),'/rollback'),
+#                              (('下载代码'),'#####'),
+#                              (('增量发布'),'######'),
+#                              (('发布历史查询'),'#'),
 #                              (('项目端口查询'),'##'),
+#                              (('项目日志查看'),'#######'),
 #                              ])
-#         if request.GET.get('env') == 'online':
-#             env_en = 'online'
-#             env_cn = '正式'
-#             env_next = 'test'
-#         else:
-#             env_en = 'test'
-#             env_cn = '测试'
-#             env_next = 'online'
-#         form = ReleaseForm()
+#         # if request.GET.get('env') == 'online':
+#         #     env_en = 'online'
+#         #     env_cn = '正式'
+#         #     env_next = 'test'
+#         # else:
+#         #     env_en = 'test'
+#         #     env_cn = '测试'
+#         #     env_next = 'online'
+#         # form = ReleaseForm()
 #         t = loader.get_template("release.html")
-#         #c = RequestContext(request, {'form': form})
+#         # #c = RequestContext(request, {'form': form})
 #         c = RequestContext(request, locals())
 #         return HttpResponse(t.render(c))
 
@@ -94,7 +98,7 @@ def Release(request):
         url = request.get_full_path()
         request.breadcrumbs([(("项目发布"),'/release/'),
                              (("单服务器发布"),'/onerelease/'),
-                             (('回滚代码'),'###'),
+                             (('回滚代码'),'/rollback/'),
                              (('下载代码'),'#####'),
                              (('增量发布'),'######'),
                              (('发布历史查询'),'#'),
@@ -117,6 +121,55 @@ def Release(request):
         else:
             form = ReleaseForm()
             t = loader.get_template("release.html")
+        c = RequestContext(request, locals())
+        return HttpResponse(t.render(c))
+
+@login_required
+def Rollback(request):
+    # 当提交表单时
+    if request.method == 'POST':
+        project = request.POST.get('project')
+        env = request.POST.get('env')
+        version = request.POST.get('version')
+        server = request.POST.get('server')
+        #判断是单台发布，还是批量发布
+        if server != None:
+            if env == "test":
+                SERVER = Project.objects.get(name=project).test_env.all()
+            elif env == "staging":
+                SERVER = Project.objects.get(name=project).staging_env.all()
+            else:
+                SERVER = Project.objects.get(name=project).production_env.all()
+            for i in SERVER:
+                if server == str(i):
+                    return StreamingHttpResponse(stream_response_generator([project,version,env,server]),)
+            return HttpResponse("禁止发到此主机")
+        else:
+            return StreamingHttpResponse(stream_response_generator([project,version,env]),)
+
+    else:
+        url = request.get_full_path()
+        request.breadcrumbs([(("项目发布"),'/release/'),
+                             (("单服务器发布"),'/onerelease/'),
+                             (('回滚代码'),'/rollback/'),
+                             (('下载代码'),'#####'),
+                             (('增量发布'),'######'),
+                             (('发布历史查询'),'#'),
+                             (('项目端口查询'),'##'),
+                             (('项目日志查看'),'#######'),
+                             ])
+        if request.GET.get('env') == 'production':
+            env_en = 'production'
+            env_cn = '生产'
+            env_next = 'test'
+        else:
+            env_en = 'test'
+            env_cn = '测试'
+            env_next = 'production'
+
+
+        form = RollbackForm()
+        t = loader.get_template("rollback.html")
         c = RequestContext(request, locals())
         return HttpResponse(t.render(c))
 
