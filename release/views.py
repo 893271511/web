@@ -143,7 +143,7 @@ def Release(request):
 
 @login_required
 def Rollback(request):
-    # 当提交表单时
+    #当提交表单时
     if request.method == 'POST':
         project = request.POST.get('project')
         env = request.POST.get('env')
