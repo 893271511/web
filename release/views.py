@@ -132,6 +132,11 @@ def Release(request):
         else:
             title = set_title(url)
             form = ReleaseForm()
+            #用于测试的代码，用后删除
+            username = request.user
+            is_login = request.user.is_authenticated()
+            is_super = request.user.is_superuser
+
             t = loader.get_template("release.html")
         c = RequestContext(request, locals())
         return HttpResponse(t.render(c))
