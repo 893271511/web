@@ -13,6 +13,11 @@ import logging
 
 logger = logging.getLogger('django')
 
+
+@login_required
+def user_role():
+    return request.user.is_superuser
+
 def stream_response_generator(release_info):
     try:
         script_path = "/root/PycharmProjects/web/release/release_scripts"
@@ -181,7 +186,8 @@ def Rollback(request):
         c = RequestContext(request, locals())
         return HttpResponse(t.render(c))
 
-@login_required
+#@user_role()
+@login_required()
 def Switch(request):
     # 当提交表单时
     if request.POST.get("env") == "test":
@@ -216,6 +222,7 @@ def SelectProject(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
+
 
 
 
