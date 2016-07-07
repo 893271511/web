@@ -10,6 +10,8 @@ from .forms import *
 import os,sys,time
 from django.http import StreamingHttpResponse
 import logging
+import profiles
+from django.db.models import *
 
 logger = logging.getLogger('django')
 
@@ -141,6 +143,7 @@ def Release(request):
             username = request.user
             is_login = request.user.is_authenticated()
             is_super = request.user.is_superuser
+            #sex1 = request.user.get_profile()
 
             t = loader.get_template("release.html")
         c = RequestContext(request, locals())
