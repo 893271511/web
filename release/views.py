@@ -5,12 +5,14 @@ from django.template import Context, loader, RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login,logout
 from django.contrib import auth
+from django.contrib.auth import *
 from release.models import *
+import django.contrib.auth.models
+
 from .forms import *
 import os,sys,time
 from django.http import StreamingHttpResponse
 import logging
-import profiles
 from django.db.models import *
 
 logger = logging.getLogger('django')
@@ -143,7 +145,7 @@ def Release(request):
             username = request.user
             is_login = request.user.is_authenticated()
             is_super = request.user.is_superuser
-            #sex1 = request.user.get_profile()
+            #sex1 = request.user.get_profile('sex')
 
             t = loader.get_template("release.html")
         c = RequestContext(request, locals())
