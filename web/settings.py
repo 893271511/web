@@ -38,7 +38,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'release',
-    'profiles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,8 +115,6 @@ LOGIN_URL = '/'
 
 APPEND_SLASH=False
 
-#AUTH_USER_MODEL = ".User"
-AUTH_PROFILE_MODULE = 'profiles.UserProfile'
 
 LOGGING = {
     'version': 1,#指明dictConnfig的版本，目前就只有一个版本，哈哈

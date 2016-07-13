@@ -7,13 +7,14 @@ from django.contrib.auth.views import login,logout
 from django.contrib import auth
 from django.contrib.auth import *
 from release.models import *
-import django.contrib.auth.models
-
 from .forms import *
 import os,sys,time
 from django.http import StreamingHttpResponse
 import logging
 from django.db.models import *
+
+from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.models import User
 
 logger = logging.getLogger('django')
 
@@ -142,10 +143,10 @@ def Release(request):
             title = set_title(url)
             form = ReleaseForm()
             #用于测试的代码，用后删除
-            username = request.user
-            is_login = request.user.is_authenticated()
-            is_super = request.user.is_superuser
-            #sex1 = request.user.get_profile('sex')
+            # username = request.user
+            # is_login = request.user.is_authenticated()
+            # is_super = request.user.is_superuser
+            sex1 = request.user.get_all_permissions()
 
             t = loader.get_template("release.html")
         c = RequestContext(request, locals())
