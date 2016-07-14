@@ -37,5 +37,10 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+class ReleaseHistory(models.Model):
+    release_time = models.DateTimeField(auto_now_add=True)
+    release_project = models.ForeignKey
+    release_user = models.ForeignKey(User)
+    release_hosts = models.CharField(max_length=32)
 
 
