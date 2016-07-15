@@ -1,10 +1,8 @@
 from django.db import models
 from datetime import *
 from django.contrib.auth.models import AbstractUser
-
-
-# Create your models here.
-
+from django.contrib.auth.models import *
+from django.utils import timezone
 
 class Host(models.Model):
     ip = models.GenericIPAddressField()
@@ -39,8 +37,12 @@ class Project(models.Model):
 
 class ReleaseHistory(models.Model):
     release_time = models.DateTimeField(auto_now_add=True)
-    release_project = models.ForeignKey
+    release_project = models.ForeignKey(Project)
     release_user = models.ForeignKey(User)
     release_hosts = models.CharField(max_length=32)
-
+    release_ver = models.CharField(max_length=100,null=False,unique=False)
+    release_status = models.CharField(max_length=50,null=False,unique=False)
+    release_env = models.CharField(max_length=20,null=False,unique=False)
+    def __str__(self):
+        return self.release_project
 
