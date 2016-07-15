@@ -6,3 +6,4 @@ from release.models import *
 admin.site.register(Host)
 admin.site.register(Project)
 admin.site.register(ProjectGroup)
+admin.site.register(ReleaseHistory)
