@@ -146,8 +146,8 @@ def Release(request):
             # username = request.user
             # is_login = request.user.is_authenticated()
             # is_super = request.user.is_superuser
-            sex1 = request.user.get_all_permissions()
-
+            var1 = request.user.get_all_permissions()
+            var2 = request.user.has_perm('release.add_releasehistory')
             t = loader.get_template("release.html")
         c = RequestContext(request, locals())
         return HttpResponse(t.render(c))

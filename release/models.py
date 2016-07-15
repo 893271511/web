@@ -37,12 +37,16 @@ class Project(models.Model):
 
 class ReleaseHistory(models.Model):
     release_time = models.DateTimeField(auto_now_add=True)
-    release_project = models.ForeignKey(Project)
-    release_user = models.ForeignKey(User)
-    release_hosts = models.CharField(max_length=32)
+    release_project = models.CharField(max_length=100,null=False,unique=False)
+    release_user = models.CharField(max_length=100,null=False,unique=False)
+    release_hosts = models.CharField(max_length=100,null=False,unique=False)
     release_ver = models.CharField(max_length=100,null=False,unique=False)
     release_status = models.CharField(max_length=50,null=False,unique=False)
     release_env = models.CharField(max_length=20,null=False,unique=False)
     def __str__(self):
         return self.release_project
 
+    class Meta:
+        permissions = (
+            ("releaser_project", "Can releaser project"),
+        )
