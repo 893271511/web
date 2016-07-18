@@ -109,7 +109,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT,'static')
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/release/'
+LOGIN_REDIRECT_URL = '/index/'
 
 LOGIN_URL = '/'
 
