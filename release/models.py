@@ -48,5 +48,5 @@ class ReleaseHistory(models.Model):
 
     class Meta:
         permissions = (
-            ("releaser_project", "Can releaser project"),
+            ("releaser_project", "Can release project"),
         )
