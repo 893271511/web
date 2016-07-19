@@ -12,9 +12,16 @@ import os,sys,time
 from django.http import StreamingHttpResponse
 import logging
 from django.db.models import *
-from django.contrib.auth.decorators import permission_required
+#from django.contrib.auth.decorators import permission_required
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
+
+from guardian.core import ObjectPermissionChecker
+from guardian.shortcuts import assign_perm, get_perms
+from guardian.core import ObjectPermissionChecker
+from guardian.decorators import permission_required
+
+
 
 logger = logging.getLogger('django')
 
@@ -124,6 +131,9 @@ def Release(request):
     else:
         return StreamingHttpResponse(stream_response_generator([project,version,env]),)
 
+
+
+
 @login_required
 def index(request):
     url = request.get_full_path()
@@ -150,6 +160,17 @@ def index(request):
         # is_super = request.user.is_superuser
         var1 = request.user.get_all_permissions()
         var2 = request.user.has_perm('release.add_releasehistory')
+        checker = ObjectPermissionChecker(request.user)
+        #print(checker.has_perm('main.change_post', post))
+
+        user = User.objects.get(username='sff@qq.com')
+        pro_name = Project.objects.get(name='renren-licai')
+        var3 = request.user.has_perm('release.release_test_project',pro_name)
+
+        #assign_perm('release.release_test_project', user, pro_name)
+
+
+
         t = loader.get_template("release.html")
     c = RequestContext(request, locals())
     return HttpResponse(t.render(c))
