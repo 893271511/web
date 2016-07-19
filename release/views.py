@@ -101,7 +101,8 @@ def set_title(url):
     return title
 
 @login_required
-@permission_required('release.release_test_project',login_url='/index/')
+#@permission_required('release.release_test_project',login_url='/index/')
+@permission_required('release.release_test_project',raise_exception=True)
 def Release(request):
     # 当提交表单时
     project = request.POST.get('project')
