@@ -158,9 +158,9 @@ def index(request):
         # username = request.user
         # is_login = request.user.is_authenticated()
         # is_super = request.user.is_superuser
-        var1 = request.user.get_all_permissions()
-        var2 = request.user.has_perm('release.add_releasehistory')
-        checker = ObjectPermissionChecker(request.user)
+        #var1 = request.user.get_all_permissions()
+        #var2 = request.user.has_perm('release.add_releasehistory')
+        #checker = ObjectPermissionChecker(request.user)
         #print(checker.has_perm('main.change_post', post))
 
         user = User.objects.get(username='sff@qq.com')

@@ -54,5 +54,3 @@ class Project(models.Model):
 #     def __str__(self):
 #         return self.release_project
 #
-
-
