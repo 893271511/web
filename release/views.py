@@ -164,7 +164,7 @@ def index(request):
         #print(checker.has_perm('main.change_post', post))
 
         user = User.objects.get(username='sff@qq.com')
-        pro_name = Project.objects.get(name='renren-licai')
+        pro_name = Project.objects.get(name='renren-fenqi')
         var3 = request.user.has_perm('release.release_test_project',pro_name)
 
         #assign_perm('release.release_test_project', user, pro_name)
