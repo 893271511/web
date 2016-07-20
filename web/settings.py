@@ -52,6 +52,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'breadcrumbs.middleware.BreadcrumbsMiddleware',
 
+
 )
 
 ROOT_URLCONF = 'web.urls'
@@ -173,3 +174,9 @@ LOGGING = {
         }
     }
 }
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # django默认的backend
+    'guardian.backends.ObjectPermissionBackend',
+)

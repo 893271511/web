@@ -20,7 +20,7 @@ from guardian.core import ObjectPermissionChecker
 from guardian.shortcuts import assign_perm, get_perms
 from guardian.core import ObjectPermissionChecker
 from guardian.decorators import permission_required
-
+from guardian.decorators import permission_required_or_403
 
 
 logger = logging.getLogger('django')
@@ -109,7 +109,9 @@ def set_title(url):
 
 @login_required
 #@permission_required('release.release_test_project',login_url='/index/')
-@permission_required('release.release_test_project',raise_exception=True)
+#@permission_required('release.release_test_project',raise_exception=True)
+#@permission_required_or_403()
+@permission_required('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=True)
 def Release(request):
     # 当提交表单时
     project = request.POST.get('project')
@@ -154,22 +156,13 @@ def index(request):
     else:
         title = set_title(url)
         form = ReleaseForm()
-        #用于测试的代码，用后删除
-        # username = request.user
-        # is_login = request.user.is_authenticated()
-        # is_super = request.user.is_superuser
-        #var1 = request.user.get_all_permissions()
-        #var2 = request.user.has_perm('release.add_releasehistory')
-        #checker = ObjectPermissionChecker(request.user)
-        #print(checker.has_perm('main.change_post', post))
 
-        user = User.objects.get(username='sff@qq.com')
-        pro_name = Project.objects.get(name='renren-fenqi')
-        var3 = request.user.has_perm('release.release_test_project',pro_name)
-
+        pro = Project.objects.get(name='renren-licai')
+        joe = User.objects.get(username=request.user)
+        checker = ObjectPermissionChecker(joe) # we can pass user or group
+        var2 = checker.has_perm('release.release_test_project', pro)
+        var3 = request.user.has_perm('release.release_test_project')
         #assign_perm('release.release_test_project', user, pro_name)
-
-
 
         t = loader.get_template("release.html")
     c = RequestContext(request, locals())
