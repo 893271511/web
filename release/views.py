@@ -111,6 +111,7 @@ def set_title(url):
 #@permission_required('release.release_test_project',login_url='/index/')
 #@permission_required('release.release_test_project',raise_exception=True)
 #@permission_required_or_403()
+#@permission_required_or_403('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=False,raise_exception=True)
 @permission_required_or_403('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=False)
 def Release(request):
     # 当提交表单时
