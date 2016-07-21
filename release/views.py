@@ -108,11 +108,13 @@ def set_title(url):
     return title
 
 @login_required
-#@permission_required('release.release_test_project',login_url='/index/')
-#@permission_required('release.release_test_project',raise_exception=True)
+#@permission_required('release.release_test_project',)
+#@permission_required('release.release_staging_project',login_url='/index/')
+#@permission_required('release.release_staging_project',return_403=True)
 #@permission_required_or_403()
-#@permission_required_or_403('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=False,raise_exception=True)
-@permission_required_or_403('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=False)
+@permission_required('release.release_test_project',(Project, 'name', 'renren-licai'),return_403=True)
+#@permission_required('release.release_test_project',(Project, 'id', '1'),return_403=True)
+#@permission_required_or_403('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=False)
 def Release(request):
     # 当提交表单时
     project = request.POST.get('project')

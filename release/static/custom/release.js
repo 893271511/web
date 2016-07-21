@@ -284,10 +284,15 @@ function selectProject() {
                         //}
                         alert("运行结束"); //所有状态成功，执行此函数，显示数据
                     }
-                    else //http返回状态失败
+                    else if(req.status==403) //http返回状态失败
                     {
                         $("#result1").html(" ")
-                        alert("失败" + req.readyState);
+                        alert("访问拒绝");
+                    }
+                    else
+                    {
+                        $("#result1").html(" ")
+                        alert("失败");
                     }
                 }
                 else //请求状态还没有成功，页面等待
