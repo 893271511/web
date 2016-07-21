@@ -136,9 +136,6 @@ def Release(request):
     else:
         return StreamingHttpResponse(stream_response_generator([project,version,env]),)
 
-
-
-
 @login_required
 def index(request):
     url = request.get_full_path()
