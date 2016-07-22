@@ -21,7 +21,7 @@ from guardian.shortcuts import assign_perm, get_perms
 from guardian.core import ObjectPermissionChecker
 from guardian.decorators import permission_required
 from guardian.decorators import permission_required_or_403
-
+from django.shortcuts import get_object_or_404
 
 logger = logging.getLogger('django')
 
@@ -116,10 +116,13 @@ def set_title(url):
 #@permission_required('release.release_test_project',(Project, 'id', '1'),return_403=True)
 #@permission_required_or_403('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=False)
 
-@login_required
-@permission_required('release.release_test_project',(Project, 'name', 'renren-licai'),return_403=True)
-def Release(request):
+
+#@login_required
+@permission_required_or_403('release.release_test_project',(Project, 'name', 'name'))
+#@permission_required('auth.change_user', (User, 'username', 'sff@qq.com'), username='sff@qq.com')
+def Release(request,name):
     # 当提交表单时
+    #user = get_object_or_404(User, username=username)
     project = request.POST.get('project')
     env = request.POST.get('env')
     version = request.POST.get('version')
@@ -138,6 +141,13 @@ def Release(request):
         return HttpResponse("禁止发到此主机")
     else:
         return StreamingHttpResponse(stream_response_generator([project,version,env]),)
+
+@permission_required('auth.change_user', (User, 'username', 'username'))
+def my_view(request, username):
+    user = get_object_or_404(User, username=username)
+    return HttpResponse(user)
+
+
 
 @login_required
 def index(request):

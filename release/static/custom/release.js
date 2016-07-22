@@ -251,7 +251,7 @@ function selectProject() {
             {
 
                 if (server == null || server == undefined || server == '') {
-                    var url="/release/"; //要请求的服务端地址
+                    var url="/release/renren-licai/"; //要请求的服务端地址
                     req.open("POST",url,true); //与服务端建立连接(请求方式post或get，地址,true表示异步)
                     req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
                     req.onreadystatechange = callback; //指定回调函数

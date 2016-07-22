@@ -17,7 +17,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin', include(admin.site.urls)),
-    url(r'^release/', 'release.views.Release'),
+    url(r'^release/(?P<name>.*)/', 'release.views.Release'),
     url(r'^index/','release.views.index'),
     url(r'^rollback/', 'release.views.Rollback'),
     url(r'^onerelease/', 'release.views.index'),
@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^switch/', 'release.views.Switch'),
     url(r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     url(r'^accounts/logout', 'release.views.logout'),
+    url(r'^my_view/(?P<username>.*)/', 'release.views.my_view'),
 ]
