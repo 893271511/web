@@ -25,5 +25,4 @@ urlpatterns = [
     url(r'^switch/', 'release.views.Switch'),
     url(r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     url(r'^accounts/logout', 'release.views.logout'),
-    url(r'^my_view/(?P<username>.*)/', 'release.views.my_view'),
 ]

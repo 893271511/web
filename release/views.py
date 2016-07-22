@@ -142,13 +142,6 @@ def Release(request,name):
     else:
         return StreamingHttpResponse(stream_response_generator([project,version,env]),)
 
-@permission_required('auth.change_user', (User, 'username', 'username'))
-def my_view(request, username):
-    user = get_object_or_404(User, username=username)
-    return HttpResponse(user)
-
-
-
 @login_required
 def index(request):
     url = request.get_full_path()
