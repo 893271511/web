@@ -47138,3 +47138,13 @@ Secsh channel 4 opened.
 [chan 5] Max packet out: 32768 bytes
 Secsh channel 5 opened.
 [chan 5] Sesch channel 5 request ok
+[chan 5] EOF received (5)
+[chan 5] EOF sent (5)
+[chan 6] Max packet in: 32768 bytes
+[chan 6] Max packet out: 32768 bytes
+Secsh channel 6 opened.
+[chan 6] Sesch channel 6 request ok
+[chan 6] EOF received (6)
+resin port 未监听，请检查
+脚本异常退出
+EOF in transport thread
