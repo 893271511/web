@@ -163,11 +163,12 @@ def index(request):
         title = set_title(url)
         form = ReleaseForm()
 
-        pro = Project.objects.get(name='renren-licai')
+        pro = Project.objects.get(name='renren-fenqi')
         joe = User.objects.get(username=request.user)
         checker = ObjectPermissionChecker(joe) # we can pass user or group
         var2 = checker.has_perm('release.release_test_project', pro)
         var3 = request.user.has_perm('release.release_test_project')
+
         #assign_perm('release.release_test_project', user, pro_name)
 
         t = loader.get_template("release.html")
