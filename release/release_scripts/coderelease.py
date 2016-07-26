@@ -384,7 +384,10 @@ def config():
 
 def api(host,port):
     #response = urllib.request.urlopen('http://%s:%s/api/system/check' %(host,port),timeout=10)
-    response = urllib.request.urlopen('http://10.4.30.145:9000/api/system/check',timeout=10)
+    try:
+        response = urllib.request.urlopen('http://10.4.30.145:9000/api/system/check',timeout=10)
+    except Exception as e:
+        return False
     s = '"flag":true'
     html = response.read().decode()
     if s in html:

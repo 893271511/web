@@ -108,21 +108,11 @@ def set_title(url):
     return title
 
 
-#@permission_required('release.release_test_project',)
-#@permission_required('release.release_staging_project',login_url='/index/')
-#@permission_required('release.release_staging_project',return_403=True)
-#@permission_required_or_403()
-
-#@permission_required('release.release_test_project',(Project, 'id', '1'),return_403=True)
-#@permission_required_or_403('release.release_test_project',(Project, 'name', 'renren-licai'), accept_global_perms=False)
-
-
-#@login_required
+@login_required
 @permission_required_or_403('release.release_test_project',(Project, 'name', 'name'))
-#@permission_required('auth.change_user', (User, 'username', 'sff@qq.com'), username='sff@qq.com')
+# @permission_required_or_403('release.release_staging_project',(Project, 'name', 'name'))
 def Release(request,name):
     # 当提交表单时
-    #user = get_object_or_404(User, username=username)
     project = request.POST.get('project')
     env = request.POST.get('env')
     version = request.POST.get('version')
@@ -163,12 +153,13 @@ def index(request):
         title = set_title(url)
         form = ReleaseForm()
 
-        pro = Project.objects.get(name='renren-fenqi')
-        joe = User.objects.get(username=request.user)
-        checker = ObjectPermissionChecker(joe) # we can pass user or group
-        var2 = checker.has_perm('release.release_test_project', pro)
-        var3 = request.user.has_perm('release.release_test_project')
-
+        # pro = Project.objects.get(name='renren-fenqi')
+        # joe = User.objects.get(username=request.user)
+        # checker = ObjectPermissionChecker(joe) # we can pass user or group
+        # var2 = checker.has_perm('release.release_test_project', pro)
+        # var3 = request.user.has_perm('release.release_test_project')
+        # flatpage = Project()
+        # print(flatpage)
         #assign_perm('release.release_test_project', user, pro_name)
 
         t = loader.get_template("release.html")
@@ -215,7 +206,7 @@ def Rollback(request):
         c = RequestContext(request, locals())
         return HttpResponse(t.render(c))
 
-#@user_role()
+
 @login_required()
 def Switch(request):
     # 当提交表单时
